@@ -1,0 +1,4350 @@
+﻿/* ==========================================================================
+   MINECRAFT PIXEL-UI PORTFOLIO DESIGN (EXACT REFERENCE REPLICA)
+   Clean Pixel-Art Borders, 3D Minecraft Bevel Buttons & Bento Layout
+   ========================================================================== */
+
+/* --- ROOT VARIABLES & DESIGN TOKENS --- */
+:root {
+  /* Color Palette matching reference */
+  --bg-page: #f9f8fe;
+  --bg-card: #ffffff;
+  --bg-card-glass: rgba(255, 255, 255, 0.94);
+  
+  --primary-purple: #7c3aed;
+  --primary-purple-dark: #5b21b6;
+  --primary-purple-deep: #4c1d95;
+  --primary-purple-light: #f3f0ff;
+  --primary-purple-tint: #ede9fe;
+  
+  --border-purple: #bba6f7;
+  --border-purple-light: #ddd6fe;
+  --border-purple-dark: #8b5cf6;
+  
+  --text-main: #18181b;
+  --text-body: #3f3f46;
+  --text-muted: #71717a;
+  
+  /* Font Stacks */
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-pixel: 'Pixelify Sans', cursive, sans-serif;
+
+  /* 3D Pixel Radii & Shadows */
+  --radius-card: 16px;
+  --radius-btn: 10px;
+  --radius-badge: 12px;
+  --radius-pill: 9999px;
+  
+  --shadow-card: 0 10px 25px -4px rgba(124, 58, 237, 0.08), 0 2px 8px -1px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 16px 36px -4px rgba(124, 58, 237, 0.16), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* ==========================================================================
+   DEFAULT / OVERWORLD LEAF BIOME DESIGN TOKENS (MINECRAFT OAK & FOLIAGE)
+   Lush Leaf Green, Deep Oak Canopy & Fresh Sprout Highlights
+   ========================================================================== */
+body.theme-plains {
+  --bg-page: #f0fdf4;
+  --bg-card: #ffffff;
+  --bg-card-glass: rgba(255, 255, 255, 0.96);
+  
+  --primary-purple: #16a34a;         /* Lush Oak Leaf Green */
+  --primary-purple-dark: #15803d;    /* Deep Foliage Green */
+  --primary-purple-deep: #14532d;    /* Oak Wood Bevel Shadow */
+  --primary-purple-light: #f0fdf4;   /* Foliage Dew Background */
+  --primary-purple-tint: #dcfce7;    /* Fresh Sprout Tint */
+  
+  --border-purple: #22c55e;          /* Vibrant Leaf Border */
+  --border-purple-light: #86efac;    /* Sunlit Leaf Highlight */
+  --border-purple-dark: #15803d;     /* Deep Canopy Bevel */
+  
+  --text-main: #0f291e;
+  --text-body: #166534;
+  --text-muted: #15803d;
+  
+  --font-pixel: 'Pixelify Sans', cursive, sans-serif;
+  
+  --shadow-card: 0 10px 25px -4px rgba(22, 163, 74, 0.14), 0 2px 8px -1px rgba(20, 83, 45, 0.06);
+  --shadow-hover: 0 16px 36px -4px rgba(22, 163, 74, 0.24), 0 4px 12px -2px rgba(20, 83, 45, 0.1);
+
+  background: radial-gradient(ellipse at 50% 0%, #ffffff 0%, #f0fdf4 45%, #dcfce7 100%) !important;
+}
+
+/* ==========================================================================
+   SAKURA BIOME DESIGN TOKENS (MINECRAFT 1.20 CHERRY BLOSSOM GROVE)
+   Soft Cherry Blossom Blush, Deep Rosewood Accents & Pastel Petal Highlights
+   ========================================================================== */
+body.theme-sakura {
+  --bg-page: #fff5f8;
+  --bg-card: #ffffff;
+  --bg-card-glass: rgba(255, 255, 255, 0.95);
+  
+  --primary-purple: #ec4899;         /* Vibrant Cherry Blossom Pink */
+  --primary-purple-dark: #db2777;    /* Deep Cherry Petal Rose */
+  --primary-purple-deep: #be185d;    /* Cherry Wood Core (3D Bevel) */
+  --primary-purple-light: #fdf2f8;   /* Petal Mist Background */
+  --primary-purple-tint: #fce7f3;    /* Soft Blossom Pink */
+  
+  --border-purple: #f472b6;          /* Blossom Outline */
+  --border-purple-light: #fbcfe8;    /* Delicate Petal Border */
+  --border-purple-dark: #db2777;     /* Cherry Bark Bevel */
+  
+  --text-main: #1f131a;
+  --text-body: #4c303f;
+  --text-muted: #835c71;
+  
+  --font-pixel: 'Pixelify Sans', cursive, sans-serif;
+  
+  --shadow-card: 0 10px 25px -4px rgba(236, 72, 153, 0.12), 0 2px 8px -1px rgba(190, 24, 93, 0.05);
+  --shadow-hover: 0 16px 36px -4px rgba(236, 72, 153, 0.22), 0 4px 12px -2px rgba(190, 24, 93, 0.08);
+
+  background: radial-gradient(ellipse at 50% 0%, #fff0f5 0%, #fdf2f8 40%, #fff5f8 100%) !important;
+}
+
+/* ==========================================================================
+   SNOWY TAIGA / FROZEN PEAKS BIOME DESIGN TOKENS
+   Frost Cyan & Glacial Blue Palette, Ice Accents & Snow Highlights
+   ========================================================================== */
+body.theme-snow {
+  --bg-page: #f0f9ff;
+  --bg-card: #ffffff;
+  --bg-card-glass: rgba(255, 255, 255, 0.95);
+  
+  --primary-purple: #0284c7;         /* Frost Cyan Blue */
+  --primary-purple-dark: #0369a1;    /* Deep Glacial Blue */
+  --primary-purple-deep: #0c4a6e;    /* Ice Chasm 3D Bevel */
+  --primary-purple-light: #f0f9ff;   /* Snow Mist */
+  --primary-purple-tint: #e0f2fe;    /* Pale Ice Tint */
+  
+  --border-purple: #7dd3fc;          /* Ice Border */
+  --border-purple-light: #bae6fd;    /* Soft Frost Border */
+  --border-purple-dark: #0284c7;     /* Ice Blue Bevel */
+  
+  --text-main: #0c1a24;
+  --text-body: #1e3a5f;
+  --text-muted: #52799f;
+  
+  --font-pixel: 'Pixelify Sans', cursive, sans-serif;
+  
+  --shadow-card: 0 10px 25px -4px rgba(2, 132, 199, 0.12), 0 2px 8px -1px rgba(12, 74, 110, 0.05);
+  --shadow-hover: 0 16px 36px -4px rgba(2, 132, 199, 0.22), 0 4px 12px -2px rgba(12, 74, 110, 0.08);
+
+  background: radial-gradient(ellipse at 50% 0%, #f0f9ff 0%, #e0f2fe 45%, #f8fafc 100%) !important;
+}
+
+/* ==========================================================================
+   THE NETHER / CRIMSON FOREST BIOME DESIGN TOKENS
+   Crimson Lava Red, Ember Gold & Obsidian Black Palette
+   ========================================================================== */
+body.theme-nether {
+  --bg-page: #1a0a0c;
+  --bg-card: #261114;
+  --bg-card-glass: rgba(38, 17, 20, 0.95);
+  
+  --primary-purple: #ef4444;         /* Lava Red */
+  --primary-purple-dark: #dc2626;    /* Crimson Red */
+  --primary-purple-deep: #991b1b;    /* Netherrack 3D Bevel */
+  --primary-purple-light: #3a151b;   /* Crimson Mist */
+  --primary-purple-tint: #4c1d24;    /* Nether Tint */
+  
+  --border-purple: #f87171;          /* Fire Border */
+  --border-purple-light: #fca5a5;    /* Pale Flame Border */
+  --border-purple-dark: #b91c1c;     /* Dark Blackstone Bevel */
+  
+  --text-main: #fef2f2;
+  --text-body: #fecaca;
+  --text-muted: #f87171;
+  
+  --font-pixel: 'Pixelify Sans', cursive, sans-serif;
+  
+  --shadow-card: 0 10px 25px -4px rgba(239, 68, 68, 0.25), 0 2px 8px -1px rgba(0, 0, 0, 0.6);
+  --shadow-hover: 0 16px 36px -4px rgba(239, 68, 68, 0.42), 0 4px 12px -2px rgba(0, 0, 0, 0.8);
+
+  background: radial-gradient(ellipse at 50% 0%, #2e0d11 0%, #1a0a0c 50%, #120507 100%) !important;
+}
+/* --- BASE RESET --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body.pixel-theme {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- UTILITY CLASSES --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- AMBIENT LILAC PIXEL PARTICLES & CLUSTERS --- */
+.ambient-pixel-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+#ambient-pixel-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Stepped Pixel Clusters in Viewport Corners */
+.pixel-cluster {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #d8b4fe;
+}
+
+.cluster-top-left {
+  top: 40px;
+  left: 20px;
+  box-shadow: 
+    12px 0 0 #c084fc,
+    0 12px 0 #ede9fe,
+    12px 12px 0 #e9d5ff,
+    24px 12px 0 #d8b4fe,
+    12px 24px 0 #f3e8ff,
+    36px 0 0 #f5d0fe;
+  opacity: 0.85;
+}
+
+.cluster-top-right {
+  top: 30px;
+  right: 35px;
+  box-shadow: 
+    -12px 0 0 #c084fc,
+    0 12px 0 #ede9fe,
+    -12px 12px 0 #d8b4fe,
+    -24px 12px 0 #e9d5ff,
+    -12px 24px 0 #f3e8ff;
+  opacity: 0.85;
+}
+
+.cluster-mid-right {
+  top: 280px;
+  right: 15px;
+  box-shadow: 
+    -12px 0 0 #ede9fe,
+    0 12px 0 #c084fc,
+    -12px 12px 0 #d8b4fe,
+    -24px 0 0 #f5d0fe;
+  opacity: 0.75;
+}
+
+.cluster-bottom-left {
+  bottom: 60px;
+  left: 25px;
+  box-shadow: 
+    12px 0 0 #ede9fe,
+    0 -12px 0 #d8b4fe,
+    12px -12px 0 #c084fc,
+    24px 0 0 #f3e8ff;
+  opacity: 0.85;
+}
+
+.cluster-bottom-right {
+  bottom: 40px;
+  right: 30px;
+  box-shadow: 
+    -12px 0 0 #d8b4fe,
+    0 -12px 0 #c084fc,
+    -12px -12px 0 #ede9fe,
+    -24px -12px 0 #f5d0fe;
+  opacity: 0.85;
+}
+
+
+/* --- PAGE CONTAINER --- */
+.page-container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 16px 20px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ==========================================================================
+   STICKY NAVBAR
+   ========================================================================== */
+.pixel-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--border-purple);
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.08);
+  margin-bottom: 20px;
+  position: sticky;
+  top: 14px;
+  z-index: 100;
+}
+
+/* Brand */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.grass-block-logo {
+  display: flex;
+  align-items: center;
+  transition: transform 0.25s ease;
+}
+
+.navbar-brand:hover .grass-block-logo {
+  transform: rotate(-8deg) scale(1.15);
+}
+
+.brand-text {
+  font-family: var(--font-pixel);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.brand-divider {
+  color: #d4d4d8;
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin-left: 2px;
+}
+
+/* Nav Menu Items */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-body);
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  color: var(--primary-purple);
+  background: var(--primary-purple-light);
+  transform: translateY(-2px);
+}
+
+/* Active Nav Button (3D Purple Beveled Button) */
+.nav-btn.active {
+  background: var(--primary-purple);
+  color: #ffffff;
+  border: 2px solid var(--primary-purple-dark);
+  border-bottom: 4px solid var(--primary-purple-deep);
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+  transform: translateY(-2px);
+}
+
+.nav-btn.active:hover {
+  background: #8b5cf6;
+}
+
+/* Social Actions Group */
+.navbar-social-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-pixel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-bottom: 4px solid var(--border-purple-dark);
+  color: var(--text-main);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.social-pixel-btn:hover {
+  transform: translateY(-2px);
+  background: var(--primary-purple-light);
+  color: var(--primary-purple);
+}
+
+.social-pixel-btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.btn-linkedin:hover {
+  color: #0a66c2;
+}
+
+.btn-youtube:hover {
+  color: #ff0000;
+}
+
+.btn-audio-toggle {
+  font-size: 1.05rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-audio-toggle .sound-icon-on,
+.btn-audio-toggle .sound-icon-off {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Biome Selector Dropdown UI */
+.biome-selector-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-biome-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 46px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-bottom: 4px solid var(--border-purple-dark);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+.btn-biome-select:hover {
+  transform: translateY(-2px);
+  background: var(--primary-purple-light);
+}
+
+.btn-biome-select:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.biome-current-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-biome-select:hover .biome-current-icon {
+  transform: scale(1.15) rotate(10deg);
+}
+
+.biome-caret {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  transition: transform 0.25s ease;
+}
+
+.biome-selector-wrapper.open .biome-caret {
+  transform: rotate(180deg);
+}
+
+.biome-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 195px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-purple);
+  border-bottom: 4px solid var(--border-purple-dark);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  padding: 6px;
+  z-index: 250;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  animation: biomeDropIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes biomeDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.biome-menu-header {
+  font-family: var(--font-pixel);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 8px 4px;
+  border-bottom: 1px solid var(--border-purple-light);
+  margin-bottom: 2px;
+}
+
+.biome-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+
+.biome-option-btn:hover {
+  background: var(--primary-purple-light);
+  border-color: var(--border-purple);
+  color: var(--primary-purple);
+  transform: translateX(4px);
+}
+
+.biome-option-btn.active {
+  background: var(--primary-purple-light);
+  border-color: var(--primary-purple);
+  color: var(--primary-purple);
+}
+
+.biome-opt-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.biome-opt-text {
+  flex-grow: 1;
+}
+
+/* Biome-adaptive Vector Icons */
+.stat-gamepad-icon {
+  color: var(--primary-purple);
+  transition: color 0.3s ease;
+}
+
+.skill-vector-icon {
+  stroke: var(--primary-purple) !important;
+  transition: stroke 0.3s ease;
+}
+
+.contact-mail-icon {
+  stroke: var(--primary-purple) !important;
+  transition: stroke 0.3s ease;
+}
+
+
+/* ==========================================================================
+   STACKED FULL-WIDTH LAYOUT
+   Smooth Vertical Scrollable Flow (Section-by-Section)
+   ========================================================================== */
+.stacked-portfolio-flow,
+.pixel-bento-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+.hero-section,
+.about-section,
+.skills-section,
+.projects-section,
+.console-section,
+.contact-section {
+  width: 100%;
+}
+
+/* Global Pixel Card Styling */
+.pixel-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-purple);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 30px 34px;
+  position: relative;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+  width: 100%;
+}
+
+.pixel-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-purple-dark);
+}
+
+/* Section Header Badges (Creeper, Pickaxe, Mailbox) */
+.section-pixel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 4px 6px;
+  background: var(--primary-purple-light);
+  border: 2px solid var(--border-purple);
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.badge-creeper-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #22c55e;
+  border-radius: 6px;
+}
+
+.badge-pickaxe-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #f4f0ff;
+  border-radius: 6px;
+}
+
+.badge-mail-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--primary-purple-tint);
+  border-radius: 6px;
+}
+
+.badge-title-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+
+/* ==========================================================================
+   1. HERO SECTION
+   ========================================================================== */
+.hero-content-row {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.pixel-badge.badge-developer {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 14px;
+  background: var(--primary-purple-light);
+  border: 1.5px solid var(--border-purple);
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+/* Minecraft Pixel Font for Name */
+.pixel-name-text {
+  font-family: var(--font-pixel);
+  font-size: 2.05rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+  letter-spacing: -0.5px;
+  display: inline-block;
+  transition: transform 0.2s ease, text-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.pixel-name-text:hover {
+  transform: translateY(-2px) scale(1.02);
+  text-shadow: 3px 3px 0px rgba(124, 58, 237, 0.35);
+}
+
+.hero-description {
+  font-size: 0.95rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 22px;
+  max-width: 95%;
+}
+
+/* 3D Pixel Bevel Action Buttons */
+.hero-button-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pixel-btn-3d {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              background-color 0.2s ease, 
+              border-color 0.2s ease, 
+              filter 0.2s ease;
+}
+
+/* Light beam shimmer sweep on hover */
+.pixel-btn-3d::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  transition: none;
+}
+
+.pixel-btn-3d:hover::after {
+  left: 150%;
+  transition: left 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pixel-btn-3d.btn-purple {
+  background: var(--primary-purple);
+  color: #ffffff;
+  border: 2px solid var(--primary-purple-dark);
+  border-bottom: 5px solid var(--primary-purple-deep);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.pixel-btn-3d.btn-purple:hover {
+  background: #8b5cf6;
+  transform: translateY(-4px) scale(1.02);
+  border-bottom: 6px solid var(--primary-purple-deep);
+  box-shadow: 0 10px 24px rgba(124, 58, 237, 0.42), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pixel-btn-3d.btn-purple:active {
+  transform: translateY(2px) scale(0.98);
+  border-bottom-width: 2px;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+}
+
+.pixel-btn-3d.btn-white {
+  background: #ffffff;
+  color: var(--text-main);
+  border: 2px solid var(--border-purple);
+  border-bottom: 5px solid var(--border-purple-dark);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.pixel-btn-3d.btn-white:hover {
+  background: #ffffff;
+  color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  border-bottom: 6px solid var(--border-purple-dark);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(124, 58, 237, 0.2);
+}
+
+.pixel-btn-3d.btn-white:active {
+  transform: translateY(2px) scale(0.98);
+  border-bottom-width: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.pixel-btn-3d.btn-lilac-outline {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  background: var(--primary-purple-light);
+  color: var(--primary-purple);
+  border: 1.5px solid var(--border-purple);
+  border-bottom: 3px solid var(--border-purple-dark);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.1);
+}
+
+.pixel-btn-3d.btn-lilac-outline:hover {
+  background: #ede9fe;
+  color: var(--primary-purple-dark);
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--primary-purple);
+  border-bottom: 4px solid var(--border-purple-dark);
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
+}
+
+.pixel-btn-3d.btn-lilac-outline:active {
+  transform: translateY(1px) scale(0.98);
+  border-bottom-width: 2px;
+}
+
+.btn-arrow-icon {
+  font-weight: 800;
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pixel-btn-3d:hover .btn-arrow-icon {
+  transform: translateX(5px) scale(1.18);
+}
+
+/* Hero Art Frame */
+.hero-art-frame {
+  width: 100%;
+  height: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border-purple);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.12);
+  background: #f4f0ff;
+}
+
+.hero-scene-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-art-frame:hover .hero-scene-img {
+  transform: scale(1.04);
+}
+
+/* Hero Bottom Stats Shelf (Stepped Pixel Inset Bar) */
+.pixel-stats-shelf {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-radius: 12px;
+  padding: 12px 20px;
+  align-items: center;
+}
+
+.pixel-stats-shelf.stats-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  padding: 16px 20px;
+  background: #fbfaff;
+  border: 2px solid var(--border-purple);
+  border-radius: 12px;
+  align-items: center;
+}
+
+.stat-cell,
+.stats-two-col .stat-cell {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  padding: 6px 24px !important;
+  border-right: 2px solid var(--border-purple-light);
+}
+
+.stats-two-col .stat-cell:last-child {
+  border-right: none;
+}
+
+.stat-icon-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 10px !important;
+  background: var(--primary-purple-light) !important;
+  border: 1.5px solid var(--border-purple) !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.1);
+}
+
+.stat-cell:nth-child(2) .stat-icon-box {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+  box-shadow: 0 2px 6px rgba(34, 197, 94, 0.1);
+}
+
+.stat-icon-box svg {
+  width: 24px;
+  height: 24px;
+}
+
+.code-bracket-icon {
+  font-family: var(--font-pixel);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+}
+
+.stat-text-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  text-align: left !important;
+}
+
+.stat-num {
+  font-size: 1.45rem !important;
+  font-weight: 800 !important;
+  color: var(--text-main) !important;
+  line-height: 1.1 !important;
+  font-family: inherit !important;
+}
+
+.stat-title-strong {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+  line-height: 1.2 !important;
+  margin-top: 3px !important;
+  white-space: nowrap !important;
+}
+
+
+/* ==========================================================================
+   2. ABOUT ME SECTION (TOP RIGHT)
+   ========================================================================== */
+.about-content-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.avatar-pixel-frame {
+  width: 140px;
+  height: 140px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid var(--border-purple);
+  background: #fbfaff;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.avatar-pixel-frame:hover .about-avatar-img {
+  transform: scale(1.08);
+}
+
+.about-bio-text {
+  font-size: 0.96rem;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.about-details-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 16px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: #fbfaff;
+  border: 1px solid var(--border-purple-light);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.detail-item:hover {
+  background: var(--primary-purple-light);
+  border-color: var(--border-purple);
+  transform: translateX(3px);
+}
+
+.detail-icon {
+  font-size: 1rem;
+}
+
+
+/* ==========================================================================
+   3. FEATURED PROJECTS SECTION (BOTTOM LEFT)
+   ========================================================================== */
+.projects-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.projects-title-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-grass-block {
+  display: flex;
+  align-items: center;
+}
+
+.section-heading-pixel {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--text-main);
+}
+
+.section-sub-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   FEATURED GAMES SHOWCASE: HAIRPIN DRIFT & BALLPASS3D (VIDEO + DETAILS)
+   ========================================================================== */
+
+/* Filter Bar for Featured Games */
+.projects-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.project-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-bottom: 3px solid var(--border-purple-dark);
+  color: var(--text-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.project-tab-pill:hover {
+  background: var(--primary-purple-light);
+  color: var(--primary-purple);
+  transform: translateY(-2px);
+}
+
+.project-tab-pill:active {
+  transform: translateY(1px);
+  border-bottom-width: 2px;
+}
+
+.project-tab-pill.active {
+  background: var(--primary-purple);
+  color: #ffffff;
+  border-color: var(--primary-purple-dark);
+  border-bottom: 3px solid var(--primary-purple-deep);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28);
+}
+
+/* Stack of Featured Games */
+.featured-projects-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.project-item-card.hidden {
+  display: none !important;
+}
+
+.featured-game-showcase {
+  display: grid;
+  grid-template-columns: minmax(360px, 1.15fr) 1fr;
+  gap: 24px;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-bottom: 5px solid var(--border-purple-dark);
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 10px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.08);
+  transform: translateY(0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              border-color 0.3s ease;
+}
+
+.featured-game-showcase:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary-purple);
+  border-bottom-color: var(--primary-purple-dark);
+  box-shadow: 0 22px 48px -8px rgba(124, 58, 237, 0.22), 
+              0 0 28px rgba(139, 92, 246, 0.2), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* 1. Left: Arcade Video Column & Screen Bezel */
+.game-video-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-video-bezel {
+  background: #0f1016;
+  border-radius: 14px;
+  border: 2px solid #27273a;
+  border-bottom: 5px solid #141522;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              box-shadow 0.35s ease, 
+              border-color 0.3s ease;
+}
+
+.featured-game-showcase:hover .game-video-bezel {
+  transform: translateY(-2px);
+  border-color: #45476a;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7), 
+              0 14px 34px rgba(0, 0, 0, 0.45), 
+              0 0 22px rgba(124, 58, 237, 0.25);
+}
+
+.video-bezel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: #171824;
+  border-bottom: 1px solid #282a3d;
+}
+
+.video-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ef4444;
+  letter-spacing: 0.5px;
+}
+
+.video-rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: pulse 1.4s infinite;
+}
+
+.video-badge-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  background: #252738;
+  border: 1px solid #383a52;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+
+/* Video Viewport */
+.video-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hairpin-video-stream {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.youtube-embed-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Screenshots Strip */
+.screenshots-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  padding: 8px 10px;
+  background: #141522;
+  border-top: 1px solid #27283c;
+}
+
+.screenshot-thumb-btn {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1.5px solid #3e415c;
+  background: #000;
+  cursor: pointer;
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.screenshot-thumb-btn:hover {
+  transform: translateY(-2px);
+  border-color: #ec4899;
+  box-shadow: 0 4px 10px rgba(236, 72, 153, 0.4);
+}
+
+.screenshot-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Team Credits Badge */
+.jam-team-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.78rem;
+  background: #fdf4ff;
+  border: 1px dashed #d946ef;
+  color: #86198f;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+/* Ongoing Projects Section Divider */
+.ongoing-projects-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 24px 0 8px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-purple), transparent);
+}
+
+.ongoing-badge-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-bottom: 3px solid var(--border-purple-dark);
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--text-main);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+}
+
+/* Ongoing Cards Visual & Badges */
+.ongoing-tag {
+  color: #10b981 !important;
+}
+
+.dev-pulse-dot {
+  background: #10b981 !important;
+  box-shadow: 0 0 8px #10b981 !important;
+}
+
+.dev-dot {
+  background: #10b981 !important;
+  box-shadow: 0 0 6px #10b981 !important;
+}
+
+.game-meta-badge.ongoing-badge {
+  color: #065f46;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+}
+
+.ongoing-img-viewport {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.showcase-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.ongoing-img-viewport:hover .showcase-banner-img {
+  transform: scale(1.04);
+}
+
+.ongoing-banner-meta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 12px;
+  background: #141522;
+  border-top: 1px solid #27283c;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.meta-strip-item {
+  font-size: 0.73rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  background: #1e2030;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #2e3148;
+}
+
+.ongoing-progress-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.stat-cell.stat-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.stat-cell.stat-link:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+.video-tap-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  pointer-events: none;
+}
+
+.video-viewport:hover .video-tap-overlay {
+  opacity: 1;
+}
+
+.video-floating-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(15, 16, 22, 0.85);
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.video-viewport:hover .video-floating-badge {
+  transform: scale(1);
+}
+
+/* Video Controls Shelf */
+.video-controls-shelf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #141522;
+  border-top: 1px solid #27283c;
+  padding: 8px 12px;
+}
+
+.video-shelf-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.video-ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: #25273a;
+  border: 1px solid #3e415c;
+  border-bottom: 2px solid #1a1b29;
+  border-radius: 6px;
+  color: #f1f5f9;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.video-ctrl-btn:hover {
+  background: #383a54;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.video-ctrl-btn:active {
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.video-progress-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: #232538;
+  border: 1px solid #32354d;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.video-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ec4899 0%, #a855f7 100%);
+  border-radius: 4px;
+  transition: width 0.15s linear;
+}
+
+.video-shelf-right {
+  display: flex;
+  align-items: center;
+}
+
+/* 2. Right: Game Details Column */
+.game-details-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #be185d;
+  background: #fdf2f8;
+  border: 1.5px solid #f472b6;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+
+.game-meta-badge .meta-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ec4899;
+  box-shadow: 0 0 6px #ec4899;
+}
+
+.showcase-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.showcase-tagline {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #db2777;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.showcase-summary {
+  font-size: 0.88rem;
+  color: var(--text-body);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+/* Features List */
+.showcase-features-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+  margin-bottom: 14px;
+  background: #fbf9fe;
+  border: 1.5px solid var(--border-purple-light);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.showcase-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-body);
+  line-height: 1.4;
+}
+
+.showcase-feature-item .feature-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Tech Shelf */
+.showcase-tech-shelf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.tech-pill {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #4b5563;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 3px 9px;
+  border-radius: 6px;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.tech-pill:hover {
+  transform: translateY(-1px);
+  background: #ede9fe;
+  color: #6d28d9;
+  border-color: #ddd6fe;
+}
+
+/* Actions Row */
+.showcase-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-play-showcase {
+  font-size: 0.94rem;
+  font-weight: 800;
+  padding: 10px 22px;
+  text-decoration: none;
+}
+
+/* 3. More Projects In Development Shelf */
+.projects-more-shelf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 14px 20px;
+  background: #fdfcff;
+  border: 1.5px dashed var(--border-purple);
+  border-radius: 12px;
+}
+
+.more-shelf-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-body);
+}
+
+.more-sparkle-icon {
+  font-size: 1.15rem;
+  animation: floatBounce 3s ease-in-out infinite;
+}
+
+/* Legacy Updating Card fallback */
+.projects-updating-card {
+  display: none;
+}
+
+/* 3-Column Projects Grid */
+.projects-three-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.project-mini-card {
+  background: #ffffff;
+  border: 1.5px solid var(--border-purple);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-mini-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-purple);
+  box-shadow: 0 12px 26px rgba(124, 58, 237, 0.16);
+}
+
+.project-thumb-frame {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  overflow: hidden;
+  background: #f4f0ff;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.project-mini-card:hover .project-img {
+  transform: scale(1.08);
+}
+
+.project-type-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.pill-adventure { background: rgba(168, 85, 247, 0.9); }
+.pill-puzzle { background: rgba(99, 102, 241, 0.9); }
+.pill-mod { background: rgba(34, 197, 94, 0.9); }
+
+.project-play-circle {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.project-play-circle:hover {
+  transform: scale(1.15);
+  background: var(--primary-purple);
+}
+
+.project-meta-box {
+  padding: 14px 16px;
+}
+
+.project-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.project-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.project-ext-link {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.project-ext-link:hover {
+  color: var(--primary-purple);
+}
+
+.project-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+
+/* ==========================================================================
+   4. SKILLS & TOOLS (MIDDLE RIGHT)
+   ========================================================================== */
+.skills-twelve-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.skills-ten-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.skill-pixel-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 10px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-purple-light);
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.skill-pixel-box:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: var(--primary-purple);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.16);
+  background: var(--primary-purple-light);
+}
+
+.skill-icon-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  margin-bottom: 8px;
+}
+
+.skill-label-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  line-height: 1.2;
+}
+
+
+/* ==========================================================================
+   5. GET IN TOUCH (BOTTOM RIGHT)
+   ========================================================================== */
+.contact-sub-text {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.contact-body-row {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 24px;
+  align-items: center;
+}
+
+/* User's Clean Updating Placeholder */
+.contact-updating-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #fbfaff;
+  border: 1.5px dashed var(--border-purple);
+  border-radius: 12px;
+  padding: 18px 22px;
+}
+
+.updating-pulse-indicator {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.updating-pulse-indicator .pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #8b5cf6;
+  opacity: 0.4;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.updating-pulse-indicator .pulse-core {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--primary-purple);
+}
+
+.updating-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.updating-desc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.updating-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #15803d;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.contact-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #fbfaff;
+  border: 1px solid var(--border-purple-light);
+  transition: all 0.2s ease;
+}
+
+.contact-item-row:hover {
+  background: var(--primary-purple-light);
+  border-color: var(--primary-purple);
+  transform: translateX(4px);
+}
+
+.contact-icon-pill {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.icon-mail { background: #ede9fe; color: #7c3aed; }
+.icon-linkedin { background: #0a66c2; color: #fff; }
+.icon-github { background: #24292f; color: #fff; }
+
+.contact-value {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 3D Minecraft Chest with Lantern Art */
+.chest-lantern-frame {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 12px;
+}
+
+.chest-img {
+  max-height: 220px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(245, 158, 11, 0.35));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+}
+
+.chest-lantern-frame:hover .chest-img {
+  transform: scale(1.08) translateY(-4px) rotate(1.5deg);
+  filter: drop-shadow(0 22px 40px rgba(245, 158, 11, 0.55));
+}
+
+
+/* ==========================================================================
+   6. INTERACTIVE ARCADE CONSOLE
+   ========================================================================== */
+.console-section {
+  margin-top: 0;
+  width: 100%;
+}
+
+.console-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.game-select-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.pixel-tab-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-purple);
+  border-bottom: 3.5px solid var(--border-purple-dark);
+  background: #ffffff;
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.84rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.2s ease, 
+              background-color 0.2s ease, 
+              border-color 0.2s ease;
+}
+
+.pixel-tab-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: var(--primary-purple);
+  border-bottom-width: 4px;
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.22);
+}
+
+.pixel-tab-btn:active {
+  transform: translateY(1px) scale(0.97);
+  border-bottom-width: 2px;
+}
+
+.pixel-tab-btn.active {
+  background: var(--primary-purple);
+  color: #ffffff;
+  border-color: var(--primary-purple-dark);
+  border-bottom-color: var(--primary-purple-deep);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
+.console-chassis {
+  display: grid;
+  grid-template-columns: 130px 1fr 130px;
+  background: #181926;
+  border: 3px solid #2e3046;
+  border-radius: 18px;
+  padding: 16px;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.controller-wing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.shoulder-btn {
+  padding: 4px 18px;
+  background: #363952;
+  color: #a5b4fc;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.analog-thumbstick {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #4b526d 0%, #1f2233 100%);
+  border: 2px solid #363952;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.6);
+  cursor: grab;
+}
+
+/* D-Pad */
+.d-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 26px);
+  grid-template-rows: repeat(3, 26px);
+  gap: 2px;
+}
+
+.d-pad-btn {
+  background: #2a2c3f;
+  border: 1px solid #434766;
+  color: #c7d2fe;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.d-pad-btn:active { background: #4f46e5; }
+.d-up { grid-column: 2; grid-row: 1; }
+.d-left { grid-column: 1; grid-row: 2; }
+.d-center { grid-column: 2; grid-row: 2; background: #222436; border-radius: 2px; }
+.d-right { grid-column: 3; grid-row: 2; }
+.d-down { grid-column: 2; grid-row: 3; }
+
+/* Action Buttons Group */
+.action-buttons-group {
+  display: grid;
+  grid-template-columns: repeat(3, 26px);
+  grid-template-rows: repeat(3, 26px);
+  gap: 2px;
+}
+
+.action-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #2e3046;
+  border: 1px solid #484c6e;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px) scale(1.15);
+  filter: brightness(1.25);
+}
+
+.action-btn:active {
+  transform: translateY(1px) scale(0.92);
+}
+
+.btn-x { grid-column: 2; grid-row: 1; color: #38bdf8; }
+.btn-y { grid-column: 1; grid-row: 2; color: #fbbf24; }
+.btn-a { grid-column: 2; grid-row: 3; color: #22c55e; }
+.btn-b { grid-column: 3; grid-row: 2; color: #ef4444; }
+
+.btn-x:hover { box-shadow: 0 0 14px rgba(56, 189, 248, 0.85); border-color: #38bdf8; }
+.btn-y:hover { box-shadow: 0 0 14px rgba(251, 191, 36, 0.85); border-color: #fbbf24; }
+.btn-a:hover { box-shadow: 0 0 14px rgba(34, 197, 94, 0.85); border-color: #22c55e; }
+.btn-b:hover { box-shadow: 0 0 14px rgba(239, 68, 68, 0.85); border-color: #ef4444; }
+
+.pill-function-btn {
+  padding: 2px 10px;
+  background: #2a2c3f;
+  color: #94a3b8;
+  border: 1px solid #475569;
+  border-radius: 10px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.pill-function-btn:hover {
+  background: #383c57;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.45);
+}
+
+.pill-function-btn:active {
+  transform: translateY(1px);
+}
+
+/* Console Screen with CRT Phosphor Glow on Hover */
+.console-screen-frame {
+  background: #0b0f19;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.35s ease, box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.console-screen-frame:hover {
+  border-color: #a855f7;
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.45), 
+              0 0 75px rgba(124, 58, 237, 0.25), 
+              inset 0 0 25px rgba(168, 85, 247, 0.22);
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background: #0f172a;
+}
+
+.console-screen-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 3px, 6px 100%;
+  opacity: 0.3;
+  transition: opacity 0.35s ease;
+}
+
+.console-screen-frame:hover::after {
+  opacity: 0.65;
+}
+
+#consoleGameCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.screen-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 15, 25, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.screen-overlay.hidden { display: none; }
+
+.overlay-glass-card {
+  text-align: center;
+  padding: 24px;
+}
+
+.overlay-title {
+  font-family: var(--font-pixel);
+  font-size: 1.4rem;
+  color: #38bdf8;
+  margin-bottom: 8px;
+}
+
+.overlay-msg {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+
+/* ==========================================================================
+   FOOTER & TOAST
+   ========================================================================== */
+.pixel-footer {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-radius: var(--radius-card);
+}
+
+.footer-inner-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.back-to-top-btn {
+  padding: 6px 14px;
+  background: var(--primary-purple-light);
+  border: 1.5px solid var(--border-purple);
+  border-radius: 8px;
+  color: var(--primary-purple);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pixel-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 10px 18px;
+  background: #ffffff;
+  border: 2px solid var(--primary-purple);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.pixel-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+
+/* ==========================================================================
+   DEFAULT / OVERWORLD LEAF BIOME COMPONENT THEME STYLES (MINECRAFT OAK & FOLIAGE)
+   Lush Leaf 3D Borders, Foliage Wood Switches & Pixelify Sans Font
+   ========================================================================== */
+
+/* 1. Leaf Green Ambient Pixel Clusters */
+body.theme-plains .pixel-cluster {
+  background-color: #22c55e;
+}
+
+body.theme-plains .cluster-top-left {
+  box-shadow: 
+    12px 0 0 #16a34a,
+    0 12px 0 #dcfce7,
+    12px 12px 0 #86efac,
+    24px 12px 0 #22c55e,
+    12px 24px 0 #f0fdf4,
+    36px 0 0 #15803d;
+  opacity: 0.9;
+}
+
+body.theme-plains .cluster-top-right {
+  box-shadow: 
+    -12px 0 0 #16a34a,
+    0 12px 0 #dcfce7,
+    -12px 12px 0 #22c55e,
+    -24px 12px 0 #86efac,
+    -12px 24px 0 #f0fdf4;
+  opacity: 0.9;
+}
+
+body.theme-plains .cluster-mid-right {
+  box-shadow: 
+    -12px 0 0 #dcfce7,
+    0 12px 0 #16a34a,
+    -12px 12px 0 #22c55e,
+    -24px 0 0 #15803d;
+  opacity: 0.8;
+}
+
+body.theme-plains .cluster-bottom-left {
+  box-shadow: 
+    12px 0 0 #dcfce7,
+    0 -12px 0 #22c55e,
+    12px -12px 0 #86efac,
+    24px 0 0 #15803d;
+  opacity: 0.8;
+}
+
+/* 2. Top Header Bar & Brand in Overworld Leaf Theme */
+body.theme-plains .pixel-header {
+  border: 3px solid #22c55e;
+  border-top: 3px solid #dcfce7;
+  border-left: 3px solid #dcfce7;
+  border-right: 4px solid #16a34a;
+  border-bottom: 5px solid #14532d;
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.15);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+body.theme-plains .axe-logo-btn {
+  background: #f0fdf4;
+  border-color: #22c55e;
+}
+
+body.theme-plains .navbar-brand:hover .axe-logo-btn {
+  transform: rotate(-10deg) scale(1.18);
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+}
+
+body.theme-plains .brand-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #14532d;
+  text-shadow: 1px 1px 0px #bbf7d0, 2px 2px 0px #15803d;
+  white-space: nowrap;
+}
+
+body.theme-plains .navbar-brand:hover .brand-text {
+  color: #16a34a;
+}
+
+/* 3. Minecraft Leaf Wood Switches & Navigation */
+body.theme-plains .nav-btn,
+body.theme-plains .btn-biome-select,
+body.theme-plains .btn-audio-toggle,
+body.theme-plains .social-pixel-btn,
+body.theme-plains #backToTopBtn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 40%, #dcfce7 100%);
+  border: 2px solid #22c55e;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 3px solid #16a34a;
+  border-bottom: 4px solid #14532d;
+  color: #14532d;
+  box-shadow: 0 4px 0px #052e16, 0 4px 12px rgba(22, 163, 74, 0.16);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.theme-plains .nav-btn:hover,
+body.theme-plains .btn-biome-select:hover,
+body.theme-plains .btn-audio-toggle:hover,
+body.theme-plains .social-pixel-btn:hover,
+body.theme-plains #backToTopBtn:hover {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #16a34a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #052e16, 0 8px 16px rgba(22, 163, 74, 0.22);
+}
+
+body.theme-plains .nav-btn:active,
+body.theme-plains .btn-biome-select:active,
+body.theme-plains .btn-audio-toggle:active,
+body.theme-plains .social-pixel-btn:active,
+body.theme-plains #backToTopBtn:active {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 0px #052e16;
+  background: #bbf7d0;
+}
+
+body.theme-plains .nav-btn.active {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #15803d !important;
+  border-top: 2px solid #86efac !important;
+  border-bottom: 4px solid #052e16 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), 0 2px 0 #052e16 !important;
+}
+
+body.theme-plains .biome-dropdown-menu {
+  border: 3px solid #22c55e;
+  border-top: 3px solid #dcfce7;
+  border-left: 3px solid #dcfce7;
+  border-right: 4px solid #16a34a;
+  border-bottom: 5px solid #14532d;
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.22);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+body.theme-plains .biome-menu-header {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #15803d;
+}
+
+body.theme-plains .biome-option-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+}
+
+body.theme-plains .biome-option-btn:hover {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #14532d;
+}
+
+body.theme-plains .biome-option-btn.active {
+  background: #dcfce7;
+  border-color: #16a34a;
+  border-bottom: 2px solid #14532d;
+  color: #14532d;
+  font-weight: 700;
+}
+
+/* 4. Name Styling & Lush Leaf Pixelify Font */
+body.theme-plains .pixel-name-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #16a34a;
+  background: linear-gradient(135deg, #14532d 0%, #16a34a 50%, #22c55e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px rgba(20, 83, 45, 0.4)) drop-shadow(0 0 14px rgba(34, 197, 94, 0.45));
+  transition: transform 0.25s ease, filter 0.25s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+body.theme-plains .pixel-name-text:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(2px 2px 0px #dcfce7) drop-shadow(4px 4px 0px #14532d) drop-shadow(0 0 20px rgba(34, 197, 94, 0.75));
+}
+
+body.theme-plains .badge-developer {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #f0fdf4;
+  border-color: #22c55e;
+  border-bottom-color: #15803d;
+  color: #15803d;
+}
+
+/* 5. 3D Action Buttons in Leaf Theme */
+body.theme-plains .pixel-btn-3d.btn-purple {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #16a34a;
+  border-color: #15803d;
+  border-top: 2px solid #86efac;
+  border-left: 2px solid #86efac;
+  border-right: 3px solid #14532d;
+  border-bottom: 5px solid #052e16;
+  color: #ffffff;
+  box-shadow: 0 4px 0px #052e16, 0 6px 14px rgba(22, 163, 74, 0.3);
+}
+
+body.theme-plains .pixel-btn-3d.btn-purple:hover {
+  background: #22c55e;
+  box-shadow: 0 6px 0px #052e16, 0 8px 20px rgba(22, 163, 74, 0.4);
+}
+
+body.theme-plains .pixel-btn-3d.btn-white {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #ffffff;
+  border: 2px solid #22c55e;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 3px solid #16a34a;
+  border-bottom: 5px solid #14532d;
+  color: #14532d;
+  box-shadow: 0 4px 0px #052e16, 0 6px 12px rgba(22, 163, 74, 0.15);
+}
+
+body.theme-plains .pixel-btn-3d.btn-white:hover {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+/* 6. Minecraft Leaf 3D Borders on Cards & Showcases */
+body.theme-plains .pixel-card,
+body.theme-plains .featured-game-showcase,
+body.theme-plains .projects-updating-card,
+body.theme-plains .projects-more-shelf,
+body.theme-plains .hero-art-frame,
+body.theme-plains .avatar-pixel-frame,
+body.theme-plains .pixel-footer {
+  border: 3px solid #22c55e !important;
+  border-top: 3px solid #dcfce7 !important;
+  border-left: 3px solid #dcfce7 !important;
+  border-right: 4px solid #16a34a !important;
+  border-bottom: 5px solid #14532d !important;
+  box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #14532d, 0 6px 0px #052e16, 0 10px 24px rgba(22, 163, 74, 0.14) !important;
+}
+
+body.theme-plains .featured-game-showcase:hover,
+body.theme-plains .pixel-card:hover {
+  box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #052e16, 0 8px 0px #052e16, 0 14px 32px rgba(22, 163, 74, 0.22) !important;
+}
+
+/* 7. Section Badges & Headings */
+body.theme-plains .section-pixel-badge {
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%) !important;
+  border: 2.5px solid #22c55e !important;
+  border-top: 2.5px solid #dcfce7 !important;
+  border-left: 2.5px solid #dcfce7 !important;
+  border-right: 3.5px solid #16a34a !important;
+  border-bottom: 4px solid #14532d !important;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.15) !important;
+}
+
+body.theme-plains .section-pixel-badge .badge-title-text,
+body.theme-plains .section-heading-pixel {
+  font-family: 'Pixelify Sans', cursive, sans-serif !important;
+  font-size: 1.05rem !important;
+  color: #14532d !important;
+  text-shadow: 1px 1px 0px #ffffff;
+}
+
+body.theme-plains .badge-pixel-pickaxe {
+  color: #16a34a;
+}
+
+/* 8. Stats Shelf & Tech Pills */
+body.theme-plains .pixel-stats-shelf {
+  background: #f0fdf4 !important;
+  border: 2.5px solid #22c55e !important;
+  border-top: 2.5px solid #dcfce7 !important;
+  border-bottom: 4px solid #14532d !important;
+}
+
+body.theme-plains .stat-cell:first-child .stat-icon-box {
+  background: #dcfce7 !important;
+  border-color: #22c55e !important;
+}
+
+body.theme-plains .stat-num {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  color: #15803d !important;
+}
+
+body.theme-plains .stat-label {
+  color: #166534;
+}
+
+body.theme-plains .skill-pixel-box:hover {
+  background: #dcfce7;
+  border-color: #16a34a;
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* 9. Project Tabs (Leaf Wood Switches) */
+body.theme-plains .project-tab-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: #f0fdf4;
+  border: 2px solid #22c55e;
+  border-top: 2px solid #dcfce7;
+  border-left: 2px solid #dcfce7;
+  border-right: 3px solid #16a34a;
+  border-bottom: 4px solid #14532d;
+  color: #15803d;
+  box-shadow: 0 3px 0px #052e16;
+}
+
+body.theme-plains .project-tab-pill:hover {
+  background: #dcfce7;
+  color: #14532d;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0px #052e16;
+}
+
+body.theme-plains .project-tab-pill.active {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #15803d !important;
+  border-top: 2px solid #86efac !important;
+  border-bottom: 4px solid #052e16 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), 0 2px 0 #052e16 !important;
+}
+
+body.theme-plains .game-meta-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #15803d;
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+
+body.theme-plains .game-meta-badge .meta-dot {
+  background: #16a34a;
+  box-shadow: 0 0 6px #16a34a;
+}
+
+body.theme-plains .showcase-title {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.45rem;
+  color: #0f291e;
+}
+
+body.theme-plains .showcase-tagline {
+  color: #16a34a;
+}
+
+body.theme-plains .showcase-features-list {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+body.theme-plains .tech-pill:hover {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #22c55e;
+}
+
+body.theme-plains .video-progress-bar-fill {
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+}
+
+body.theme-plains .ongoing-badge-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.88rem;
+  border-color: #22c55e;
+  border-bottom-color: #14532d;
+  color: #15803d;
+}
+
+body.theme-plains .jam-team-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+/* 10. Arcade Console in Leaf Theme */
+body.theme-plains .console-chassis {
+  background: #0f241a;
+  border-color: #16a34a;
+  border-bottom: 6px solid #05140d;
+  box-shadow: 0 16px 40px rgba(22, 163, 74, 0.25);
+}
+
+body.theme-plains .pixel-tab-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border-color: #22c55e;
+  color: #86efac;
+}
+
+body.theme-plains .pixel-tab-btn.active {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #15803d;
+  border-bottom: 3px solid #052e16;
+}
+
+/* 11. Contact Section & Toast in Leaf Theme */
+body.theme-plains .contact-section {
+  position: relative;
+  background: radial-gradient(ellipse at 85% 50%, #dcfce7 0%, #ffffff 68%) !important;
+  border-color: #22c55e !important;
+  border-bottom-color: #14532d !important;
+}
+
+body.theme-plains .contact-section::before { content: '🌿'; position: absolute; top: 10px; right: 14px; font-size: 1.15rem; opacity: 0.9; }
+body.theme-plains .contact-section::after { content: '🌿'; position: absolute; bottom: 10px; left: 14px; font-size: 0.95rem; opacity: 0.75; }
+
+body.theme-plains .pixel-toast {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #f0fdf4;
+  border-color: #22c55e;
+  border-bottom-color: #14532d;
+  color: #14532d;
+}
+
+body.theme-plains .toast-dot {
+  background: #16a34a;
+  box-shadow: 0 0 8px #16a34a;
+}
+
+
+/* ==========================================================================
+   SAKURA BIOME COMPONENT THEME STYLES (MINECRAFT 1.20)
+   Cherry Wood 3D Borders, Blossom Petal Switches & Pixelify Sans Font
+   ========================================================================== */
+
+/* 1. Corner Petal Clusters */
+body.theme-sakura .pixel-cluster {
+  background-color: #f472b6;
+}
+
+body.theme-sakura .cluster-top-left {
+  box-shadow: 
+    12px 0 0 #ec4899,
+    0 12px 0 #fce7f3,
+    12px 12px 0 #fbcfe8,
+    24px 12px 0 #f472b6,
+    12px 24px 0 #fdf2f8,
+    36px 0 0 #fda4af;
+  opacity: 0.9;
+}
+
+body.theme-sakura .cluster-top-right {
+  box-shadow: 
+    -12px 0 0 #ec4899,
+    0 12px 0 #fce7f3,
+    -12px 12px 0 #f472b6,
+    -24px 12px 0 #fbcfe8,
+    -12px 24px 0 #fdf2f8;
+  opacity: 0.9;
+}
+
+body.theme-sakura .cluster-mid-right {
+  box-shadow: 
+    -12px 0 0 #fce7f3,
+    0 12px 0 #ec4899,
+    -12px 12px 0 #f472b6,
+    -24px 0 0 #fda4af;
+  opacity: 0.8;
+}
+
+body.theme-sakura .cluster-bottom-left {
+  box-shadow: 
+    12px 0 0 #fce7f3,
+    0 -12px 0 #f472b6,
+    12px -12px 0 #fbcfe8,
+    24px 0 0 #fda4af;
+  opacity: 0.8;
+}
+
+/* 2. Top Header Bar & Brand in Sakura Theme */
+body.theme-sakura .pixel-header {
+  border: 3px solid #f472b6;
+  border-top: 3px solid #fce7f3;
+  border-left: 3px solid #fce7f3;
+  border-right: 4px solid #db2777;
+  border-bottom: 5px solid #be185d;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.15);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+body.theme-sakura .axe-logo-btn {
+  background: #fdf2f8;
+  border-color: #f472b6;
+}
+
+body.theme-sakura .navbar-brand:hover .axe-logo-btn {
+  transform: rotate(-10deg) scale(1.18);
+  box-shadow: 0 0 12px rgba(236, 72, 153, 0.4);
+}
+
+body.theme-sakura .brand-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #831843;
+  text-shadow: 1px 1px 0px #fbcfe8, 2px 2px 0px #db2777;
+  white-space: nowrap;
+}
+
+body.theme-sakura .navbar-brand:hover .brand-text {
+  color: #ec4899;
+}
+
+/* 3. Sakura Cherry Blossom Switches & Navigation */
+body.theme-sakura .nav-btn,
+body.theme-sakura .btn-biome-select,
+body.theme-sakura .btn-audio-toggle,
+body.theme-sakura .social-pixel-btn,
+body.theme-sakura #backToTopBtn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fff0f5 40%, #fce7f3 100%);
+  border: 2px solid #f472b6;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 3px solid #db2777;
+  border-bottom: 4px solid #be185d;
+  color: #831843;
+  box-shadow: 0 4px 0px #831843, 0 4px 12px rgba(236, 72, 153, 0.18);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.theme-sakura .nav-btn:hover,
+body.theme-sakura .btn-biome-select:hover,
+body.theme-sakura .btn-audio-toggle:hover,
+body.theme-sakura .social-pixel-btn:hover,
+body.theme-sakura #backToTopBtn:hover {
+  background: #fce7f3;
+  color: #be185d;
+  border-color: #db2777;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #831843, 0 8px 16px rgba(236, 72, 153, 0.25);
+}
+
+body.theme-sakura .nav-btn:active,
+body.theme-sakura .btn-biome-select:active,
+body.theme-sakura .btn-audio-toggle:active,
+body.theme-sakura .social-pixel-btn:active,
+body.theme-sakura #backToTopBtn:active {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 0px #831843;
+  background: #fbcfe8;
+}
+
+body.theme-sakura .nav-btn.active {
+  background: #ec4899 !important;
+  color: #ffffff !important;
+  border-color: #db2777 !important;
+  border-top: 2px solid #fbcfe8 !important;
+  border-bottom: 4px solid #831843 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), 0 2px 0 #831843 !important;
+}
+
+body.theme-sakura .biome-dropdown-menu {
+  border: 3px solid #f472b6;
+  border-top: 3px solid #fce7f3;
+  border-left: 3px solid #fce7f3;
+  border-right: 4px solid #db2777;
+  border-bottom: 5px solid #be185d;
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.25);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+body.theme-sakura .biome-menu-header {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #be185d;
+}
+
+body.theme-sakura .biome-option-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+}
+
+body.theme-sakura .biome-option-btn:hover {
+  background: #fff0f5;
+  border-color: #f472b6;
+  color: #831843;
+}
+
+body.theme-sakura .biome-option-btn.active {
+  background: #fce7f3;
+  border-color: #db2777;
+  border-bottom: 2px solid #be185d;
+  color: #831843;
+  font-weight: 700;
+}
+
+/* 4. Name Styling & Glowing Sakura Font */
+body.theme-sakura .pixel-name-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #db2777;
+  background: linear-gradient(135deg, #be185d 0%, #ec4899 50%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px rgba(190, 24, 93, 0.4)) drop-shadow(0 0 14px rgba(236, 72, 153, 0.5));
+  transition: transform 0.25s ease, filter 0.25s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+body.theme-sakura .pixel-name-text:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(2px 2px 0px #fce7f3) drop-shadow(4px 4px 0px #831843) drop-shadow(0 0 20px rgba(236, 72, 153, 0.85));
+}
+
+body.theme-sakura .badge-developer {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #fdf2f8;
+  border-color: #f472b6;
+  color: #db2777;
+}
+
+/* 5. 3D Action Buttons in Sakura Theme */
+body.theme-sakura .pixel-btn-3d.btn-purple {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #ec4899;
+  border-color: #db2777;
+  border-top: 2px solid #fbcfe8;
+  border-left: 2px solid #fbcfe8;
+  border-right: 3px solid #be185d;
+  border-bottom: 5px solid #831843;
+  color: #ffffff;
+  box-shadow: 0 4px 0px #831843, 0 6px 14px rgba(236, 72, 153, 0.3);
+}
+
+body.theme-sakura .pixel-btn-3d.btn-purple:hover {
+  background: #f472b6;
+  box-shadow: 0 6px 0px #831843, 0 8px 20px rgba(236, 72, 153, 0.4);
+}
+
+body.theme-sakura .pixel-btn-3d.btn-white {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #ffffff;
+  border: 2px solid #f472b6;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 3px solid #db2777;
+  border-bottom: 5px solid #be185d;
+  color: #831843;
+  box-shadow: 0 4px 0px #831843, 0 6px 12px rgba(236, 72, 153, 0.15);
+}
+
+body.theme-sakura .pixel-btn-3d.btn-white:hover {
+  background: #fff0f5;
+  color: #be185d;
+}
+
+/* 6. Minecraft Cherry Wood 3D Borders on Cards & Showcases */
+body.theme-sakura .pixel-card,
+body.theme-sakura .featured-game-showcase,
+body.theme-sakura .projects-updating-card,
+body.theme-sakura .projects-more-shelf,
+body.theme-sakura .hero-art-frame,
+body.theme-sakura .avatar-pixel-frame,
+body.theme-sakura .pixel-footer {
+  border: 3px solid #f472b6 !important;
+  border-top: 3px solid #fce7f3 !important;
+  border-left: 3px solid #fce7f3 !important;
+  border-right: 4px solid #db2777 !important;
+  border-bottom: 5px solid #be185d !important;
+  box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #be185d, 0 6px 0px #831843, 0 10px 24px rgba(236, 72, 153, 0.15) !important;
+}
+
+body.theme-sakura .featured-game-showcase:hover,
+body.theme-sakura .pixel-card:hover {
+  box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #831843, 0 8px 0px #831843, 0 14px 32px rgba(236, 72, 153, 0.22) !important;
+}
+
+/* 7. Section Badges & Headings */
+body.theme-sakura .section-pixel-badge {
+  background: linear-gradient(180deg, #ffffff 0%, #fff0f5 100%) !important;
+  border: 2.5px solid #f472b6 !important;
+  border-top: 2.5px solid #fce7f3 !important;
+  border-left: 2.5px solid #fce7f3 !important;
+  border-right: 3.5px solid #db2777 !important;
+  border-bottom: 4px solid #be185d !important;
+  box-shadow: 0 4px 10px rgba(236, 72, 153, 0.15) !important;
+}
+
+body.theme-sakura .section-pixel-badge .badge-title-text,
+body.theme-sakura .section-heading-pixel {
+  font-family: 'Pixelify Sans', cursive, sans-serif !important;
+  font-size: 1.05rem !important;
+  color: #831843 !important;
+  text-shadow: 1px 1px 0px #ffffff;
+}
+
+body.theme-sakura .badge-pixel-pickaxe {
+  color: #ec4899;
+}
+
+/* 8. Stats Shelf & Tech Pills */
+body.theme-sakura .pixel-stats-shelf {
+  background: #fff5f8 !important;
+  border: 2.5px solid #f472b6 !important;
+  border-top: 2.5px solid #fce7f3 !important;
+  border-bottom: 4px solid #be185d !important;
+}
+
+body.theme-sakura .stat-cell:first-child .stat-icon-box {
+  background: #fdf2f8 !important;
+  border-color: #f472b6 !important;
+}
+
+body.theme-sakura .stat-num {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  color: #db2777 !important;
+}
+
+body.theme-sakura .stat-label {
+  color: #835c71;
+}
+
+body.theme-sakura .skill-pixel-box:hover {
+  background: #fdf2f8;
+  border-color: #ec4899;
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* 9. Project Tabs (Sakura Petal Switches) */
+body.theme-sakura .project-tab-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: #fff5f8;
+  border: 2px solid #f472b6;
+  border-top: 2px solid #fce7f3;
+  border-left: 2px solid #fce7f3;
+  border-right: 3px solid #db2777;
+  border-bottom: 4px solid #be185d;
+  color: #9d174d;
+  box-shadow: 0 3px 0px #831843;
+}
+
+body.theme-sakura .project-tab-pill:hover {
+  background: #fce7f3;
+  color: #831843;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0px #831843;
+}
+
+body.theme-sakura .project-tab-pill.active {
+  background: #ec4899 !important;
+  color: #ffffff !important;
+  border-color: #db2777 !important;
+  border-top: 2px solid #fbcfe8 !important;
+  border-bottom: 4px solid #831843 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), 0 2px 0 #831843 !important;
+}
+
+body.theme-sakura .game-meta-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #be185d;
+  background: #fdf2f8;
+  border-color: #f472b6;
+}
+
+body.theme-sakura .game-meta-badge .meta-dot {
+  background: #ec4899;
+  box-shadow: 0 0 6px #ec4899;
+}
+
+body.theme-sakura .showcase-title {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.45rem;
+  color: #1f131a;
+}
+
+body.theme-sakura .showcase-tagline {
+  color: #db2777;
+}
+
+body.theme-sakura .showcase-features-list {
+  background: #fff5f8;
+  border-color: #fbcfe8;
+}
+
+body.theme-sakura .tech-pill:hover {
+  background: #fdf2f8;
+  color: #be185d;
+  border-color: #fbcfe8;
+}
+
+body.theme-sakura .video-progress-bar-fill {
+  background: linear-gradient(90deg, #ec4899 0%, #f472b6 100%);
+}
+
+body.theme-sakura .ongoing-badge-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.88rem;
+  border-color: #f472b6;
+  border-bottom-color: #db2777;
+  color: #9d174d;
+}
+
+body.theme-sakura .jam-team-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #fdf2f8;
+  border-color: #f472b6;
+  color: #9d174d;
+}
+
+/* 10. Arcade Console in Sakura Theme */
+body.theme-sakura .console-chassis {
+  background: #24141e;
+  border-color: #ec4899;
+  border-bottom: 6px solid #140810;
+  box-shadow: 0 16px 40px rgba(236, 72, 153, 0.3);
+}
+
+body.theme-sakura .pixel-tab-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border-color: #f472b6;
+  color: #fbcfe8;
+}
+
+body.theme-sakura .pixel-tab-btn.active {
+  background: #ec4899;
+  color: #ffffff;
+  border-color: #db2777;
+  border-bottom: 3px solid #be185d;
+}
+
+/* 11. Contact Section & Toast in Sakura Theme */
+body.theme-sakura .contact-section {
+  position: relative;
+  background: radial-gradient(ellipse at 85% 50%, #fff0f5 0%, #ffffff 68%) !important;
+  border-color: #f472b6 !important;
+  border-bottom-color: #db2777 !important;
+}
+
+body.theme-sakura .contact-section::before { content: '🌸'; position: absolute; top: 10px; right: 14px; font-size: 1.15rem; opacity: 0.9; }
+body.theme-sakura .contact-section::after { content: '🌸'; position: absolute; bottom: 10px; left: 14px; font-size: 0.95rem; opacity: 0.75; }
+
+body.theme-sakura .pixel-toast {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #fff0f5;
+  border-color: #f472b6;
+  border-bottom-color: #db2777;
+  color: #831843;
+}
+
+body.theme-sakura .toast-dot {
+  background: #ec4899;
+  box-shadow: 0 0 8px #ec4899;
+}
+
+
+/* ==========================================================================
+   SNOWY TAIGA COMPONENT THEME STYLES (MINECRAFT FROST & PACKED ICE)
+   Packed Ice 3D Borders, Soul Frost Switches & Pixelify Sans Font
+   ========================================================================== */
+
+/* 1. Snow Cyan Ambient Pixel Clusters */
+body.theme-snow .pixel-cluster {
+  background-color: #7dd3fc;
+}
+
+body.theme-snow .cluster-top-left {
+  box-shadow: 
+    12px 0 0 #0284c7,
+    0 12px 0 #e0f2fe,
+    12px 12px 0 #bae6fd,
+    24px 12px 0 #7dd3fc,
+    12px 24px 0 #f0f9ff,
+    36px 0 0 #38bdf8;
+  opacity: 0.9;
+}
+
+body.theme-snow .cluster-top-right {
+  box-shadow: 
+    -12px 0 0 #0284c7,
+    0 12px 0 #e0f2fe,
+    -12px 12px 0 #7dd3fc,
+    -24px 12px 0 #bae6fd,
+    -12px 24px 0 #f0f9ff;
+  opacity: 0.9;
+}
+
+body.theme-snow .cluster-mid-right {
+  box-shadow: 
+    -12px 0 0 #e0f2fe,
+    0 12px 0 #0284c7,
+    -12px 12px 0 #7dd3fc,
+    -24px 0 0 #38bdf8;
+  opacity: 0.8;
+}
+
+body.theme-snow .cluster-bottom-left {
+  box-shadow: 
+    12px 0 0 #e0f2fe,
+    0 -12px 0 #7dd3fc,
+    12px -12px 0 #bae6fd,
+    24px 0 0 #38bdf8;
+  opacity: 0.8;
+}
+
+/* 2. Top Header Bar & Brand in Snow Theme */
+body.theme-snow .pixel-header {
+  border: 3px solid #7dd3fc;
+  border-top: 3px solid #e0f2fe;
+  border-left: 3px solid #e0f2fe;
+  border-right: 4px solid #0284c7;
+  border-bottom: 5px solid #0c4a6e;
+  box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+body.theme-snow .axe-logo-btn {
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+}
+
+body.theme-snow .navbar-brand:hover .axe-logo-btn {
+  transform: rotate(-10deg) scale(1.18);
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+}
+
+body.theme-snow .brand-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  text-shadow: 1px 1px 0px #bae6fd, 2px 2px 0px #0284c7;
+  white-space: nowrap;
+}
+
+body.theme-snow .navbar-brand:hover .brand-text {
+  color: #0284c7;
+}
+
+/* 3. Packed Ice Switches & Navigation */
+body.theme-snow .nav-btn,
+body.theme-snow .btn-biome-select,
+body.theme-snow .btn-audio-toggle,
+body.theme-snow .social-pixel-btn,
+body.theme-snow #backToTopBtn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 40%, #e0f2fe 100%);
+  border: 2px solid #7dd3fc;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 3px solid #0284c7;
+  border-bottom: 4px solid #0c4a6e;
+  color: #0c4a6e;
+  box-shadow: 0 4px 0px #082f49, 0 4px 12px rgba(2, 132, 199, 0.18);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.theme-snow .nav-btn:hover,
+body.theme-snow .btn-biome-select:hover,
+body.theme-snow .btn-audio-toggle:hover,
+body.theme-snow .social-pixel-btn:hover,
+body.theme-snow #backToTopBtn:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #082f49, 0 8px 16px rgba(2, 132, 199, 0.25);
+}
+
+body.theme-snow .nav-btn:active,
+body.theme-snow .btn-biome-select:active,
+body.theme-snow .btn-audio-toggle:active,
+body.theme-snow .social-pixel-btn:active,
+body.theme-snow #backToTopBtn:active {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 0px #082f49;
+  background: #bae6fd;
+}
+
+body.theme-snow .nav-btn.active {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+  border-top: 2px solid #bae6fd !important;
+  border-bottom: 4px solid #082f49 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), 0 2px 0 #082f49 !important;
+}
+
+body.theme-snow .biome-dropdown-menu {
+  border: 3px solid #7dd3fc;
+  border-top: 3px solid #e0f2fe;
+  border-left: 3px solid #e0f2fe;
+  border-right: 4px solid #0284c7;
+  border-bottom: 5px solid #0c4a6e;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.25);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+body.theme-snow .biome-menu-header {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #0369a1;
+}
+
+body.theme-snow .biome-option-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+}
+
+body.theme-snow .biome-option-btn:hover {
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+  color: #0c4a6e;
+}
+
+body.theme-snow .biome-option-btn.active {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  border-bottom: 2px solid #0c4a6e;
+  color: #0c4a6e;
+  font-weight: 700;
+}
+
+/* 4. Name Styling & Glacial Ice Pixelify Font */
+body.theme-snow .pixel-name-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #0284c7;
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px rgba(12, 74, 110, 0.6)) drop-shadow(0 0 14px rgba(56, 189, 248, 0.65));
+  transition: transform 0.25s ease, filter 0.25s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+body.theme-snow .pixel-name-text:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(2px 2px 0px #e0f2fe) drop-shadow(4px 4px 0px #082f49) drop-shadow(0 0 20px rgba(56, 189, 248, 0.95));
+}
+
+body.theme-snow .badge-developer {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+  color: #0284c7;
+}
+
+/* 5. 3D Action Buttons in Snow Theme */
+body.theme-snow .pixel-btn-3d.btn-purple {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #0284c7;
+  border-color: #0369a1;
+  border-top: 2px solid #bae6fd;
+  border-left: 2px solid #bae6fd;
+  border-right: 3px solid #0c4a6e;
+  border-bottom: 5px solid #082f49;
+  color: #ffffff;
+  box-shadow: 0 4px 0px #082f49, 0 6px 14px rgba(2, 132, 199, 0.3);
+}
+
+body.theme-snow .pixel-btn-3d.btn-purple:hover {
+  background: #38bdf8;
+  box-shadow: 0 6px 0px #082f49, 0 8px 20px rgba(2, 132, 199, 0.45);
+}
+
+body.theme-snow .pixel-btn-3d.btn-white {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #ffffff;
+  border: 2px solid #7dd3fc;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 3px solid #0284c7;
+  border-bottom: 5px solid #0c4a6e;
+  color: #0c4a6e;
+  box-shadow: 0 4px 0px #082f49, 0 6px 12px rgba(2, 132, 199, 0.15);
+}
+
+body.theme-snow .pixel-btn-3d.btn-white:hover {
+  background: #f0f9ff;
+  color: #0369a1;
+}
+
+/* 6. Minecraft Packed Ice 3D Borders on Cards & Showcases */
+body.theme-snow .pixel-card,
+body.theme-snow .featured-game-showcase,
+body.theme-snow .projects-updating-card,
+body.theme-snow .projects-more-shelf,
+body.theme-snow .hero-art-frame,
+body.theme-snow .avatar-pixel-frame,
+body.theme-snow .pixel-footer {
+  border: 3px solid #7dd3fc !important;
+  border-top: 3px solid #e0f2fe !important;
+  border-left: 3px solid #e0f2fe !important;
+  border-right: 4px solid #0284c7 !important;
+  border-bottom: 5px solid #0c4a6e !important;
+  box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #0c4a6e, 0 6px 0px #082f49, 0 10px 24px rgba(2, 132, 199, 0.15) !important;
+}
+
+body.theme-snow .featured-game-showcase:hover,
+body.theme-snow .pixel-card:hover {
+  box-shadow: inset 2px 2px 0px #ffffff, inset -2px -2px 0px #082f49, 0 8px 0px #082f49, 0 14px 32px rgba(2, 132, 199, 0.22) !important;
+}
+
+/* 7. Section Badges & Headings */
+body.theme-snow .section-pixel-badge {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%) !important;
+  border: 2.5px solid #7dd3fc !important;
+  border-top: 2.5px solid #e0f2fe !important;
+  border-left: 2.5px solid #e0f2fe !important;
+  border-right: 3.5px solid #0284c7 !important;
+  border-bottom: 4px solid #0c4a6e !important;
+  box-shadow: 0 4px 10px rgba(2, 132, 199, 0.15) !important;
+}
+
+body.theme-snow .section-pixel-badge .badge-title-text,
+body.theme-snow .section-heading-pixel {
+  font-family: 'Pixelify Sans', cursive, sans-serif !important;
+  font-size: 1.05rem !important;
+  color: #0c4a6e !important;
+  text-shadow: 1px 1px 0px #ffffff;
+}
+
+body.theme-snow .badge-pixel-pickaxe {
+  color: #0284c7;
+}
+
+/* 8. Stats Shelf & Tech Pills */
+body.theme-snow .pixel-stats-shelf {
+  background: #f0f9ff !important;
+  border: 2.5px solid #7dd3fc !important;
+  border-top: 2.5px solid #e0f2fe !important;
+  border-bottom: 4px solid #0c4a6e !important;
+}
+
+body.theme-snow .stat-cell:first-child .stat-icon-box {
+  background: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+}
+
+body.theme-snow .stat-num {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  color: #0284c7 !important;
+}
+
+body.theme-snow .stat-label {
+  color: #52799f;
+}
+
+body.theme-snow .skill-pixel-box:hover {
+  background: #e0f2fe;
+  border-color: #0284c7;
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* 9. Project Tabs (Soul Frost Switches) */
+body.theme-snow .project-tab-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: #f0f9ff;
+  border: 2px solid #7dd3fc;
+  border-top: 2px solid #e0f2fe;
+  border-left: 2px solid #e0f2fe;
+  border-right: 3px solid #0284c7;
+  border-bottom: 4px solid #0c4a6e;
+  color: #0369a1;
+  box-shadow: 0 3px 0px #082f49;
+}
+
+body.theme-snow .project-tab-pill:hover {
+  background: #e0f2fe;
+  color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0px #082f49;
+}
+
+body.theme-snow .project-tab-pill.active {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+  border-top: 2px solid #bae6fd !important;
+  border-bottom: 4px solid #082f49 !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.25), 0 2px 0 #082f49 !important;
+}
+
+body.theme-snow .game-meta-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #0369a1;
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+body.theme-snow .game-meta-badge .meta-dot {
+  background: #0284c7;
+  box-shadow: 0 0 6px #0284c7;
+}
+
+body.theme-snow .showcase-title {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.45rem;
+  color: #0c1a24;
+}
+
+body.theme-snow .showcase-tagline {
+  color: #0284c7;
+}
+
+body.theme-snow .showcase-features-list {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+body.theme-snow .tech-pill:hover {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #7dd3fc;
+}
+
+body.theme-snow .video-progress-bar-fill {
+  background: linear-gradient(90deg, #38bdf8 0%, #0284c7 100%);
+}
+
+body.theme-snow .ongoing-badge-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.88rem;
+  border-color: #7dd3fc;
+  border-bottom-color: #0284c7;
+  color: #0369a1;
+}
+
+body.theme-snow .jam-team-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
+/* 10. Arcade Console in Snow Theme */
+body.theme-snow .console-chassis {
+  background: #0f1c2b;
+  border-color: #0284c7;
+  border-bottom: 6px solid #060e17;
+  box-shadow: 0 16px 40px rgba(2, 132, 199, 0.25);
+}
+
+body.theme-snow .pixel-tab-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border-color: #7dd3fc;
+  color: #bae6fd;
+}
+
+body.theme-snow .pixel-tab-btn.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0369a1;
+  border-bottom: 3px solid #0c4a6e;
+}
+
+/* 11. Contact Section & Toast in Snow Theme */
+body.theme-snow .contact-section {
+  position: relative;
+  background: radial-gradient(ellipse at 85% 50%, #e0f2fe 0%, #ffffff 68%) !important;
+  border-color: #7dd3fc !important;
+  border-bottom-color: #0284c7 !important;
+}
+
+body.theme-snow .contact-section::before { content: '❄️'; position: absolute; top: 10px; right: 14px; font-size: 1.15rem; opacity: 0.9; }
+body.theme-snow .contact-section::after { content: '❄️'; position: absolute; bottom: 10px; left: 14px; font-size: 0.95rem; opacity: 0.75; }
+
+body.theme-snow .pixel-toast {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+  border-bottom-color: #0284c7;
+  color: #0369a1;
+}
+
+body.theme-snow .toast-dot {
+  background: #0284c7;
+  box-shadow: 0 0 8px #0284c7;
+}
+
+
+/* ==========================================================================
+   THE NETHER COMPONENT THEME STYLES (MINECRAFT CRIMSON FOREST & GILDED BLACKSTONE)
+   Netherrack 3D Borders, Blackstone Magma Switches & Pixelify Sans Font
+   ========================================================================== */
+
+/* 1. Nether Ember Ambient Pixel Clusters */
+body.theme-nether .pixel-cluster {
+  background-color: #ef4444;
+}
+
+body.theme-nether .cluster-top-left {
+  box-shadow: 
+    12px 0 0 #dc2626,
+    0 12px 0 #4c1d24,
+    12px 12px 0 #f87171,
+    24px 12px 0 #ef4444,
+    12px 24px 0 #3a151b,
+    36px 0 0 #f59e0b;
+  opacity: 0.9;
+}
+
+body.theme-nether .cluster-top-right {
+  box-shadow: 
+    -12px 0 0 #dc2626,
+    0 12px 0 #4c1d24,
+    -12px 12px 0 #ef4444,
+    -24px 12px 0 #f87171,
+    -12px 24px 0 #3a151b;
+  opacity: 0.9;
+}
+
+body.theme-nether .cluster-mid-right {
+  box-shadow: 
+    -12px 0 0 #4c1d24,
+    0 12px 0 #dc2626,
+    -12px 12px 0 #ef4444,
+    -24px 0 0 #f59e0b;
+  opacity: 0.8;
+}
+
+body.theme-nether .cluster-bottom-left {
+  box-shadow: 
+    12px 0 0 #4c1d24,
+    0 -12px 0 #ef4444,
+    12px -12px 0 #f87171,
+    24px 0 0 #f59e0b;
+  opacity: 0.8;
+}
+
+/* 2. Top Header Bar & Brand in Nether Theme */
+body.theme-nether .pixel-header {
+  border: 3px solid #b91c1c;
+  border-top: 3px solid #f87171;
+  border-left: 3px solid #f87171;
+  border-right: 4px solid #991b1b;
+  border-bottom: 5px solid #450a0a;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.25);
+  background: rgba(38, 17, 20, 0.96);
+}
+
+body.theme-nether .axe-logo-btn {
+  background: #3a151b;
+  border-color: #f87171;
+}
+
+body.theme-nether .navbar-brand:hover .axe-logo-btn {
+  transform: rotate(-10deg) scale(1.18);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+body.theme-nether .brand-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fef2f2;
+  text-shadow: 1px 1px 0px #dc2626, 2px 2px 0px #000000;
+  white-space: nowrap;
+}
+
+body.theme-nether .navbar-brand:hover .brand-text {
+  color: #f87171;
+}
+
+/* 3. Polished Blackstone Buttons & Magma Levers */
+body.theme-nether .nav-btn,
+body.theme-nether .btn-biome-select,
+body.theme-nether .btn-audio-toggle,
+body.theme-nether .social-pixel-btn,
+body.theme-nether #backToTopBtn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: linear-gradient(180deg, #38151b 0%, #280e12 45%, #1a070a 100%);
+  border: 2px solid #ef4444;
+  border-top: 2px solid #fca5a5;
+  border-left: 2px solid #fca5a5;
+  border-right: 3px solid #991b1b;
+  border-bottom: 4px solid #450a0a;
+  color: #fecaca;
+  box-shadow: 0 4px 0px #000000, 0 4px 12px rgba(239, 68, 68, 0.3);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.theme-nether .nav-btn:hover,
+body.theme-nether .btn-biome-select:hover,
+body.theme-nether .btn-audio-toggle:hover,
+body.theme-nether .social-pixel-btn:hover,
+body.theme-nether #backToTopBtn:hover {
+  background: #4a1c24;
+  color: #ffffff;
+  border-color: #f87171;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #000000, 0 8px 16px rgba(239, 68, 68, 0.45);
+}
+
+body.theme-nether .nav-btn:active,
+body.theme-nether .btn-biome-select:active,
+body.theme-nether .btn-audio-toggle:active,
+body.theme-nether .social-pixel-btn:active,
+body.theme-nether #backToTopBtn:active {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 0px #000000;
+  background: #5c1d25;
+}
+
+body.theme-nether .nav-btn.active {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  border-top: 2px solid #fca5a5 !important;
+  border-bottom: 4px solid #7f1d1d !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 2px 0 #000000 !important;
+}
+
+body.theme-nether .biome-dropdown-menu {
+  border: 3px solid #b91c1c;
+  border-top: 3px solid #f87171;
+  border-left: 3px solid #f87171;
+  border-right: 4px solid #991b1b;
+  border-bottom: 5px solid #450a0a;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+  background: rgba(38, 17, 20, 0.98);
+}
+
+body.theme-nether .biome-menu-header {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #f87171;
+}
+
+body.theme-nether .biome-option-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+}
+
+body.theme-nether .biome-option-btn:hover {
+  background: #3a151b;
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+body.theme-nether .biome-option-btn.active {
+  background: #471d24;
+  border-color: #dc2626;
+  border-bottom: 2px solid #7f1d1d;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* 4. Name Styling & Molten Lava Magma Pixelify Font */
+body.theme-nether .pixel-name-text {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ef4444;
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 50%, #dc2626 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(2px 2px 0px rgba(69, 10, 10, 0.95)) drop-shadow(0 0 16px rgba(239, 68, 68, 0.85));
+  transition: transform 0.25s ease, filter 0.25s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+body.theme-nether .pixel-name-text:hover {
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(2px 2px 0px #fca5a5) drop-shadow(4px 4px 0px #000000) drop-shadow(0 0 24px rgba(249, 115, 22, 0.95));
+}
+
+body.theme-nether .badge-developer {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #3a151b;
+  border-color: #f87171;
+  color: #fca5a5;
+}
+
+/* 5. 3D Action Buttons in Nether Theme */
+body.theme-nether .pixel-btn-3d.btn-purple {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #ef4444;
+  border-color: #dc2626;
+  border-top: 2px solid #fca5a5;
+  border-left: 2px solid #fca5a5;
+  border-right: 3px solid #991b1b;
+  border-bottom: 5px solid #450a0a;
+  color: #ffffff;
+  box-shadow: 0 4px 0px #000000, 0 6px 14px rgba(239, 68, 68, 0.4);
+}
+
+body.theme-nether .pixel-btn-3d.btn-purple:hover {
+  background: #f87171;
+  box-shadow: 0 6px 0px #000000, 0 8px 20px rgba(239, 68, 68, 0.55);
+}
+
+body.theme-nether .pixel-btn-3d.btn-white {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.05rem;
+  background: #33161b;
+  border: 2px solid #ef4444;
+  border-top: 2px solid #fca5a5;
+  border-left: 2px solid #fca5a5;
+  border-right: 3px solid #991b1b;
+  border-bottom: 5px solid #450a0a;
+  color: #fef2f2;
+  box-shadow: 0 4px 0px #000000, 0 6px 12px rgba(239, 68, 68, 0.25);
+}
+
+body.theme-nether .pixel-btn-3d.btn-white:hover {
+  background: #471d24;
+  color: #ffffff;
+}
+
+/* 6. Minecraft Netherrack 3D Borders on Cards & Showcases */
+body.theme-nether .pixel-card,
+body.theme-nether .featured-game-showcase,
+body.theme-nether .projects-updating-card,
+body.theme-nether .projects-more-shelf,
+body.theme-nether .hero-art-frame,
+body.theme-nether .avatar-pixel-frame,
+body.theme-nether .pixel-footer {
+  border: 3px solid #b91c1c !important;
+  border-top: 3px solid #f87171 !important;
+  border-left: 3px solid #f87171 !important;
+  border-right: 4px solid #991b1b !important;
+  border-bottom: 5px solid #450a0a !important;
+  box-shadow: inset 2px 2px 0px rgba(248, 113, 113, 0.25), inset -2px -2px 0px #450a0a, 0 6px 0px #1a0507, 0 10px 28px rgba(239, 68, 68, 0.3) !important;
+}
+
+body.theme-nether .featured-game-showcase:hover,
+body.theme-nether .pixel-card:hover {
+  box-shadow: inset 2px 2px 0px rgba(248, 113, 113, 0.35), inset -2px -2px 0px #1a0507, 0 8px 0px #000000, 0 14px 34px rgba(239, 68, 68, 0.45) !important;
+}
+
+/* 7. Section Badges & Headings */
+body.theme-nether .section-pixel-badge {
+  background: linear-gradient(180deg, #33161b 0%, #261114 100%) !important;
+  border: 2.5px solid #b91c1c !important;
+  border-top: 2.5px solid #f87171 !important;
+  border-left: 2.5px solid #f87171 !important;
+  border-right: 3.5px solid #991b1b !important;
+  border-bottom: 4px solid #450a0a !important;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3) !important;
+}
+
+body.theme-nether .section-pixel-badge .badge-title-text,
+body.theme-nether .section-heading-pixel {
+  font-family: 'Pixelify Sans', cursive, sans-serif !important;
+  font-size: 1.05rem !important;
+  color: #fef2f2 !important;
+  text-shadow: 1px 1px 0px #991b1b;
+}
+
+body.theme-nether .badge-pixel-pickaxe {
+  color: #ef4444;
+}
+
+/* 8. Stats Shelf & Tech Pills */
+body.theme-nether .pixel-stats-shelf {
+  background: #1e0d10 !important;
+  border: 2.5px solid #b91c1c !important;
+  border-top: 2.5px solid #f87171 !important;
+  border-bottom: 4px solid #450a0a !important;
+}
+
+body.theme-nether .stat-cell:first-child .stat-icon-box {
+  background: #3a151b !important;
+  border-color: #f87171 !important;
+}
+
+body.theme-nether .stat-num {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  color: #fef2f2 !important;
+}
+
+body.theme-nether .stat-label {
+  color: #f87171;
+}
+
+body.theme-nether .skill-pixel-box:hover {
+  background: #3a151b;
+  border-color: #ef4444;
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* 9. Project Tabs (Magma Blackstone Switches) */
+body.theme-nether .project-tab-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: #260f13;
+  border: 2px solid #ef4444;
+  border-top: 2px solid #fca5a5;
+  border-left: 2px solid #fca5a5;
+  border-right: 3px solid #991b1b;
+  border-bottom: 4px solid #450a0a;
+  color: #fca5a5;
+  box-shadow: 0 3px 0px #000000;
+}
+
+body.theme-nether .project-tab-pill:hover {
+  background: #3d141b;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0px #000000;
+}
+
+body.theme-nether .project-tab-pill.active {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  border-top: 2px solid #fca5a5 !important;
+  border-bottom: 4px solid #7f1d1d !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 2px 0 #000000 !important;
+}
+
+body.theme-nether .game-meta-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.85rem;
+  color: #fca5a5;
+  background: #33161b;
+  border-color: #f87171;
+}
+
+body.theme-nether .game-meta-badge .meta-dot {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+body.theme-nether .showcase-title {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 1.45rem;
+  color: #fef2f2;
+}
+
+body.theme-nether .showcase-tagline {
+  color: #f87171;
+}
+
+body.theme-nether .showcase-features-list {
+  background: #260f13;
+  border-color: #5c1d24;
+}
+
+body.theme-nether .tech-pill:hover {
+  background: #471d24;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+body.theme-nether .video-progress-bar-fill {
+  background: linear-gradient(90deg, #ef4444 0%, #f97316 100%);
+}
+
+body.theme-nether .ongoing-badge-pill {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.88rem;
+  background: #260f13;
+  border-color: #f87171;
+  border-bottom-color: #b91c1c;
+  color: #fecaca;
+}
+
+body.theme-nether .jam-team-badge {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  background: #2b0f14;
+  border-color: #f87171;
+  color: #fca5a5;
+}
+
+/* 10. Arcade Console in Nether Theme */
+body.theme-nether .console-chassis {
+  background: #140709;
+  border-color: #ef4444;
+  border-bottom: 6px solid #000000;
+  box-shadow: 0 16px 40px rgba(239, 68, 68, 0.35);
+}
+
+body.theme-nether .pixel-tab-btn {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+body.theme-nether .pixel-tab-btn.active {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #dc2626;
+  border-bottom: 3px solid #7f1d1d;
+}
+
+/* 11. Contact Section & Toast in Nether Theme */
+body.theme-nether .contact-section {
+  position: relative;
+  background: radial-gradient(ellipse at 85% 50%, #3a151b 0%, #261114 68%) !important;
+  border-color: #f87171 !important;
+  border-bottom-color: #b91c1c !important;
+}
+
+body.theme-nether .contact-section::before { content: '🔥'; position: absolute; top: 10px; right: 14px; font-size: 1.15rem; opacity: 0.9; }
+body.theme-nether .contact-section::after { content: '🔥'; position: absolute; bottom: 10px; left: 14px; font-size: 0.95rem; opacity: 0.75; }
+
+body.theme-nether .contact-channel-item {
+  background: rgba(46, 20, 25, 0.85);
+  color: #fef2f2;
+}
+
+body.theme-nether .channel-link-text {
+  color: #fef2f2;
+}
+
+body.theme-nether .pixel-toast {
+  font-family: 'Pixelify Sans', cursive, sans-serif;
+  font-size: 0.95rem;
+  background: #2e0d11;
+  border-color: #f87171;
+  border-bottom-color: #b91c1c;
+  color: #fef2f2;
+}
+
+body.theme-nether .toast-dot {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+/* Pixel Lightbox Modal */
+.pixel-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.pixel-modal.hidden {
+  display: none !important;
+}
+
+.pixel-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(6px);
+}
+
+.pixel-modal-container {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  width: 100%;
+  background: #141522;
+  border: 2px solid var(--border-purple);
+  border-bottom: 5px solid var(--border-purple-dark);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #1c1d2e;
+  border-bottom: 1px solid #2e3047;
+}
+
+.modal-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  letter-spacing: 0.3px;
+}
+
+.modal-close-btn {
+  background: #2a2c42;
+  border: 1px solid #434666;
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+.modal-body {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b0c12;
+}
+
+.modal-preview-img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hero-content-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-button-row {
+    justify-content: center;
+  }
+
+  .hero-art-frame {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .skills-ten-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .console-chassis {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 12px 14px 40px;
+  }
+
+  .pixel-card {
+    padding: 20px 16px;
+  }
+
+  .hero-title {
+    font-size: 1.85rem;
+  }
+
+  .pixel-name-text {
+  font-family: var(--font-pixel);
+  font-size: 2.05rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+  letter-spacing: -0.5px;
+  display: inline-block;
+  transition: transform 0.2s ease, text-shadow 0.2s ease, filter 0.2s ease;
+}
+
+  .pixel-stats-shelf.stats-two-col {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+
+  .stat-cell,
+  .stats-two-col .stat-cell {
+    border-right: none !important;
+    border-bottom: 1.5px solid var(--border-purple-light);
+    padding: 10px 0 !important;
+  }
+
+  .stats-two-col .stat-cell:last-child {
+    border-bottom: none;
+    padding-bottom: 0 !important;
+  }
+
+  .about-content-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .avatar-pixel-frame {
+    margin: 0 auto;
+  }
+
+  .about-details-list {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-three-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-game-showcase {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 18px;
+  }
+
+  .game-details-column {
+    padding: 6px 0 0 0;
+  }
+
+  .projects-more-shelf {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .projects-updating-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 22px 18px;
+    gap: 18px;
+  }
+
+  .projects-updating-left {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .skills-ten-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .contact-body-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .contact-channels-list {
+    align-items: center;
+  }
+
+  .contact-updating-box {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .navbar-menu span {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-ten-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
