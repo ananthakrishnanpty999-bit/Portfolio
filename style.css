@@ -1,14 +1,17 @@
 ﻿/* ==========================================================================
-   MINIMAL WHITE & LITE COLOR STYLE — MODERN AAA GAMING STUDIO
-   Aesthetic: Minimal Off-White & Soft Light Color Ambient Glows
-   Palette: Studio Snow, Ethereal Lavender, Sky Mist & Obsidian Accents
-   Typography: Syne (Display), Plus Jakarta Sans (Body), JetBrains Mono (Code/HUD)
-   Interactivity: Rich Micro-Interactions & Fluid Multi-Tier Hover Animations
+   MINIMAL LITE COLOR GLITCH THEME — MODERN AAA GAMING STUDIO
+   Aesthetic: Minimal Light White Canvas with Cyberpunk Glitch & Nothing Glyph Interface
+   Features:
+     - Authentic Nothing Phone Glyph Interface with Sequential LED Light Wave Hover
+     - 3D Text Shadow Reveal Hover for Navbar Links
+     - Chromatic Aberration (RGB Split) Glitch Animations
+     - Minimal Lite Ambient Color Glows (Cyan Mist, Soft Lavender, Neon Magenta Aura)
+     - Rich Multi-Tier Interactive Hover Animations
    ========================================================================== */
 
 /* --- 1. DESIGN TOKENS & ROOT VARIABLES --- */
 :root {
-  /* Minimal White & Light Color Foundation */
+  /* Minimal White Foundation */
   --bg-page: #f8fafc;
   --bg-page-alt: #f1f5f9;
   --bg-surface: #ffffff;
@@ -21,15 +24,15 @@
   --border-hover: #0f172a;
   --border-active: #0f172a;
 
-  /* Accent Palette */
+  /* Cyber Glitch Lite Accent Tokens */
+  --glitch-cyan: #00f0ff;
+  --glitch-magenta: #ff0055;
+  --glitch-blue: #0284c7;
+  --glitch-purple: #7c3aed;
   --accent-dark: #0f172a;
   --accent-slate: #334155;
   --accent-indigo: #4f46e5;
-  --accent-indigo-soft: #6366f1;
-  --accent-sky: #0284c7;
   --accent-emerald: #059669;
-  --accent-amber: #d97706;
-  --accent-rose: #e11d48;
 
   /* High-Contrast Typography */
   --text-primary: #0f172a;
@@ -67,7 +70,7 @@ html {
 }
 
 body,
-body.aaa-dark-theme,
+body.glitch-theme,
 body.aaa-minimal-white-theme {
   background-color: var(--bg-page);
   color: var(--text-secondary);
@@ -93,13 +96,13 @@ body.aaa-minimal-white-theme {
   transition: background 0.2s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #0f172a;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(15, 23, 42, 0.12);
-  color: var(--text-primary);
+  background: rgba(0, 240, 255, 0.25);
+  color: #0f172a;
 }
 
 /* Utility Hidden */
@@ -107,7 +110,7 @@ body.aaa-minimal-white-theme {
   display: none !important;
 }
 
-/* --- 3. MINIMAL WHITE & LITE COLOR AMBIENT BACKGROUND --- */
+/* --- 3. MINIMAL LITE COLOR AMBIENT GLOW & CYBER GRID --- */
 .ambient-dark-bg {
   position: fixed;
   inset: 0;
@@ -124,7 +127,7 @@ body.aaa-minimal-white-theme {
   will-change: transform;
 }
 
-/* Lite Soft Color Glows in the Minimal White Background */
+/* Lite Color Glows (Ethereal Cyan Mist, Soft Lavender, Magenta Aura) */
 .glow-top-left {
   top: -8vw;
   left: -8vw;
@@ -138,7 +141,7 @@ body.aaa-minimal-white-theme {
   right: -12vw;
   width: 55vw;
   height: 55vw;
-  background: radial-gradient(circle, rgba(186, 230, 253, 0.35) 0%, rgba(224, 242, 254, 0.18) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(224, 242, 254, 0.16) 50%, transparent 75%);
 }
 
 .glow-bottom-center {
@@ -146,7 +149,7 @@ body.aaa-minimal-white-theme {
   left: 20vw;
   width: 50vw;
   height: 50vw;
-  background: radial-gradient(circle, rgba(254, 205, 211, 0.25) 0%, rgba(255, 241, 242, 0.15) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 0, 85, 0.14) 0%, rgba(255, 241, 242, 0.12) 50%, transparent 75%);
 }
 
 .cyber-grid-overlay {
@@ -186,7 +189,7 @@ body.aaa-minimal-white-theme {
   margin-top: 110px;
 }
 
-/* --- 5. MINIMAL WHITE AAA NAVBAR --- */
+/* --- 5. MINIMAL WHITE NAVBAR & GLYPH INTERFACE --- */
 .aaa-navbar {
   position: fixed;
   top: 0;
@@ -198,7 +201,7 @@ body.aaa-minimal-white-theme {
   align-items: center;
   justify-content: space-between;
   padding: 0 36px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(226, 232, 240, 0.9);
@@ -206,6 +209,7 @@ body.aaa-minimal-white-theme {
   transition: all 0.3s ease;
 }
 
+/* Studio Brand & Nothing Glyph Interface */
 .aaa-brand {
   display: flex;
   align-items: center;
@@ -218,38 +222,72 @@ body.aaa-minimal-white-theme {
   transform: translateY(-2px);
 }
 
-.brand-crest {
-  width: 42px;
-  height: 42px;
+.brand-crest.glyph-interface {
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   background: #ffffff;
   border: 1px solid #cbd5e1;
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-  transition: all 0.3s var(--ease-spring);
+  position: relative;
+  transition: all 0.35s var(--ease-spring);
 }
-.aaa-brand:hover .brand-crest {
+
+.glyph-svg {
+  color: #0f172a;
+  transition: all 0.3s ease;
+}
+
+.glyph-segment {
+  transition: stroke 0.3s ease, fill 0.3s ease, filter 0.3s ease;
+}
+
+/* Smooth Interactive Glyph LED Wave Hover Animation */
+.aaa-brand:hover .brand-crest.glyph-interface {
   border-color: #0f172a;
   background: #0f172a;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
-  transform: rotate(8deg) scale(1.08);
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.4), 0 0 35px rgba(15, 23, 42, 0.25);
+  transform: scale(1.08) rotate(4deg);
 }
-.brand-crest .brand-svg polygon {
-  stroke: #0f172a;
-  fill: rgba(15, 23, 42, 0.06);
-  transition: all 0.3s ease;
+
+.aaa-brand:hover .glyph-svg {
+  color: #ffffff;
 }
-.brand-crest .brand-svg path {
-  fill: #0f172a;
-  transition: all 0.3s ease;
+
+.aaa-brand:hover .glyph-segment {
+  animation: glyphPulse 1.2s infinite ease-in-out;
 }
-.aaa-brand:hover .brand-crest .brand-svg polygon {
+.aaa-brand:hover .glyph-arc-top {
+  animation-delay: 0.05s;
   stroke: #ffffff;
-  fill: rgba(255, 255, 255, 0.15);
+  filter: drop-shadow(0 0 4px #00f0ff);
 }
-.aaa-brand:hover .brand-crest .brand-svg path {
-  fill: #ffffff;
+.aaa-brand:hover .glyph-diag {
+  animation-delay: 0.12s;
+  stroke: #00f0ff;
+  filter: drop-shadow(0 0 5px #00f0ff);
+}
+.aaa-brand:hover .glyph-circle {
+  animation-delay: 0.18s;
+  stroke: #ffffff;
+  filter: drop-shadow(0 0 4px #ffffff);
+}
+.aaa-brand:hover .glyph-stem {
+  animation-delay: 0.25s;
+  stroke: #ff0055;
+  filter: drop-shadow(0 0 5px #ff0055);
+}
+.aaa-brand:hover .glyph-dot {
+  animation-delay: 0.32s;
+  fill: #ff0055;
+  filter: drop-shadow(0 0 6px #ff0055);
+}
+
+@keyframes glyphPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.97); }
 }
 
 .brand-meta {
@@ -257,13 +295,26 @@ body.aaa-minimal-white-theme {
   flex-direction: column;
   line-height: 1.2;
 }
+
 .brand-name {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   letter-spacing: 0.5px;
   color: #0f172a;
+  transition: all 0.25s ease;
 }
+
+/* Glitch Text Chromatic Hover on Brand Name */
+.brand-name.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.aaa-brand:hover .brand-name.glitch-text {
+  text-shadow: 2px 0 #00f0ff, -2px 0 #ff0055;
+  transform: translateX(2px);
+}
+
 .brand-tagline {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -273,39 +324,79 @@ body.aaa-minimal-white-theme {
   text-transform: uppercase;
 }
 
-/* Nav Link Pills */
+/* ==========================================================================
+   3D TEXT SHADOW REVEAL HOVER FOR NAVBAR LINKS
+   ========================================================================== */
 .aaa-nav-links {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: rgba(15, 23, 42, 0.04);
-  padding: 4px 6px;
+  padding: 5px 8px;
   border-radius: 9999px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(226, 232, 240, 0.85);
 }
 
 .aaa-nav-link {
   padding: 8px 18px;
   border-radius: 9999px;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #64748b;
   text-decoration: none;
-  transition: all 0.25s var(--ease-spring);
   position: relative;
-  overflow: hidden;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  transition: all 0.28s var(--ease-spring);
 }
+
+.nav-text-layer {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+  will-change: transform, text-shadow;
+}
+
+/* 3D Text Shadow Reveal Hover Effect */
 .aaa-nav-link:hover {
-  color: #0f172a;
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-1px);
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08), inset 0 0 0 1px rgba(15, 23, 42, 0.1);
+  transform: translateY(-2px);
 }
+
+.aaa-nav-link:hover .nav-text-layer {
+  color: #0f172a;
+  transform: translateY(-4px) translateZ(16px) scale(1.08);
+  /* Multi-tier 3D Text Shadow with Chromatic Glitch Relief */
+  text-shadow: 
+    0 1px 0 #cbd5e1,
+    0 2px 0 #94a3b8,
+    0 3px 0 #64748b,
+    0 4px 1px rgba(15, 23, 42, 0.25),
+    0 6px 12px rgba(15, 23, 42, 0.18),
+    -1.5px 0 0 rgba(0, 240, 255, 0.8),
+    1.5px 0 0 rgba(255, 0, 85, 0.8);
+}
+
+/* Active Nav Link */
 .aaa-nav-link.active {
   color: #ffffff;
   background: #0f172a;
-  font-weight: 700;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2);
+  font-weight: 800;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
   transform: translateY(-1px);
+}
+.aaa-nav-link.active .nav-text-layer {
+  color: #ffffff;
+}
+.aaa-nav-link.active:hover .nav-text-layer {
+  color: #ffffff;
+  text-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.3),
+    0 2px 0 rgba(255, 255, 255, 0.2),
+    0 3px 4px rgba(0, 0, 0, 0.5),
+    -1.5px 0 0 rgba(0, 240, 255, 0.9),
+    1.5px 0 0 rgba(255, 0, 85, 0.9);
 }
 
 /* Nav Actions */
@@ -445,7 +536,7 @@ body.aaa-minimal-white-theme {
 .aaa-btn-primary:hover {
   transform: translateY(-3px) scale(1.02);
   background: #1e293b;
-  box-shadow: var(--shadow-button-hover);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), 0 8px 25px rgba(15, 23, 42, 0.28);
 }
 .aaa-btn-primary:hover::after {
   left: 150%;
@@ -602,6 +693,10 @@ body.aaa-minimal-white-theme {
   letter-spacing: -1px;
   color: #0f172a;
   margin: 18px 0 22px;
+  transition: all 0.3s ease;
+}
+.hero-headline:hover {
+  text-shadow: 1.5px 0 #00f0ff, -1.5px 0 #ff0055;
 }
 
 .gradient-text {
@@ -1491,7 +1586,7 @@ body.aaa-minimal-white-theme {
   background: #ffffff;
   border-color: #0f172a;
   transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08), 0 0 15px rgba(0, 240, 255, 0.15);
 }
 
 .skill-icon-holder {
@@ -1570,7 +1665,7 @@ body.aaa-minimal-white-theme {
   background: #ffffff;
   border-color: #0f172a;
   transform: translateX(10px);
-  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08), 0 0 15px rgba(0, 240, 255, 0.12);
 }
 
 .channel-icon-box {
@@ -1635,7 +1730,7 @@ body.aaa-minimal-white-theme {
 }
 .chest-lantern-frame:hover .chest-img {
   transform: scale(1.1) translateY(-4px);
-  filter: drop-shadow(0 25px 40px rgba(15, 23, 42, 0.25));
+  filter: drop-shadow(0 25px 40px rgba(15, 23, 42, 0.25)) drop-shadow(0 0 20px rgba(0, 240, 255, 0.2));
 }
 
 .chest-sparks {
