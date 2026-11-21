@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const particles = [];
     const particleCount = 42;
     const sakuraColors = ['#ffb7c5', '#f472b6', '#fda4af', '#fce7f3', '#ec4899', '#fbcfe8'];
-    const plainsColors = ['#ffffff', '#f4f4f5', '#e4e4e7', '#d4d4d8', '#ffffff'];
+    const plainsColors = ['#a5b4fc', '#818cf8', '#38bdf8', '#94a3b8', '#c7d2fe'];
     const snowColors = ['#ffffff', '#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc'];
     const netherColors = ['#ef4444', '#f97316', '#fbbf24', '#dc2626', '#facc15'];
 
