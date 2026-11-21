@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const particles = [];
     const particleCount = 42;
     const sakuraColors = ['#ffb7c5', '#f472b6', '#fda4af', '#fce7f3', '#ec4899', '#fbcfe8'];
-    const plainsColors = ['#6366f1', '#818cf8', '#a5b4fc', '#e4e4e7', '#06b6d4'];
+    const plainsColors = ['#ffffff', '#f4f4f5', '#e4e4e7', '#d4d4d8', '#ffffff'];
     const snowColors = ['#ffffff', '#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc'];
     const netherColors = ['#ef4444', '#f97316', '#fbbf24', '#dc2626', '#facc15'];
 
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originX = rect.width * 0.5;
         const originY = rect.height * 0.45;
 
-        let colors = ['#fbbf24', '#f59e0b', '#38bdf8', '#2fd8c7', '#ffffff'];
+        let colors = ['#ffffff', '#f4f4f5', '#e4e4e7', '#d4d4d8', '#ffffff'];
         if (isSakura) {
           colors = ['#f472b6', '#ec4899', '#fda4af', '#fce7f3', '#2fd8c7', '#ffffff'];
         } else if (isSnow) {
