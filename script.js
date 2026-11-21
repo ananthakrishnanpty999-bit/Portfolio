@@ -423,6 +423,146 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ==========================================================================
+     1C. RPG CODEX CHAPTER NAVIGATION & MODE CONTROLLER
+     ========================================================================== */
+  const codexRibbonTabs = document.querySelectorAll('.codex-ribbon-tab');
+  const codexChapters = document.querySelectorAll('.codex-chapter');
+  const btnCodexChapterMode = document.getElementById('btnCodexChapterMode');
+  const btnCodexScrollMode = document.getElementById('btnCodexScrollMode');
+
+  const chapterIdToSection = {
+    character: 'home',
+    inventory: 'skills',
+    quests: 'projects',
+    arena: 'arcade-console',
+    tavern: 'contact'
+  };
+
+  const chapterTitles = {
+    character: 'Chapter I: Character Sheet',
+    inventory: 'Chapter II: Equipment & Skills',
+    quests: 'Chapter III: Quest Journal',
+    arena: 'Chapter IV: Battle Arena',
+    tavern: 'Chapter V: Guild Tavern'
+  };
+
+  function setCodexViewMode(mode, notify = true) {
+    if (mode !== 'codex' && mode !== 'scroll') mode = 'scroll';
+    
+    document.body.classList.remove('mode-codex', 'mode-scroll');
+    document.body.classList.add(`mode-${mode}`);
+
+    if (btnCodexChapterMode) btnCodexChapterMode.classList.toggle('active', mode === 'codex');
+    if (btnCodexScrollMode) btnCodexScrollMode.classList.toggle('active', mode === 'scroll');
+
+    localStorage.setItem('portfolio_codex_view_mode', mode);
+
+    if (mode === 'codex') {
+      const activeTab = document.querySelector('.codex-ribbon-tab.active');
+      const activeChapterKey = activeTab ? activeTab.getAttribute('data-chapter') : 'character';
+      showCodexChapter(activeChapterKey, false);
+      if (notify) {
+        playUiSound('whoosh');
+        showToast('📖 Codex Chapter Mode: Flipping between quest chapters');
+      }
+    } else {
+      codexChapters.forEach(ch => ch.classList.remove('codex-active-chapter'));
+      if (notify) {
+        playUiSound('click');
+        showToast('📜 Scroll Mode: Continuous scroll through all chapters');
+      }
+    }
+  }
+
+  function showCodexChapter(chapterKey, notify = true) {
+    const isCodexMode = document.body.classList.contains('mode-codex');
+
+    codexRibbonTabs.forEach(tab => {
+      tab.classList.toggle('active', tab.getAttribute('data-chapter') === chapterKey);
+    });
+
+    if (isCodexMode) {
+      codexChapters.forEach(ch => {
+        ch.classList.toggle('codex-active-chapter', ch.getAttribute('data-chapter-id') === chapterKey);
+      });
+
+      if (chapterKey === 'quests') {
+        const track = document.getElementById('featuredProjectsStack');
+        if (track) track.scrollTo({ left: 0 });
+      }
+
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 50);
+
+      const navEl = document.getElementById('rpgCodexNav');
+      if (navEl) {
+        navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (notify) {
+        playUiSound('whoosh');
+        showToast(`📖 ${chapterTitles[chapterKey] || 'RPG Chapter'}`);
+      }
+    } else {
+      const targetId = chapterIdToSection[chapterKey];
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      if (notify) {
+        playUiSound('click');
+      }
+    }
+  }
+
+  codexRibbonTabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const chapterKey = tab.getAttribute('data-chapter');
+      showCodexChapter(chapterKey, true);
+    });
+  });
+
+  if (btnCodexChapterMode) {
+    btnCodexChapterMode.addEventListener('click', () => {
+      setCodexViewMode('codex', true);
+    });
+  }
+
+  if (btnCodexScrollMode) {
+    btnCodexScrollMode.addEventListener('click', () => {
+      setCodexViewMode('scroll', true);
+    });
+  }
+
+  // Handle internal anchor links to work seamlessly with Codex Mode
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      const targetId = href.substring(1);
+      
+      let matchedChapter = null;
+      for (const [chap, secId] of Object.entries(chapterIdToSection)) {
+        if (secId === targetId || (targetId === 'about' && chap === 'character')) {
+          matchedChapter = chap;
+          break;
+        }
+      }
+
+      if (matchedChapter && document.body.classList.contains('mode-codex')) {
+        e.preventDefault();
+        showCodexChapter(matchedChapter, true);
+      }
+    });
+  });
+
+  // Load saved view mode (defaults to scroll mode for seamless accessibility)
+  const savedViewMode = localStorage.getItem('portfolio_codex_view_mode') || 'scroll';
+  setCodexViewMode(savedViewMode, false);
+
 
   /* ==========================================================================
      2. TOAST SYSTEM
@@ -1166,6 +1306,20 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.classList.add('active');
         }
       });
+
+      // Update RPG Codex Ribbon Active Tab in scroll mode
+      let matchedChap = null;
+      for (const [chap, secId] of Object.entries(chapterIdToSection)) {
+        if (secId === currentId || (currentId === 'about' && chap === 'character') || (currentId === 'home' && chap === 'character')) {
+          matchedChap = chap;
+          break;
+        }
+      }
+      if (matchedChap && !document.body.classList.contains('mode-codex')) {
+        codexRibbonTabs.forEach(t => {
+          t.classList.toggle('active', t.getAttribute('data-chapter') === matchedChap);
+        });
+      }
     }
   }, { passive: true });
 

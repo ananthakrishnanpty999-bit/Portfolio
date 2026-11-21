@@ -33,98 +33,78 @@
   <!-- Page Wrapper -->
   <div class="page-container">
 
-    <!-- ================= STICKY TOP NAVIGATION BAR ================= -->
-    <header class="pixel-navbar" id="siteHeader">
+    <!-- ================= RPG PLAYER HUD & CHARACTER CREST ================= -->
+    <header class="rpg-hud-header" id="siteHeader">
       
-      <!-- Brand Logo: Minecraft Diamond Axe & User Name -->
-      <div class="navbar-brand" id="axeBrandBtn" role="button" tabindex="0" title="Click to launch Controller Arcade Screen!">
-        <div class="axe-logo-btn" aria-label="Minecraft Diamond Axe">
-          <svg class="axe-svg" viewBox="0 0 32 32" width="22" height="22">
-            <!-- Wooden Handle -->
-            <rect x="7" y="23" width="3" height="3" fill="#5c3a21"/>
-            <rect x="9" y="21" width="3" height="3" fill="#8b5a2b"/>
-            <rect x="11" y="19" width="3" height="3" fill="#8b5a2b"/>
-            <rect x="13" y="17" width="3" height="3" fill="#a06832"/>
-            <rect x="15" y="15" width="3" height="3" fill="#8b5a2b"/>
-            <rect x="17" y="13" width="3" height="3" fill="#8b5a2b"/>
-            <rect x="19" y="11" width="3" height="3" fill="#5c3a21"/>
-            <!-- Diamond Axe Head -->
-            <rect x="16" y="5" width="8" height="3" fill="#2fd8c7"/>
-            <rect x="15" y="7" width="10" height="3" fill="#4ef4e1"/>
-            <rect x="23" y="9" width="4" height="6" fill="#2fd8c7"/>
-            <rect x="25" y="10" width="3" height="4" fill="#1bb5a5"/>
-            <rect x="17" y="8" width="7" height="6" fill="#4ef4e1"/>
-            <rect x="14" y="9" width="4" height="4" fill="#2fd8c7"/>
-            <rect x="13" y="7" width="3" height="3" fill="#1ba899"/>
-            <rect x="12" y="8" width="3" height="3" fill="#13786d"/>
-            <rect x="17" y="6" width="3" height="2" fill="#ffffff" opacity="0.8"/>
-            <rect x="23" y="7" width="2" height="2" fill="#ffffff" opacity="0.6"/>
-          </svg>
+      <!-- Left: Player Profile & Level Crest -->
+      <div class="rpg-player-profile" id="axeBrandBtn" role="button" tabindex="0" title="Player Level 80 Game Dev Adventurer (Click to launch Arcade!)">
+        <div class="rpg-avatar-frame">
+          <img src="./assets/about-character-pixel.png" alt="AnanthaKrishnan SB Avatar" class="rpg-hud-avatar">
+          <span class="rpg-lvl-badge">LV.80</span>
         </div>
-        <span class="brand-text">Game Dev</span>
-        <span class="brand-divider">|</span>
+        <div class="rpg-player-meta">
+          <div class="rpg-name-row">
+            <span class="rpg-player-name">ANANTHAKRISHNAN SB</span>
+            <span class="rpg-class-tag">COMBAT ARCHITECT</span>
+          </div>
+          <span class="rpg-guild-title">Indie Game Developer &amp; Technical Artist</span>
+        </div>
       </div>
 
-      <!-- Navigation Links with Pixel Icons (Stacked Linear Order) -->
-      <nav class="navbar-menu">
-        <a href="#home" class="nav-btn active" data-nav="home">
-          <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-          </svg>
-          <span>Home</span>
-        </a>
+      <!-- Center: RPG Vitality & Resource Meters (HP, MP, EXP) -->
+      <div class="rpg-status-bars-group">
+        <!-- Health (Code Architecture) -->
+        <div class="rpg-bar-item bar-hp" title="Health: 1,000 / 1,000 (Code Architecture &amp; 60 FPS Engine Resilience)">
+          <div class="rpg-bar-label-row">
+            <span class="bar-type-tag"><span class="bar-icon">❤️</span> HP</span>
+            <span class="bar-num">1,000 / 1,000</span>
+          </div>
+          <div class="rpg-bar-track">
+            <div class="rpg-bar-fill hp-fill" style="width: 100%;"></div>
+          </div>
+        </div>
 
-        <a href="#about" class="nav-btn" data-nav="about">
-          <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <span>About</span>
-        </a>
+        <!-- Mana (Creative Vision & Logic) -->
+        <div class="rpg-bar-item bar-mp" title="Mana: 850 / 850 (Combat Systems, Physics &amp; State Logic)">
+          <div class="rpg-bar-label-row">
+            <span class="bar-type-tag"><span class="bar-icon">🔷</span> MP</span>
+            <span class="bar-num">850 / 850</span>
+          </div>
+          <div class="rpg-bar-track">
+            <div class="rpg-bar-fill mp-fill" style="width: 100%;"></div>
+          </div>
+        </div>
 
-        <a href="#skills" class="nav-btn" data-nav="skills">
-          <svg class="nav-icon" viewBox="0 0 32 32" width="16" height="16">
-            <path fill="#2fd8c7" d="M22 4l6 6-4 4-2-2-6 6-2-2 6-6-2-2 4-4z"/>
-            <path fill="#8b5a2b" d="M10 16l6 6-12 12-2-2 8-8-2-2 2-2z"/>
-          </svg>
-          <span>Skills</span>
-        </a>
+        <!-- Experience (Level Progression) -->
+        <div class="rpg-bar-item bar-exp" title="EXP: 85,420 / 90,000 (94.9% to Lead Architect Rank)">
+          <div class="rpg-bar-label-row">
+            <span class="bar-type-tag"><span class="bar-icon">⭐</span> EXP</span>
+            <span class="bar-num">85.4K / 90K</span>
+          </div>
+          <div class="rpg-bar-track">
+            <div class="rpg-bar-fill exp-fill" style="width: 94.9%;"></div>
+          </div>
+        </div>
+      </div>
 
-        <a href="#projects" class="nav-btn" data-nav="projects">
-          <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-          </svg>
-          <span>Projects</span>
-        </a>
+      <!-- Right: Currency, Realm Biome & Audio Controls -->
+      <div class="rpg-hud-actions">
+        <!-- Ryo Loot Counter -->
+        <div class="rpg-currency-badge" title="Guild Ryo / Bounty Gold Earned">
+          <span class="gold-coin-icon">🪙</span>
+          <span class="currency-amount">1,337 <small>RYO</small></span>
+        </div>
 
-        <a href="#arcade-console" class="nav-btn" data-nav="arcade-console">
-          <span class="nav-icon">🎮</span>
-          <span>Arcade</span>
-        </a>
-
-        <a href="#contact" class="nav-btn" data-nav="contact">
-          <svg class="nav-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          <span>Contact</span>
-        </a>
-      </nav>
-
-      <!-- Right: Social Pixel Action Buttons, Layout Switcher & Biome Selector -->
-      <div class="navbar-social-group">
-        
-        <!-- Portfolio Layout Switcher (Interactive Dropdown: Reel / Bento / Stack) -->
+        <!-- Project Layout Switcher (Interactive Dropdown: Reel / Bento / Stack / Arcade) -->
         <div class="layout-selector-wrapper" id="layoutSelectorWrapper">
-          <button class="social-pixel-btn btn-layout-select" id="layoutSelectBtn" title="Change Portfolio Layout (Click to switch)" aria-label="Select Layout" aria-haspopup="true" aria-expanded="false">
+          <button class="social-pixel-btn btn-layout-select" id="layoutSelectBtn" title="Project Display Style" aria-label="Select Layout" aria-haspopup="true" aria-expanded="false">
             <span class="layout-current-icon" id="layoutCurrentIcon">🎬</span>
             <span class="layout-btn-label">Reel</span>
             <span class="biome-caret">▾</span>
           </button>
           
-          <!-- Dropdown Layout Menu (Stepped Pixel UI) -->
           <div class="biome-dropdown-menu layout-dropdown-menu hidden" id="layoutDropdownMenu" role="menu">
-            <div class="biome-menu-header">Portfolio Layout</div>
+            <div class="biome-menu-header">Project Layout</div>
             <button class="biome-option-btn layout-option-btn active" data-layout="reel" role="menuitem">
               <span class="biome-opt-icon">🎬</span>
               <div class="layout-opt-meta">
@@ -156,14 +136,13 @@
           </div>
         </div>
 
-        <!-- Minecraft Biome Switcher (Interactive Dropdown & Quick Toggle) -->
+        <!-- Minecraft Biome Switcher -->
         <div class="biome-selector-wrapper" id="biomeSelectorWrapper">
-          <button class="social-pixel-btn btn-biome-select" id="biomeSelectBtn" title="Choose Minecraft Biome (Click to open menu)" aria-label="Select Biome" aria-haspopup="true" aria-expanded="false">
+          <button class="social-pixel-btn btn-biome-select" id="biomeSelectBtn" title="Choose Minecraft Biome" aria-label="Select Biome" aria-haspopup="true" aria-expanded="false">
             <span class="biome-current-icon" id="biomeCurrentIcon">🌿</span>
             <span class="biome-caret">▾</span>
           </button>
           
-          <!-- Dropdown Biome Menu (Stepped Pixel UI) -->
           <div class="biome-dropdown-menu hidden" id="biomeDropdownMenu" role="menu">
             <div class="biome-menu-header">Minecraft Biomes</div>
             <button class="biome-option-btn" data-biome="sakura" role="menuitem">
@@ -190,18 +169,72 @@
           <span class="sound-icon-off hidden">🔇</span>
         </button>
 
-        <a href="#contact" class="social-pixel-btn" title="Get in Touch" aria-label="Contact">
+        <a href="#contact" class="social-pixel-btn" title="Send Raven / Contact" aria-label="Contact">
           <span>✉️</span>
         </a>
       </div>
 
     </header>
 
+    <!-- ================= RPG CODEX CHAPTER NAVIGATION RIBBON ================= -->
+    <nav class="rpg-codex-ribbon-bar" id="rpgCodexNav" aria-label="RPG Chapters Navigation">
+      <div class="codex-tabs-row">
+        <a href="#about" class="codex-ribbon-tab codex-chapter-tab active" data-chapter="character">
+          <span class="tab-wax-seal">👤</span>
+          <div class="tab-text-group">
+            <span class="tab-chapter-idx">CHAPTER I</span>
+            <span class="tab-chapter-name">Character Sheet</span>
+          </div>
+        </a>
+        <a href="#skills" class="codex-ribbon-tab codex-chapter-tab" data-chapter="inventory">
+          <span class="tab-wax-seal">🎒</span>
+          <div class="tab-text-group">
+            <span class="tab-chapter-idx">CHAPTER II</span>
+            <span class="tab-chapter-name">Equipment &amp; Skills</span>
+          </div>
+        </a>
+        <a href="#projects" class="codex-ribbon-tab codex-chapter-tab" data-chapter="quests">
+          <span class="tab-wax-seal">📜</span>
+          <div class="tab-text-group">
+            <span class="tab-chapter-idx">CHAPTER III</span>
+            <span class="tab-chapter-name">Quest Journal</span>
+          </div>
+        </a>
+        <a href="#arcade-console" class="codex-ribbon-tab codex-chapter-tab" data-chapter="arena">
+          <span class="tab-wax-seal">⚔️</span>
+          <div class="tab-text-group">
+            <span class="tab-chapter-idx">CHAPTER IV</span>
+            <span class="tab-chapter-name">Battle Arena</span>
+          </div>
+        </a>
+        <a href="#contact" class="codex-ribbon-tab codex-chapter-tab" data-chapter="tavern">
+          <span class="tab-wax-seal">🏰</span>
+          <div class="tab-text-group">
+            <span class="tab-chapter-idx">CHAPTER V</span>
+            <span class="tab-chapter-name">Guild Tavern</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- View Switcher: Codex Focus Mode vs Continuous Scroll Mode -->
+      <div class="codex-mode-toggle-group">
+        <button type="button" class="rpg-mode-btn active" id="btnCodexScrollMode" title="Continuous RPG scroll through all quest chapters">
+          <span>📜 Scroll Mode</span>
+        </button>
+        <button type="button" class="rpg-mode-btn" id="btnCodexChapterMode" title="Focus one chapter at a time with RPG page transitions">
+          <span>📖 Codex Mode</span>
+        </button>
+      </div>
+    </nav>
+
     <!-- ================= STACKED FULL-WIDTH MAIN DASHBOARD ================= -->
     <main class="stacked-portfolio-flow">
 
-      <!-- ================= 1. HERO SECTION ================= -->
-      <section class="pixel-card hero-section studio-hero-stage" id="home">
+      <!-- ================= CHAPTER I: CHARACTER SHEET & PROFILE ================= -->
+      <div class="codex-chapter codex-active-chapter" id="chapter-character" data-chapter-id="character">
+
+        <!-- ================= 1. HERO SECTION ================= -->
+        <section class="pixel-card hero-section studio-hero-stage" id="home">
         
         <div class="studio-banner-tag-row">
           <div class="studio-super-badge">
@@ -387,7 +420,87 @@
           </div>
         </div>
 
+        <!-- RPG Attribute Matrix (STR, DEX, INT, WIS, CHA) -->
+        <div class="rpg-attributes-card">
+          <div class="rpg-card-header">
+            <span class="rpg-shield-icon">🛡️</span>
+            <h3 class="rpg-card-title">CHARACTER ATTRIBUTES &amp; COMBAT PROFICIENCIES</h3>
+          </div>
+          
+          <div class="rpg-attributes-grid">
+            <!-- STR: Engine & C# Architecture -->
+            <div class="attribute-box attr-str">
+              <div class="attr-top">
+                <span class="attr-abbr">STR</span>
+                <span class="attr-score">95 <small>/ 100</small></span>
+              </div>
+              <div class="attr-name">Engine &amp; C# Architecture</div>
+              <div class="attr-bar-track">
+                <div class="attr-bar-fill" style="width: 95%;"></div>
+              </div>
+              <p class="attr-desc">Robust gameplay architecture, memory management, and multithreaded systems in Unity &amp; C#.</p>
+            </div>
+
+            <!-- DEX: 60 FPS Combat & Physics Feel -->
+            <div class="attribute-box attr-dex">
+              <div class="attr-top">
+                <span class="attr-abbr">DEX</span>
+                <span class="attr-score">98 <small>/ 100</small></span>
+              </div>
+              <div class="attr-name">Combat Feel &amp; 60 FPS Physics</div>
+              <div class="attr-bar-track">
+                <div class="attr-bar-fill" style="width: 98%;"></div>
+              </div>
+              <p class="attr-desc">Fluid martial arts melee, frame-perfect guard parries, posture breaks, and custom drift dynamics.</p>
+            </div>
+
+            <!-- INT: State Machines & Boss AI -->
+            <div class="attribute-box attr-int">
+              <div class="attr-top">
+                <span class="attr-abbr">INT</span>
+                <span class="attr-score">92 <small>/ 100</small></span>
+              </div>
+              <div class="attr-name">Boss AI &amp; State Machines</div>
+              <div class="attr-bar-track">
+                <div class="attr-bar-fill" style="width: 92%;"></div>
+              </div>
+              <p class="attr-desc">Sensory AI perception, escalating 80-level gang progression, and multi-phase Ayakashi rage attacks.</p>
+            </div>
+
+            <!-- WIS: Spatial Audio & Narrative Pacing -->
+            <div class="attribute-box attr-wis">
+              <div class="attr-top">
+                <span class="attr-abbr">WIS</span>
+                <span class="attr-score">90 <small>/ 100</small></span>
+              </div>
+              <div class="attr-name">Spatial Audio &amp; Worldbuilding</div>
+              <div class="attr-bar-track">
+                <div class="attr-bar-fill" style="width: 90%;"></div>
+              </div>
+              <p class="attr-desc">Binaural 3D horror audio radar, foley design, and evocative rural dreamscapes (BYOG 2026).</p>
+            </div>
+
+            <!-- CHA: Jam Team Agility & Polish -->
+            <div class="attribute-box attr-cha">
+              <div class="attr-top">
+                <span class="attr-abbr">CHA</span>
+                <span class="attr-score">94 <small>/ 100</small></span>
+              </div>
+              <div class="attr-name">Team Leadership &amp; Jam Agility</div>
+              <div class="attr-bar-track">
+                <div class="attr-bar-fill" style="width: 94%;"></div>
+              </div>
+              <p class="attr-desc">High-tempo hackathon execution, cross-discipline team synergy, and rapid game feel polish.</p>
+            </div>
+          </div>
+        </div>
+
       </section>
+
+      </div><!-- ================= END CHAPTER I: CHARACTER SHEET ================= -->
+
+      <!-- ================= CHAPTER II: EQUIPMENT & INVENTORY ================= -->
+      <div class="codex-chapter" id="chapter-inventory" data-chapter-id="inventory">
 
       <!-- ================= 3. SKILLS & TOOLS (10 SKILLS - USER'S CURATED LIST) ================= -->
       <section class="pixel-card skills-section" id="skills">
@@ -548,6 +661,11 @@
         </div>
 
       </section>
+
+      </div><!-- ================= END CHAPTER II: EQUIPMENT & INVENTORY ================= -->
+
+      <!-- ================= CHAPTER III: QUEST JOURNAL ================= -->
+      <div class="codex-chapter" id="chapter-quests" data-chapter-id="quests">
 
       <!-- ================= 4. FEATURED PROJECTS ================= -->
       <section class="pixel-card projects-section" id="projects">
@@ -1573,6 +1691,11 @@
 
       </section>
 
+      </div><!-- ================= END CHAPTER III: QUEST JOURNAL ================= -->
+
+      <!-- ================= CHAPTER IV: BATTLE ARENA ================= -->
+      <div class="codex-chapter" id="chapter-arena" data-chapter-id="arena">
+
       <!-- ================= 5. INTERACTIVE ARCADE CONSOLE SCREEN ================= -->
       <section class="pixel-card console-section studio-arcade-stage" id="arcade-console">
         <div class="console-section-header">
@@ -1659,6 +1782,11 @@
         </div>
       </section>
 
+      </div><!-- ================= END CHAPTER IV: BATTLE ARENA ================= -->
+
+      <!-- ================= CHAPTER V: GUILD TAVERN & MESSENGER ================= -->
+      <div class="codex-chapter" id="chapter-tavern" data-chapter-id="tavern">
+
       <!-- ================= 6. GET IN TOUCH (SAKURA BIOME DESIGN) ================= -->
       <section class="pixel-card contact-section" id="contact">
         
@@ -1718,6 +1846,8 @@
         </div>
 
       </section>
+
+      </div><!-- ================= END CHAPTER V: GUILD TAVERN ================= -->
 
     </main>
 
