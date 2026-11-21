@@ -750,9 +750,119 @@ document.addEventListener('DOMContentLoaded', () => {
     playLinkId: 'btnPlayBallPass'
   });
 
-  // 7. Filter Tabs (All / Hairpin / BallPass)
+  // ==========================================================================
+  // 7. CINEMATIC STUDIO REEL CAROUSEL CONTROLLER
+  // ==========================================================================
+  const reelTrack = document.getElementById('featuredProjectsStack');
+  const projectCards = Array.from(document.querySelectorAll('.project-item-card'));
   const projectFilterTabs = document.querySelectorAll('.project-tab-pill');
-  const projectCards = document.querySelectorAll('.project-item-card');
+  const btnReelPrev = document.getElementById('btnReelPrev');
+  const btnReelNext = document.getElementById('btnReelNext');
+  const currentSlideIndicator = document.getElementById('currentSlideIndicator');
+  const reelDotPills = document.querySelectorAll('.reel-dot-pill');
+
+  let activeSlideIndex = 0;
+
+  function scrollToProjectSlide(index) {
+    if (!reelTrack || !projectCards.length) return;
+    const clampedIndex = Math.max(0, Math.min(index, projectCards.length - 1));
+    activeSlideIndex = clampedIndex;
+    
+    // Ensure all cards are visible in reel mode
+    projectCards.forEach(c => c.classList.remove('hidden'));
+
+    const targetCard = projectCards[clampedIndex];
+    if (targetCard) {
+      const scrollPos = targetCard.offsetLeft - reelTrack.offsetLeft - 16;
+      reelTrack.scrollTo({
+        left: Math.max(0, scrollPos),
+        behavior: 'smooth'
+      });
+    }
+
+    updateReelUI(clampedIndex);
+  }
+
+  function updateReelUI(index) {
+    if (currentSlideIndicator) {
+      currentSlideIndicator.textContent = `PROJECT 0${index + 1} / 0${projectCards.length}`;
+    }
+
+    reelDotPills.forEach((pill, idx) => {
+      pill.classList.toggle('active', idx === index);
+    });
+
+    // Auto play video of active card and pause other videos
+    projectCards.forEach((card, idx) => {
+      const vid = card.querySelector('video');
+      if (vid) {
+        if (idx === index) {
+          vid.play().catch(() => {});
+        } else {
+          vid.pause();
+        }
+      }
+    });
+  }
+
+  if (btnReelPrev) {
+    btnReelPrev.addEventListener('click', () => {
+      playUiSound('click');
+      const prevIdx = activeSlideIndex > 0 ? activeSlideIndex - 1 : projectCards.length - 1;
+      scrollToProjectSlide(prevIdx);
+    });
+  }
+
+  if (btnReelNext) {
+    btnReelNext.addEventListener('click', () => {
+      playUiSound('click');
+      const nextIdx = activeSlideIndex < projectCards.length - 1 ? activeSlideIndex + 1 : 0;
+      scrollToProjectSlide(nextIdx);
+    });
+  }
+
+  reelDotPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      playUiSound('click');
+      const idx = parseInt(pill.getAttribute('data-index'), 10) || 0;
+      scrollToProjectSlide(idx);
+    });
+  });
+
+  // Track scroll position to update dots & counter
+  if (reelTrack) {
+    let scrollTimeout;
+    reelTrack.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (!projectCards.length) return;
+        const trackLeft = reelTrack.scrollLeft;
+        let closestIndex = 0;
+        let minDiff = Infinity;
+
+        projectCards.forEach((card, idx) => {
+          const cardLeft = card.offsetLeft - reelTrack.offsetLeft;
+          const diff = Math.abs(cardLeft - trackLeft);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIndex = idx;
+          }
+        });
+
+        activeSlideIndex = closestIndex;
+        updateReelUI(closestIndex);
+      }, 60);
+    }, { passive: true });
+  }
+
+  // Filter tabs smooth-scroll carousel directly to target project
+  const gameToCardIndex = {
+    reverie: 0,
+    hairpin: 1,
+    ballpass: 2,
+    swordsaint: 3,
+    maze: 4
+  };
 
   projectFilterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -762,59 +872,23 @@ document.addEventListener('DOMContentLoaded', () => {
       projectFilterTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      const ongoingDivider = document.getElementById('ongoing-projects');
-
-      projectCards.forEach(card => {
-        const game = card.getAttribute('data-game');
-        const status = card.getAttribute('data-status');
-
-        let isMatch = false;
-        if (filter === 'all') isMatch = true;
-        else if (filter === 'released' && status === 'released') isMatch = true;
-        else if (filter === 'ongoing' && status === 'ongoing') isMatch = true;
-        else if (filter === game) isMatch = true;
-
-        if (isMatch) {
-          card.classList.remove('hidden');
-          const vid = card.querySelector('video');
-          if (vid && vid.paused) {
-            vid.play().catch(() => {});
-          }
-        } else {
-          card.classList.add('hidden');
-          const vid = card.querySelector('video');
-          if (vid) {
-            vid.pause();
-            vid.muted = true;
-          }
-        }
-      });
-
-      // Hide or show the ongoing divider based on filter
-      if (ongoingDivider) {
-        if (filter === 'released') {
-          ongoingDivider.style.display = 'none';
-        } else {
-          ongoingDivider.style.display = 'flex';
-        }
-      }
-
       if (filter === 'all') {
-        showToast('?? Showing All 5 Portfolio Projects');
+        scrollToProjectSlide(0);
+        showToast('🎮 Showing All 5 Portfolio Projects');
       } else if (filter === 'released') {
-        showToast('?? Showing 3 Released Games');
+        scrollToProjectSlide(0);
+        showToast('🏆 Showing 3 Released Games');
       } else if (filter === 'ongoing') {
-        showToast('??? Showing 2 Ongoing Projects in Active Development');
-      } else if (filter === 'swordsaint') {
-        showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
-      } else if (filter === 'maze') {
-        showToast('?? Showing Maze Explorer');
-      } else if (filter === 'reverie') {
-        showToast('?? Showing The Summer Reverie');
-      } else if (filter === 'hairpin') {
-        showToast('??? Showing Hairpin Drift');
-      } else if (filter === 'ballpass') {
-        showToast('? Showing BallPass3D');
+        scrollToProjectSlide(3); // Stickman Sword Saint
+        showToast('🛠️ Showing 2 Ongoing Projects in Active Development');
+      } else if (gameToCardIndex[filter] !== undefined) {
+        const targetIdx = gameToCardIndex[filter];
+        scrollToProjectSlide(targetIdx);
+        if (filter === 'swordsaint') showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
+        else if (filter === 'maze') showToast('🔦 Showing Maze Explorer');
+        else if (filter === 'reverie') showToast('🌾 Showing The Summer Reverie');
+        else if (filter === 'hairpin') showToast('🏎️ Showing Hairpin Drift');
+        else if (filter === 'ballpass') showToast('⚽ Showing BallPass3D');
       }
     });
   });

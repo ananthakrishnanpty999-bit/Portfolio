@@ -158,8 +158,15 @@
     <main class="stacked-portfolio-flow">
 
       <!-- ================= 1. HERO SECTION ================= -->
-      <section class="pixel-card hero-section" id="home">
+      <section class="pixel-card hero-section studio-hero-stage" id="home">
         
+        <div class="studio-banner-tag-row">
+          <div class="studio-super-badge">
+            <span class="live-pulse-dot"></span>
+            <span>🎬 INDIE GAME DEV STUDIO · ANANTHAKRISHNAN SB</span>
+          </div>
+        </div>
+
         <div class="hero-content-row">
           <!-- Left: Hero Text & Actions -->
           <div class="hero-left-col">
@@ -169,7 +176,7 @@
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="badge-icon">
                 <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
               </svg>
-              <span>Game Developer</span>
+              <span>Game Developer &amp; Technical Artist</span>
             </div>
 
             <!-- Main Title: Hi, I'm AnanthaKrishnan SB (Minecraft Pixel Headline) -->
@@ -178,9 +185,13 @@
               <span class="pixel-name-text">AnanthaKrishnan SB</span>
             </h1>
 
+            <div class="hero-studio-kicker">
+              CRAFTING IMMERSIVE BLOCKY WORLDS &amp; HIGH-OCTANE COMBAT
+            </div>
+
             <!-- Subtitle -->
             <p class="hero-description">
-              A game developer who builds immersive, blocky worlds, engaging gameplay, and memorable experiences.
+              A game developer building immersive worlds, responsive combat, and engaging mechanics with custom 60 FPS physics engines.
             </p>
 
             <!-- 3D Pixel Bevel Action Buttons -->
@@ -189,8 +200,13 @@
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" class="btn-icon">
                   <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                 </svg>
-                <span>View Projects</span>
+                <span>🎬 Explore Studio Reel</span>
                 <span class="btn-arrow-icon">→</span>
+              </a>
+
+              <a href="#arcade-console" class="pixel-btn-3d btn-white" id="btnHeroArcade">
+                <span class="btn-icon">🕹️</span>
+                <span>Playable Arcade</span>
               </a>
 
               <a href="#about" class="pixel-btn-3d btn-white" id="btnHeroAbout">
@@ -204,40 +220,70 @@
 
           </div>
 
-          <!-- Right: Hero Minecraft Landscape Artwork (Sakura Grove Style) -->
+          <!-- Right: Hero Minecraft Landscape Artwork -->
           <div class="hero-art-col">
             <div class="hero-art-frame">
+              <div class="studio-art-live-tag">
+                <span class="live-rec-dot"></span>
+                <span>STUDIO SHOWCASE · 60 FPS</span>
+              </div>
               <img src="./assets/hero-minecraft-adventurer.jpg" alt="Minecraft Adventurer overlooking Overworld Valley with Castle and Nether Portal" class="hero-scene-img" id="heroSceneImg">
             </div>
           </div>
         </div>
 
-        <!-- Hero Bottom Stats Shelf (Stepped Pixel Inset Bar with User's Exact Stats: 3+ Games & 2+ Projects Ongoing) -->
-        <div class="pixel-stats-shelf stats-two-col">
+        <!-- Hero Bottom Stats Shelf (Widescreen 5-Item Studio Ticker Bar) -->
+        <div class="pixel-stats-shelf stats-studio-ticker">
           
-          <a href="#projects" class="stat-cell stat-link" id="statCellReleased" title="Click to view 3 Released Games">
+          <a href="#projects" class="stat-cell stat-link" id="statCellReleased" title="Click to view 5 Studio Projects">
             <div class="stat-icon-box">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" class="stat-gamepad-icon">
                 <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
               </svg>
             </div>
             <div class="stat-text-meta">
-              <span class="stat-num"><span class="counter" data-count="3">0</span>+</span>
-              <span class="stat-label">Games Developed</span>
+              <span class="stat-num"><span class="counter" data-count="5">0</span>+</span>
+              <span class="stat-label">Projects Developed</span>
             </div>
           </a>
 
-          <a href="#ongoing-projects" class="stat-cell stat-link" id="statCellOngoing" title="Click to view 2 Ongoing Projects in Active Development">
+          <a href="#arcade-console" class="stat-cell stat-link" title="Click to view 60 FPS Arcade Engine">
             <div class="stat-icon-box">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="#22c55e">
-                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                <polyline points="2 17 12 22 22 17"></polyline>
-                <polyline points="2 12 12 17 22 12"></polyline>
-              </svg>
+              <span style="font-size: 20px;">⚡</span>
             </div>
             <div class="stat-text-meta">
-              <span class="stat-num"><span class="counter" data-count="2">0</span>+</span>
-              <span class="stat-label">Projects Ongoing</span>
+              <span class="stat-num"><span class="counter" data-count="60">0</span> FPS</span>
+              <span class="stat-label">Custom Physics</span>
+            </div>
+          </a>
+
+          <a href="#projects" class="stat-cell stat-link" title="Click to view Stickman Combat & Bosses">
+            <div class="stat-icon-box">
+              <span style="font-size: 20px;">🗡️</span>
+            </div>
+            <div class="stat-text-meta">
+              <span class="stat-num"><span class="counter" data-count="80">0</span> Levels</span>
+              <span class="stat-label">Boss Progression</span>
+            </div>
+          </a>
+
+          <a href="#arcade-console" class="stat-cell stat-link" title="Click to launch In-Browser Arcade">
+            <div class="stat-icon-box">
+              <span style="font-size: 20px;">🕹️</span>
+            </div>
+            <div class="stat-text-meta">
+              <span class="stat-num"><span class="counter" data-count="3">0</span> Games</span>
+              <span class="stat-label">Playable In-Browser</span>
+            </div>
+          </a>
+
+          <a href="#about" class="stat-cell stat-link" title="Click to view Developer Location">
+            <div class="stat-icon-box">
+              <span style="font-size: 20px;">📍</span>
+            </div>
+            <div class="stat-text-meta">
+              <span class="stat-num" style="font-size: 1.15rem;">Kerala</span>
+              <span class="stat-label">Pathanapuram, India</span>
             </div>
           </a>
 
@@ -463,8 +509,8 @@
       <!-- ================= 4. FEATURED PROJECTS ================= -->
       <section class="pixel-card projects-section" id="projects">
         
-        <!-- Section Header with Sakura Blossom & View All Projects -->
-        <div class="projects-header-row">
+        <!-- Section Header with Sakura Blossom & Studio Reel Navigation Controls -->
+        <div class="projects-header-row studio-reel-header">
           <div class="projects-title-left">
             <div class="header-sakura-flower-box" title="Sakura Blossom">
               <svg viewBox="0 0 16 16" width="28" height="28" class="sakura-pixel-flower" style="image-rendering: pixelated;" aria-hidden="true">
@@ -488,15 +534,27 @@
               </svg>
             </div>
             <div>
-              <h2 class="section-heading-pixel">Featured Projects</h2>
-              <p class="section-sub-desc">A showcase of games and interactive experiences I've built.</p>
+              <div class="studio-sub-badge">🎬 STUDIO CINEMATIC REEL</div>
+              <h2 class="section-heading-pixel">Featured Works &amp; Releases</h2>
+              <p class="section-sub-desc">Browse 5 indie titles spanning lethal 2D samurai combat, visual novels, procedural horror, and 3D physics arcade.</p>
             </div>
           </div>
 
-          <a href="#arcade-console" class="pixel-pill-btn btn-sakura-pill" id="btnViewAllProjects">
-            <span>View All Projects</span>
-            <span class="btn-arrow-icon">→</span>
-          </a>
+          <!-- Studio Reel Navigation Controls -->
+          <div class="reel-controls-group">
+            <div class="reel-counter-badge" id="reelCounterBadge" title="Current Reel Slide">
+              <span class="reel-dot pulse"></span>
+              <span id="currentSlideIndicator">PROJECT 01 / 05</span>
+            </div>
+            <div class="reel-nav-buttons">
+              <button type="button" class="pixel-btn-3d btn-white reel-nav-btn" id="btnReelPrev" title="Previous Slide (◀)">
+                <span>◀ PREV</span>
+              </button>
+              <button type="button" class="pixel-btn-3d btn-purple reel-nav-btn" id="btnReelNext" title="Next Slide (▶)">
+                <span>NEXT ▶</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- ================= PROJECTS FILTER / SELECTOR PILLS ================= -->
@@ -1159,6 +1217,36 @@
 
         </div><!-- End Featured Projects Stack -->
 
+        <!-- Studio Reel Pagination Track with Indicator Pills & Navigation Dots -->
+        <div class="reel-pagination-container">
+          <div class="reel-drag-hint">
+            <span class="hint-icon">↔</span>
+            <span>Scroll or drag horizontally to explore reel · or use arrow buttons</span>
+          </div>
+          <div class="reel-dots-track" id="reelDotsTrack">
+            <button type="button" class="reel-dot-pill active" data-index="0" title="1. The Summer Reverie">
+              <span class="dot-num">01</span>
+              <span class="dot-name">The Summer Reverie</span>
+            </button>
+            <button type="button" class="reel-dot-pill" data-index="1" title="2. Hairpin Drift">
+              <span class="dot-num">02</span>
+              <span class="dot-name">Hairpin Drift</span>
+            </button>
+            <button type="button" class="reel-dot-pill" data-index="2" title="3. BallPass3D">
+              <span class="dot-num">03</span>
+              <span class="dot-name">BallPass3D</span>
+            </button>
+            <button type="button" class="reel-dot-pill" data-index="3" title="4. Stickman: The Ultimate Sword Saint">
+              <span class="dot-num">04</span>
+              <span class="dot-name">Stickman: Sword Saint</span>
+            </button>
+            <button type="button" class="reel-dot-pill" data-index="4" title="5. Maze Explorer">
+              <span class="dot-num">05</span>
+              <span class="dot-name">Maze Explorer</span>
+            </button>
+          </div>
+        </div>
+
         <!-- More Projects Incoming Strip -->
         <div class="projects-more-shelf">
           <div class="more-shelf-left">
@@ -1173,11 +1261,14 @@
       </section>
 
       <!-- ================= 5. INTERACTIVE ARCADE CONSOLE SCREEN ================= -->
-      <section class="pixel-card console-section" id="arcade-console">
+      <section class="pixel-card console-section studio-arcade-stage" id="arcade-console">
         <div class="console-section-header">
-          <div class="section-pixel-badge">
-            <span class="badge-creeper-box">🎮</span>
-            <span class="badge-title-text">Playable Arcade Screen</span>
+          <div class="arcade-title-group">
+            <div class="section-pixel-badge">
+              <span class="badge-creeper-box">🕹️</span>
+              <span class="badge-title-text">Playable Arcade Stage</span>
+            </div>
+            <p class="console-sub-desc">Developer testbed running browser-native 60 FPS canvas game engines with custom physics and combo combat.</p>
           </div>
           
           <!-- Game Selector Tabs -->
