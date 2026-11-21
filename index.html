@@ -3,797 +3,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AnanthaKrishnan SB | Game Developer Portfolio</title>
-  <meta name="description" content="Portfolio of AnanthaKrishnan SB - A game developer who builds immersive, blocky worlds, engaging gameplay, and memorable experiences.">
+  <title>AnanthaKrishnan SB | Game Developer &amp; Technical Artist</title>
+  <meta name="description" content="Portfolio of AnanthaKrishnan SB - Indie Game Developer specializing in fluid combat systems, 60 FPS physics engines, and immersive 3D worlds.">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/about-character-pixel.png">
 
-  <!-- Google Fonts: Plus Jakarta Sans, Pixelify Sans -->
+  <!-- Google Fonts: Plus Jakarta Sans, Syne, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="./style.css">
 </head>
-<body class="pixel-theme theme-plains">
+<body class="aaa-dark-theme">
 
-  <!-- Ambient Light Lavender Pixel Atmosphere -->
-  <div class="ambient-pixel-bg" aria-hidden="true">
-    <!-- Scattered Lilac Pixel Clusters in Corners & Edges -->
-    <div class="pixel-cluster cluster-top-left"></div>
-    <div class="pixel-cluster cluster-top-right"></div>
-    <div class="pixel-cluster cluster-mid-right"></div>
-    <div class="pixel-cluster cluster-bottom-left"></div>
-    <div class="pixel-cluster cluster-bottom-right"></div>
+  <!-- Cybernetic Dark Ambient Glow Background -->
+  <div class="ambient-dark-bg" aria-hidden="true">
+    <div class="ambient-glow glow-top-left"></div>
+    <div class="ambient-glow glow-mid-right"></div>
+    <div class="ambient-glow glow-bottom-center"></div>
+    <div class="cyber-grid-overlay"></div>
     <canvas id="ambient-pixel-canvas"></canvas>
   </div>
 
   <!-- Page Wrapper -->
   <div class="page-container">
 
-    <!-- ================= RPG PLAYER HUD & CHARACTER CREST ================= -->
-    <header class="rpg-hud-header" id="siteHeader">
+    <!-- ================= 1. MODERN AAA STUDIO NAVBAR ================= -->
+    <header class="aaa-navbar" id="siteHeader">
       
-      <!-- Left: Player Profile & Level Crest -->
-      <div class="rpg-player-profile" id="axeBrandBtn" role="button" tabindex="0" title="Player Level 80 Game Dev Adventurer (Click to launch Arcade!)">
-        <div class="rpg-avatar-frame">
-          <img src="./assets/about-character-pixel.png" alt="AnanthaKrishnan SB Avatar" class="rpg-hud-avatar">
-          <span class="rpg-lvl-badge">LV.80</span>
+      <!-- Studio Brand Logo -->
+      <a href="#home" class="aaa-brand" id="axeBrandBtn" title="AnanthaKrishnan SB Studio">
+        <div class="brand-crest">
+          <svg viewBox="0 0 32 32" width="24" height="24" fill="none" class="brand-svg">
+            <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="url(#brandGrad)" stroke-width="2.5" fill="rgba(139, 92, 246, 0.15)"/>
+            <path d="M11 16L16 11L21 16L16 21Z" fill="#8b5cf6"/>
+            <defs>
+              <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8b5cf6"/>
+                <stop offset="100%" stop-color="#06b6d4"/>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
-        <div class="rpg-player-meta">
-          <div class="rpg-name-row">
-            <span class="rpg-player-name">ANANTHAKRISHNAN SB</span>
-            <span class="rpg-class-tag">COMBAT ARCHITECT</span>
-          </div>
-          <span class="rpg-guild-title">Indie Game Developer &amp; Technical Artist</span>
+        <div class="brand-meta">
+          <span class="brand-name">ANANTHAKRISHNAN SB</span>
+          <span class="brand-tagline">GAME DEVELOPER · COMBAT SYSTEMS</span>
         </div>
-      </div>
+      </a>
 
-      <!-- Center: RPG Vitality & Resource Meters (HP, MP, EXP) -->
-      <div class="rpg-status-bars-group">
-        <!-- Health (Code Architecture) -->
-        <div class="rpg-bar-item bar-hp" title="Health: 1,000 / 1,000 (Code Architecture &amp; 60 FPS Engine Resilience)">
-          <div class="rpg-bar-label-row">
-            <span class="bar-type-tag"><span class="bar-icon">❤️</span> HP</span>
-            <span class="bar-num">1,000 / 1,000</span>
-          </div>
-          <div class="rpg-bar-track">
-            <div class="rpg-bar-fill hp-fill" style="width: 100%;"></div>
-          </div>
-        </div>
+      <!-- Navigation Links -->
+      <nav class="aaa-nav-links" id="mainNav">
+        <a href="#home" class="aaa-nav-link active" data-nav="home">Home</a>
+        <a href="#about" class="aaa-nav-link" data-nav="about">About</a>
+        <a href="#projects" class="aaa-nav-link" data-nav="projects">Projects</a>
+        <a href="#arcade-console" class="aaa-nav-link" data-nav="arcade-console">Playable Arcade</a>
+        <a href="#skills" class="aaa-nav-link" data-nav="skills">Skills</a>
+        <a href="#contact" class="aaa-nav-link" data-nav="contact">Contact</a>
+      </nav>
 
-        <!-- Mana (Creative Vision & Logic) -->
-        <div class="rpg-bar-item bar-mp" title="Mana: 850 / 850 (Combat Systems, Physics &amp; State Logic)">
-          <div class="rpg-bar-label-row">
-            <span class="bar-type-tag"><span class="bar-icon">🔷</span> MP</span>
-            <span class="bar-num">850 / 850</span>
-          </div>
-          <div class="rpg-bar-track">
-            <div class="rpg-bar-fill mp-fill" style="width: 100%;"></div>
-          </div>
-        </div>
-
-        <!-- Experience (Level Progression) -->
-        <div class="rpg-bar-item bar-exp" title="EXP: 85,420 / 90,000 (94.9% to Lead Architect Rank)">
-          <div class="rpg-bar-label-row">
-            <span class="bar-type-tag"><span class="bar-icon">⭐</span> EXP</span>
-            <span class="bar-num">85.4K / 90K</span>
-          </div>
-          <div class="rpg-bar-track">
-            <div class="rpg-bar-fill exp-fill" style="width: 94.9%;"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: Currency, Realm Biome & Audio Controls -->
-      <div class="rpg-hud-actions">
-        <!-- Ryo Loot Counter -->
-        <div class="rpg-currency-badge" title="Guild Ryo / Bounty Gold Earned">
-          <span class="gold-coin-icon">🪙</span>
-          <span class="currency-amount">1,337 <small>RYO</small></span>
-        </div>
-
-        <!-- Project Layout Switcher (Interactive Dropdown: Reel / Bento / Stack / Arcade) -->
-        <div class="layout-selector-wrapper" id="layoutSelectorWrapper">
-          <button class="social-pixel-btn btn-layout-select" id="layoutSelectBtn" title="Project Display Style" aria-label="Select Layout" aria-haspopup="true" aria-expanded="false">
-            <span class="layout-current-icon" id="layoutCurrentIcon">🎬</span>
-            <span class="layout-btn-label">Reel</span>
-            <span class="biome-caret">▾</span>
-          </button>
-          
-          <div class="biome-dropdown-menu layout-dropdown-menu hidden" id="layoutDropdownMenu" role="menu">
-            <div class="biome-menu-header">Project Layout</div>
-            <button class="biome-option-btn layout-option-btn active" data-layout="reel" role="menuitem">
-              <span class="biome-opt-icon">🎬</span>
-              <div class="layout-opt-meta">
-                <span class="biome-opt-text">Cinematic Reel</span>
-                <span class="layout-opt-desc">Horizontal carousel &amp; wide stage</span>
-              </div>
-            </button>
-            <button class="biome-option-btn layout-option-btn" data-layout="bento" role="menuitem">
-              <span class="biome-opt-icon">🍱</span>
-              <div class="layout-opt-meta">
-                <span class="biome-opt-text">Modern Bento Grid</span>
-                <span class="layout-opt-desc">Modular multi-card dashboard</span>
-              </div>
-            </button>
-            <button class="biome-option-btn layout-option-btn" data-layout="stack" role="menuitem">
-              <span class="biome-opt-icon">📜</span>
-              <div class="layout-opt-meta">
-                <span class="biome-opt-text">Classic Stack</span>
-                <span class="layout-opt-desc">Linear vertical scroll flow</span>
-              </div>
-            </button>
-            <button class="biome-option-btn layout-option-btn" data-layout="arcade" role="menuitem">
-              <span class="biome-opt-icon">🕹️</span>
-              <div class="layout-opt-meta">
-                <span class="biome-opt-text">Retro Arcade Cabinet</span>
-                <span class="layout-opt-desc">Vintage coin-op cabinets &amp; CRT scanlines</span>
-              </div>
-            </button>
-          </div>
-        </div>
-
-        <!-- Minecraft Biome Switcher -->
-        <div class="biome-selector-wrapper" id="biomeSelectorWrapper">
-          <button class="social-pixel-btn btn-biome-select" id="biomeSelectBtn" title="Choose Minecraft Biome" aria-label="Select Biome" aria-haspopup="true" aria-expanded="false">
-            <span class="biome-current-icon" id="biomeCurrentIcon">🌿</span>
-            <span class="biome-caret">▾</span>
-          </button>
-          
-          <div class="biome-dropdown-menu hidden" id="biomeDropdownMenu" role="menu">
-            <div class="biome-menu-header">Minecraft Biomes</div>
-            <button class="biome-option-btn" data-biome="sakura" role="menuitem">
-              <span class="biome-opt-icon">🌸</span>
-              <span class="biome-opt-text">Sakura Grove</span>
-            </button>
-            <button class="biome-option-btn active" data-biome="plains" role="menuitem">
-              <span class="biome-opt-icon">🌿</span><span class="biome-opt-text">Overworld (Leaf)</span>
-            </button>
-            <button class="biome-option-btn" data-biome="snow" role="menuitem">
-              <span class="biome-opt-icon">❄️</span>
-              <span class="biome-opt-text">Snowy Taiga</span>
-            </button>
-            <button class="biome-option-btn" data-biome="nether" role="menuitem">
-              <span class="biome-opt-icon">🔥</span>
-              <span class="biome-opt-text">The Nether</span>
-            </button>
-          </div>
+      <!-- Right Actions: Status & Audio & CTA -->
+      <div class="aaa-nav-actions">
+        <div class="hire-status-pill" title="Open to game dev opportunities &amp; contracts">
+          <span class="pulse-dot"></span>
+          <span>AVAILABLE FOR HIRE</span>
         </div>
 
         <!-- Sound FX Audio Toggle -->
-        <button class="social-pixel-btn btn-audio-toggle" id="soundToggle" title="Toggle Sound FX" aria-label="Toggle Sound">
+        <button class="aaa-icon-btn btn-audio-toggle" id="soundToggle" title="Toggle Sound FX" aria-label="Toggle Sound">
           <span class="sound-icon-on">🔊</span>
           <span class="sound-icon-off hidden">🔇</span>
         </button>
 
-        <a href="#contact" class="social-pixel-btn" title="Send Raven / Contact" aria-label="Contact">
-          <span>✉️</span>
+        <a href="#contact" class="aaa-btn-primary nav-cta-btn">
+          <span>Let's Talk</span>
+          <span class="btn-arrow">→</span>
         </a>
       </div>
 
     </header>
 
-    <!-- ================= RPG CODEX CHAPTER NAVIGATION RIBBON ================= -->
-    <nav class="rpg-codex-ribbon-bar" id="rpgCodexNav" aria-label="RPG Chapters Navigation">
-      <div class="codex-tabs-row">
-        <a href="#about" class="codex-ribbon-tab codex-chapter-tab active" data-chapter="character">
-          <span class="tab-wax-seal">👤</span>
-          <div class="tab-text-group">
-            <span class="tab-chapter-idx">CHAPTER I</span>
-            <span class="tab-chapter-name">Character Sheet</span>
-          </div>
-        </a>
-        <a href="#skills" class="codex-ribbon-tab codex-chapter-tab" data-chapter="inventory">
-          <span class="tab-wax-seal">🎒</span>
-          <div class="tab-text-group">
-            <span class="tab-chapter-idx">CHAPTER II</span>
-            <span class="tab-chapter-name">Equipment &amp; Skills</span>
-          </div>
-        </a>
-        <a href="#projects" class="codex-ribbon-tab codex-chapter-tab" data-chapter="quests">
-          <span class="tab-wax-seal">📜</span>
-          <div class="tab-text-group">
-            <span class="tab-chapter-idx">CHAPTER III</span>
-            <span class="tab-chapter-name">Quest Journal</span>
-          </div>
-        </a>
-        <a href="#arcade-console" class="codex-ribbon-tab codex-chapter-tab" data-chapter="arena">
-          <span class="tab-wax-seal">⚔️</span>
-          <div class="tab-text-group">
-            <span class="tab-chapter-idx">CHAPTER IV</span>
-            <span class="tab-chapter-name">Battle Arena</span>
-          </div>
-        </a>
-        <a href="#contact" class="codex-ribbon-tab codex-chapter-tab" data-chapter="tavern">
-          <span class="tab-wax-seal">🏰</span>
-          <div class="tab-text-group">
-            <span class="tab-chapter-idx">CHAPTER V</span>
-            <span class="tab-chapter-name">Guild Tavern</span>
-          </div>
-        </a>
-      </div>
+    <!-- ================= MAIN CONTENT FLOW ================= -->
+    <main class="aaa-main-flow">
 
-      <!-- View Switcher: Codex Focus Mode vs Continuous Scroll Mode -->
-      <div class="codex-mode-toggle-group">
-        <button type="button" class="rpg-mode-btn active" id="btnCodexScrollMode" title="Continuous RPG scroll through all quest chapters">
-          <span>📜 Scroll Mode</span>
-        </button>
-        <button type="button" class="rpg-mode-btn" id="btnCodexChapterMode" title="Focus one chapter at a time with RPG page transitions">
-          <span>📖 Codex Mode</span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- ================= STACKED FULL-WIDTH MAIN DASHBOARD ================= -->
-    <main class="stacked-portfolio-flow">
-
-      <!-- ================= CHAPTER I: CHARACTER SHEET & PROFILE ================= -->
-      <div class="codex-chapter codex-active-chapter" id="chapter-character" data-chapter-id="character">
-
-        <!-- ================= 1. HERO SECTION ================= -->
-        <section class="pixel-card hero-section studio-hero-stage" id="home">
+      <!-- ================= 2. HERO SECTION ================= -->
+      <section class="aaa-card hero-section" id="home">
         
-        <div class="studio-banner-tag-row">
-          <div class="studio-super-badge">
-            <span class="live-pulse-dot"></span>
-            <span>🎬 INDIE GAME DEV STUDIO · ANANTHAKRISHNAN SB</span>
-          </div>
-        </div>
-
-        <div class="hero-content-row">
+        <div class="hero-grid-row">
           <!-- Left: Hero Text & Actions -->
           <div class="hero-left-col">
             
-            <!-- Game Developer Pill Badge -->
-            <div class="pixel-badge badge-developer">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="badge-icon">
-                <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-              </svg>
-              <span>Game Developer &amp; Technical Artist</span>
+            <div class="hero-tag-badge">
+              <span class="tag-sparkle">✦</span>
+              <span>INDIE GAME DEVELOPER &amp; TECHNICAL ARTIST</span>
             </div>
 
-            <!-- Main Title: Hi, I'm AnanthaKrishnan SB (Minecraft Pixel Headline) -->
-            <h1 class="hero-title">
-              Hi, I'm<br>
-              <span class="pixel-name-text">AnanthaKrishnan SB</span>
+            <h1 class="hero-headline">
+              Crafting High-Octane Action &amp; <span class="gradient-text">Immersive Game Worlds.</span>
             </h1>
 
-            <div class="hero-studio-kicker">
-              CRAFTING IMMERSIVE BLOCKY WORLDS &amp; HIGH-OCTANE COMBAT
-            </div>
-
-            <!-- Subtitle -->
             <p class="hero-description">
-              A game developer building immersive worlds, responsive combat, and engaging mechanics with custom 60 FPS physics engines.
+              Game developer specializing in fluid combat systems, 60 FPS physics engines, frame-perfect guard mechanics, and evocative 3D narrative environments. Built with Unity, C#, and custom mathematics.
             </p>
 
-            <!-- 3D Pixel Bevel Action Buttons -->
-            <div class="hero-button-row">
-              <a href="#projects" class="pixel-btn-3d btn-purple" id="btnHeroProjects">
+            <div class="hero-action-buttons">
+              <a href="#projects" class="aaa-btn-primary" id="btnHeroProjects">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" class="btn-icon">
                   <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                 </svg>
-                <span>🎬 Explore Studio Reel</span>
-                <span class="btn-arrow-icon">→</span>
+                <span>Explore Featured Titles</span>
+                <span class="btn-arrow">↓</span>
               </a>
 
-              <a href="#arcade-console" class="pixel-btn-3d btn-white" id="btnHeroArcade">
+              <a href="#arcade-console" class="aaa-btn-secondary" id="btnHeroArcade">
                 <span class="btn-icon">🕹️</span>
-                <span>Playable Arcade</span>
+                <span>Play StickSaw Arcade</span>
               </a>
 
-              <a href="#about" class="pixel-btn-3d btn-white" id="btnHeroAbout">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+              <a href="#about" class="aaa-btn-ghost" id="btnHeroAbout">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
                 </svg>
-                <span>About Me</span>
+                <span>About Developer</span>
               </a>
             </div>
 
           </div>
 
-          <!-- Right: Hero Minecraft Landscape Artwork -->
-          <div class="hero-art-col">
-            <div class="hero-art-frame">
-              <div class="studio-art-live-tag">
+          <!-- Right: Hero Visual Showcase -->
+          <div class="hero-visual-col">
+            <div class="hero-visual-frame">
+              <div class="visual-corner-tl"></div>
+              <div class="visual-corner-tr"></div>
+              <div class="visual-corner-bl"></div>
+              <div class="visual-corner-br"></div>
+              
+              <div class="visual-live-badge">
                 <span class="live-rec-dot"></span>
-                <span>STUDIO SHOWCASE · 60 FPS</span>
+                <span>60 FPS ENGINE SHOWCASE</span>
               </div>
-              <img src="./assets/hero-minecraft-adventurer.jpg" alt="Minecraft Adventurer overlooking Overworld Valley with Castle and Nether Portal" class="hero-scene-img" id="heroSceneImg">
+
+              <img src="./assets/hero-minecraft-adventurer.jpg" alt="Game Developer Showcase Environment" class="hero-showcase-img" id="heroSceneImg">
+
+              <div class="visual-specs-overlay">
+                <span class="spec-pill">Unity 3D Engine</span>
+                <span class="spec-pill">C# Architecture</span>
+                <span class="spec-pill">Custom Physics</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Hero Bottom Stats Shelf (Widescreen 5-Item Studio Ticker Bar) -->
-        <div class="pixel-stats-shelf stats-studio-ticker">
-          
-          <a href="#projects" class="stat-cell stat-link" id="statCellReleased" title="Click to view 5 Studio Projects">
-            <div class="stat-icon-box">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" class="stat-gamepad-icon">
-                <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-              </svg>
-            </div>
-            <div class="stat-text-meta">
-              <span class="stat-num"><span class="counter" data-count="5">0</span>+</span>
-              <span class="stat-label">Projects Developed</span>
-            </div>
-          </a>
+        <!-- Metrics Ticker Bar -->
+        <div class="hero-metrics-shelf">
+          <div class="metric-card" id="statCellReleased">
+            <div class="metric-num"><span class="counter" data-count="5">0</span>+</div>
+            <div class="metric-label">Shipped &amp; Active Titles</div>
+          </div>
 
-          <a href="#arcade-console" class="stat-cell stat-link" title="Click to view 60 FPS Arcade Engine">
-            <div class="stat-icon-box">
-              <span style="font-size: 20px;">⚡</span>
-            </div>
-            <div class="stat-text-meta">
-              <span class="stat-num"><span class="counter" data-count="60">0</span> FPS</span>
-              <span class="stat-label">Custom Physics</span>
-            </div>
-          </a>
+          <div class="metric-card">
+            <div class="metric-num"><span class="counter" data-count="60">0</span> FPS</div>
+            <div class="metric-label">Custom Physics Simulation</div>
+          </div>
 
-          <a href="#projects" class="stat-cell stat-link" title="Click to view Stickman Combat & Bosses">
-            <div class="stat-icon-box">
-              <span style="font-size: 20px;">🗡️</span>
-            </div>
-            <div class="stat-text-meta">
-              <span class="stat-num"><span class="counter" data-count="80">0</span> Levels</span>
-              <span class="stat-label">Boss Progression</span>
-            </div>
-          </a>
+          <div class="metric-card">
+            <div class="metric-num"><span class="counter" data-count="80">0</span> Levels</div>
+            <div class="metric-label">Boss Progression Combat</div>
+          </div>
 
-          <a href="#arcade-console" class="stat-cell stat-link" title="Click to launch In-Browser Arcade">
-            <div class="stat-icon-box">
-              <span style="font-size: 20px;">🕹️</span>
-            </div>
-            <div class="stat-text-meta">
-              <span class="stat-num"><span class="counter" data-count="3">0</span> Games</span>
-              <span class="stat-label">Playable In-Browser</span>
-            </div>
-          </a>
-
-          <a href="#about" class="stat-cell stat-link" title="Click to view Developer Location">
-            <div class="stat-icon-box">
-              <span style="font-size: 20px;">📍</span>
-            </div>
-            <div class="stat-text-meta">
-              <span class="stat-num" style="font-size: 1.15rem;">Kerala</span>
-              <span class="stat-label">Pathanapuram, India</span>
-            </div>
-          </a>
-
+          <div class="metric-card">
+            <div class="metric-num">BYOG 2026</div>
+            <div class="metric-label">Game Jam Finalist Entry</div>
+          </div>
         </div>
 
       </section>
 
-      <!-- ================= 2. ABOUT ME SECTION ================= -->
-      <section class="pixel-card about-section" id="about">
+      <!-- ================= 3. ABOUT SECTION ================= -->
+      <section class="aaa-card about-section" id="about">
         
-        <!-- Header Badge: Creeper Icon + About Me -->
-        <div class="section-pixel-badge">
-          <div class="badge-creeper-box">
-            <svg viewBox="0 0 16 16" width="16" height="16" fill="#000">
-              <rect x="2" y="2" width="4" height="4" />
-              <rect x="10" y="2" width="4" height="4" />
-              <rect x="6" y="5" width="4" height="5" />
-              <rect x="4" y="7" width="8" height="4" />
-              <rect x="4" y="11" width="2.5" height="3" />
-              <rect x="9.5" y="11" width="2.5" height="3" />
-            </svg>
-          </div>
-          <span class="badge-title-text">About Me</span>
-        </div>
+        <div class="section-kicker">// 01. PROFILE</div>
+        <h2 class="section-heading">Engineering Satisfying Game Feel &amp; Robust Mechanics.</h2>
 
-        <div class="about-content-row">
-          <!-- Left: 3D Minecraft Character Avatar -->
-          <div class="about-avatar-col">
-            <div class="avatar-pixel-frame">
-              <img src="./assets/about-character-pixel.png" alt="Minecraft Character Avatar" class="about-avatar-img">
+        <div class="about-grid-row">
+          
+          <!-- Left: Developer Avatar Card -->
+          <div class="about-avatar-card">
+            <div class="avatar-img-frame">
+              <img src="./assets/about-character-pixel.png" alt="AnanthaKrishnan SB Avatar" class="about-avatar-img">
+            </div>
+            
+            <div class="avatar-meta-box">
+              <h3 class="avatar-name">AnanthaKrishnan SB</h3>
+              <p class="avatar-title">Game Developer &amp; Technical Artist</p>
+            </div>
+
+            <div class="avatar-stats-list">
+              <div class="avatar-stat-item">
+                <span class="stat-icon">📍</span>
+                <span class="stat-text">Pathanapuram, Kerala, India</span>
+              </div>
+              <div class="avatar-stat-item highlight-education">
+                <span class="stat-icon">🎓</span>
+                <span class="stat-text"><strong>Graduated</strong></span>
+              </div>
+              <div class="avatar-stat-item">
+                <span class="stat-icon">⚡</span>
+                <span class="stat-text">1+ Years Building Games</span>
+              </div>
+              <div class="avatar-stat-item">
+                <span class="stat-icon">🎮</span>
+                <span class="stat-text">Unity &amp; C# Specialist</span>
+              </div>
             </div>
           </div>
 
-          <!-- Right: Bio & User's Exact Details (Graduated) -->
-          <div class="about-info-col">
-            <p class="about-bio-text">
-              I'm a game developer passionate about creating immersive, blocky worlds and fun experiences, from concept and design to development and polishing. With a strong background in Unity and C#, I focus on solid gameplay feel, satisfying voxel aesthetics, and interactive mechanics.
+          <!-- Right: Bio & Specialization Pillars -->
+          <div class="about-details-content">
+            <p class="about-lead-bio">
+              I am an indie game developer driven by creating impactful games that feel incredible to play. From initial whitebox prototypes to production polish, I specialize in solid gameplay feel, satisfying mechanical feedback, and tight player controls.
+            </p>
+            
+            <p class="about-sub-bio">
+              Whether designing lethal samurai duel stances with guard recovery and parry timing, simulating tire traction and slip angles in 3D drift racers, or building binaural audio radar for subterranean horror, I bring technical discipline and creative passion to every project.
             </p>
 
-            <ul class="about-details-list">
-              <li class="detail-item">
-                <span class="detail-icon">📍</span>
-                <span class="detail-text">Pathanapuram, Kerala</span>
-              </li>
-              <li class="detail-item highlight-education">
-                <span class="detail-icon">🎓</span>
-                <span class="detail-text"><strong>Graduated</strong></span>
-              </li>
-              <li class="detail-item">
-                <span class="detail-icon">💻</span>
-                <span class="detail-text">Game Developer</span>
-              </li>
-              <li class="detail-item">
-                <span class="detail-icon">⚡</span>
-                <span class="detail-text">1 Year Building Games</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- RPG Attribute Matrix (STR, DEX, INT, WIS, CHA) -->
-        <div class="rpg-attributes-card">
-          <div class="rpg-card-header">
-            <span class="rpg-shield-icon">🛡️</span>
-            <h3 class="rpg-card-title">CHARACTER ATTRIBUTES &amp; COMBAT PROFICIENCIES</h3>
-          </div>
-          
-          <div class="rpg-attributes-grid">
-            <!-- STR: Engine & C# Architecture -->
-            <div class="attribute-box attr-str">
-              <div class="attr-top">
-                <span class="attr-abbr">STR</span>
-                <span class="attr-score">95 <small>/ 100</small></span>
+            <!-- 4 Core Pillars Grid -->
+            <div class="pillars-grid">
+              <div class="pillar-card">
+                <div class="pillar-icon">⚔️</div>
+                <h4 class="pillar-title">Combat Architecture</h4>
+                <p class="pillar-desc">Frame-accurate collision detection, guard meters, parry timing, weapon throwing &amp; grabbing, and multi-stage boss AI.</p>
               </div>
-              <div class="attr-name">Engine &amp; C# Architecture</div>
-              <div class="attr-bar-track">
-                <div class="attr-bar-fill" style="width: 95%;"></div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon">⚙️</div>
+                <h4 class="pillar-title">Custom 60 FPS Physics</h4>
+                <p class="pillar-desc">Simulation of tire slip angles, lateral momentum, trajectory arcs, and responsive controller ergonomics.</p>
               </div>
-              <p class="attr-desc">Robust gameplay architecture, memory management, and multithreaded systems in Unity &amp; C#.</p>
-            </div>
 
-            <!-- DEX: 60 FPS Combat & Physics Feel -->
-            <div class="attribute-box attr-dex">
-              <div class="attr-top">
-                <span class="attr-abbr">DEX</span>
-                <span class="attr-score">98 <small>/ 100</small></span>
+              <div class="pillar-card">
+                <div class="pillar-icon">🌾</div>
+                <h4 class="pillar-title">Spatial Audio &amp; Worlds</h4>
+                <p class="pillar-desc">Handcrafted spatial soundscapes, binaural acoustic radar, atmospheric lighting, and evocative cultural storytelling.</p>
               </div>
-              <div class="attr-name">Combat Feel &amp; 60 FPS Physics</div>
-              <div class="attr-bar-track">
-                <div class="attr-bar-fill" style="width: 98%;"></div>
+
+              <div class="pillar-card">
+                <div class="pillar-icon">⚡</div>
+                <h4 class="pillar-title">Agile Jam Polish</h4>
+                <p class="pillar-desc">Proven BYOG 2026 finalist execution, high-tempo teamwork, rapid whiteboxing, and production-ready Unity C# scripting.</p>
               </div>
-              <p class="attr-desc">Fluid martial arts melee, frame-perfect guard parries, posture breaks, and custom drift dynamics.</p>
             </div>
 
-            <!-- INT: State Machines & Boss AI -->
-            <div class="attribute-box attr-int">
-              <div class="attr-top">
-                <span class="attr-abbr">INT</span>
-                <span class="attr-score">92 <small>/ 100</small></span>
-              </div>
-              <div class="attr-name">Boss AI &amp; State Machines</div>
-              <div class="attr-bar-track">
-                <div class="attr-bar-fill" style="width: 92%;"></div>
-              </div>
-              <p class="attr-desc">Sensory AI perception, escalating 80-level gang progression, and multi-phase Ayakashi rage attacks.</p>
-            </div>
-
-            <!-- WIS: Spatial Audio & Narrative Pacing -->
-            <div class="attribute-box attr-wis">
-              <div class="attr-top">
-                <span class="attr-abbr">WIS</span>
-                <span class="attr-score">90 <small>/ 100</small></span>
-              </div>
-              <div class="attr-name">Spatial Audio &amp; Worldbuilding</div>
-              <div class="attr-bar-track">
-                <div class="attr-bar-fill" style="width: 90%;"></div>
-              </div>
-              <p class="attr-desc">Binaural 3D horror audio radar, foley design, and evocative rural dreamscapes (BYOG 2026).</p>
-            </div>
-
-            <!-- CHA: Jam Team Agility & Polish -->
-            <div class="attribute-box attr-cha">
-              <div class="attr-top">
-                <span class="attr-abbr">CHA</span>
-                <span class="attr-score">94 <small>/ 100</small></span>
-              </div>
-              <div class="attr-name">Team Leadership &amp; Jam Agility</div>
-              <div class="attr-bar-track">
-                <div class="attr-bar-fill" style="width: 94%;"></div>
-              </div>
-              <p class="attr-desc">High-tempo hackathon execution, cross-discipline team synergy, and rapid game feel polish.</p>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      </div><!-- ================= END CHAPTER I: CHARACTER SHEET ================= -->
-
-      <!-- ================= CHAPTER II: EQUIPMENT & INVENTORY ================= -->
-      <div class="codex-chapter" id="chapter-inventory" data-chapter-id="inventory">
-
-      <!-- ================= 3. SKILLS & TOOLS (10 SKILLS - USER'S CURATED LIST) ================= -->
-      <section class="pixel-card skills-section" id="skills">
-        
-        <!-- Header Badge: Diamond Pickaxe Icon + Skills & Tools -->
-        <div class="section-pixel-badge badge-skills-header">
-          <svg viewBox="0 0 16 16" width="20" height="20" class="badge-pixel-pickaxe" style="image-rendering: pixelated;" aria-hidden="true">
-            <!-- Diamond Pickaxe Head -->
-            <rect x="13" y="1" width="2" height="2" fill="#2ce5d3"/>
-            <rect x="11" y="1" width="2" height="2" fill="#20b2aa"/>
-            <rect x="13" y="3" width="2" height="2" fill="#20b2aa"/>
-            <rect x="9" y="1" width="2" height="2" fill="#0c6d66"/>
-            <rect x="13" y="5" width="2" height="2" fill="#0c6d66"/>
-            <rect x="10" y="2" width="2" height="2" fill="#5ffff2"/>
-            <rect x="12" y="4" width="2" height="2" fill="#5ffff2"/>
-            <rect x="7" y="2" width="2" height="2" fill="#2ce5d3"/>
-            <rect x="12" y="7" width="2" height="2" fill="#2ce5d3"/>
-            <rect x="5" y="3" width="2" height="2" fill="#0c6d66"/>
-            <rect x="11" y="9" width="2" height="2" fill="#0c6d66"/>
-            <rect x="3" y="4" width="2" height="2" fill="#2ce5d3"/>
-            <rect x="10" y="11" width="2" height="2" fill="#2ce5d3"/>
-            <rect x="2" y="5" width="1" height="2" fill="#0c6d66"/>
-            <rect x="9" y="12" width="2" height="1" fill="#0c6d66"/>
-            <!-- Wooden Handle -->
-            <rect x="9" y="5" width="2" height="2" fill="#8f572c"/>
-            <rect x="8" y="6" width="2" height="2" fill="#673918"/>
-            <rect x="7" y="7" width="2" height="2" fill="#8f572c"/>
-            <rect x="6" y="8" width="2" height="2" fill="#673918"/>
-            <rect x="5" y="9" width="2" height="2" fill="#8f572c"/>
-            <rect x="4" y="10" width="2" height="2" fill="#673918"/>
-            <rect x="3" y="11" width="2" height="2" fill="#8f572c"/>
-            <rect x="2" y="12" width="2" height="2" fill="#43220c"/>
-            <rect x="1" y="13" width="2" height="2" fill="#43220c"/>
-          </svg>
-          <span class="badge-title-text">Skills & Tools</span>
-        </div>
-
-        <p class="section-sub-desc">The tools and technologies I use to bring games to life.</p>
-
-        <!-- 10 Skills Grid (5 x 2 balanced layout without Unreal Engine & Minecraft Modding) -->
-        <div class="skills-ten-grid">
-          
-          <!-- 1. Unity -->
-          <div class="skill-pixel-box" data-skill="Unity">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 256 256" width="30" height="30">
-                <path fill="#1a1a1a" d="M128 20L58 60v80l70 40 70-40V60L128 20zm-10 32.5l42 24.2-42 24.2-42-24.2 42-24.2zM76 80l42 24.2v48.4L76 128.4V80zm104 48.4l-42 24.2v-48.4l42-24.2v48.4z"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">Unity</span>
-          </div>
-
-          <!-- 2. C# -->
-          <div class="skill-pixel-box" data-skill="C#">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <path fill="#9b4993" d="M64 12L16 39.7v55.4L64 122.9l48-27.7V39.7L64 12z"/>
-                <path fill="#fff" d="M48 48c-8.8 0-16 7.2-16 16s7.2 16 16 16c5.3 0 10-2.6 13-6.6l-5.6-4.2C53.7 71.5 51 73 48 73c-5 0-9-4-9-9s4-9 9-9c3 0 5.7 1.5 7.4 3.8l5.6-4.2C58 50.6 53.3 48 48 48zm30 8h5v8h8v5h-8v8h-5v-8h-8v-5h8v-8zm20 0h5v8h8v5h-8v8h-5v-8h-8v-5h8v-8z"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">C#</span>
-          </div>
-
-          <!-- 3. Python -->
-          <div class="skill-pixel-box" data-skill="Python">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <path fill="#3776ab" d="M63.5 12c-28 0-26.3 12.1-26.3 12.1l.1 12.5h26.7v3.8H25.8S12 38.8 12 66.8s12.1 27.5 12.1 27.5h7.2v-10.2s-.4-12.1 11.9-12.1h26.5s11.5-.2 11.5-11.3V23.5s1.7-11.5-27.7-11.5zM48.8 20.3a4.2 4.2 0 1 1 0 8.4 4.2 4.2 0 0 1 0-8.4z"/>
-                <path fill="#ffd43b" d="M64.5 116c28 0 26.3-12.1 26.3-12.1l-.1-12.5H64v-3.8h38.2s13.8 1.6 13.8-26.4-12.1-27.5-12.1-27.5h-7.2v10.2s.4 12.1-11.9 12.1H48.3s-11.5.2-11.5 11.3v37.2s-1.7 11.5 27.7 11.5zm14.7-8.3a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4z"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">Python</span>
-          </div>
-
-          <!-- 4. Blender -->
-          <div class="skill-pixel-box" data-skill="Blender">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <path fill="#ea7600" d="M64 24a40 40 0 1 0 40 40A40 40 0 0 0 64 24zm0 64a24 24 0 1 1 24-24 24 24 0 0 1-24 24z"/>
-                <path fill="#222" d="M64 48a16 16 0 1 0 16 16A16 16 0 0 0 64 48z"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">Blender</span>
-          </div>
-
-          <!-- 5. Photoshop -->
-          <div class="skill-pixel-box" data-skill="Photoshop">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <rect width="128" height="128" rx="20" fill="#001e36"/>
-                <path fill="#31a8ff" d="M42 38h20.5c12 0 19.5 6.5 19.5 16.5s-7.5 16.5-19.5 16.5H53v21H42V38zm11 23.5h8.5c6 0 9.5-3 9.5-7.5s-3.5-7.5-9.5-7.5H53v15z"/>
-                <path fill="#31a8ff" d="M84.5 73.5c4 0 7.5 1.5 9.5 3.5l6-7.5c-3.5-3-9-5-15.5-5-11.5 0-18.5 7-18.5 16.5s7.5 15.5 17.5 17c5.5.8 8.5 2.2 8.5 4.5 0 2.5-3 4-7.5 4-5.5 0-10.5-2-13.5-5l-6 8c4 4 11 6.5 19.5 6.5 12.5 0 19.5-6.5 19.5-16.5s-7.5-15-17.5-16.5c-5.5-.8-8.5-2-8.5-4.5 0-2.2 2.5-3.5 6.5-3.5z"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">Photoshop</span>
-          </div>
-
-          <!-- 6. Git -->
-          <div class="skill-pixel-box" data-skill="Git">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <path fill="#f05032" d="M124.7 57.6L70.4 3.3c-4.4-4.4-11.6-4.4-16 0L42.5 15.2l20.4 20.4c4.7-1.6 10.2-.5 13.9 3.2 3.7 3.7 4.8 9.2 3.2 13.9l19.6 19.6c4.7-1.6 10.2-.5 13.9 3.2 5.1 5.1 5.1 13.4 0 18.5s-13.4 5.1-18.5 0c-4-4-4.9-9.8-2.9-14.7L73.9 61.1v27.2c1.7 1.1 3.2 2.6 4.3 4.4 3.9 6.1 2.2 14.2-3.9 18.1-6.1 3.9-14.2 2.2-18.1-3.9-3.9-6.1-2.2-14.2 3.9-18.1 1.9-1.2 4-1.9 6.2-2.1V60.7c-2.2-.2-4.3-.9-6.2-2.1-4.1-2.6-6.3-7.2-5.7-11.9L24.4 67.2 3.3 46.1c-4.4 4.4-4.4 11.6 0 16l54.3 54.3c4.4 4.4 11.6 4.4 16 0l51.1-51.1c4.5-4.4 4.5-11.6 0-16.1"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">Git</span>
-          </div>
-
-          <!-- 7. VS Code -->
-          <div class="skill-pixel-box" data-skill="VS Code">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <path fill="#007acc" d="M96.7 11.4L68.5 38.3 43.6 19.2c-3.1-2.4-7.5-2.2-10.4.5L16.4 35.8c-3.2 3.2-3.2 8.4 0 11.6l23.5 23.5-23.5 23.5c-3.2 3.2-3.2 8.4 0 11.6l16.8 16.1c2.9 2.7 7.3 2.9 10.4.5l24.9-19.1 28.2 26.9c3.3 3.1 8.5 2.7 11.3-.8l13-17.5c2.4-3.2 2.1-7.8-.8-10.6L102 83.5V44.5l18.5-18.1c2.9-2.8 3.2-7.4.8-10.6l-13-17.5c-2.8-3.5-8-3.9-11.6-6.9"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">VS Code</span>
-          </div>
-
-          <!-- 8. Figma -->
-          <div class="skill-pixel-box" data-skill="Figma">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 128 128" width="30" height="30">
-                <path fill="#0acf83" d="M43 117c11.6 0 21-9.4 21-21V75H43c-11.6 0-21 9.4-21 21s9.4 21 21 21z"/>
-                <path fill="#a259ff" d="M22 54c0-11.6 9.4-21 21-21h21v42H43c-11.6 0-21-9.4-21-21z"/>
-                <path fill="#f24e1e" d="M22 32c0-11.6 9.4-21 21-21h21v42H43C31.4 53 22 43.6 22 32z"/>
-                <path fill="#ff7262" d="M64 11h21c11.6 0 21 9.4 21 21s-9.4 21-21 21H64V11z"/>
-                <path fill="#1abcfe" d="M106 53c0 11.6-9.4 21-21 21s-21-9.4-21-21 9.4-21 21-21 21 9.4 21 21z"/>
-              </svg>
-            </div>
-            <span class="skill-label-text">Figma</span>
-          </div>
-
-          <!-- 9. UI / UX -->
-          <div class="skill-pixel-box" data-skill="UI / UX">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="skill-vector-icon">
-                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-              </svg>
-            </div>
-            <span class="skill-label-text">UI / UX</span>
-          </div>
-
-          <!-- 10. Game Design -->
-          <div class="skill-pixel-box" data-skill="Game Design">
-            <div class="skill-icon-holder">
-              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="skill-vector-icon">
-                <line x1="6" y1="12" x2="10" y2="12"></line>
-                <line x1="8" y1="10" x2="8" y2="14"></line>
-                <line x1="15" y1="13" x2="15.01" y2="13"></line>
-                <line x1="18" y1="11" x2="18.01" y2="11"></line>
-                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
-              </svg>
-            </div>
-            <span class="skill-label-text">Game Design</span>
           </div>
 
         </div>
 
       </section>
 
-      </div><!-- ================= END CHAPTER II: EQUIPMENT & INVENTORY ================= -->
-
-      <!-- ================= CHAPTER III: QUEST JOURNAL ================= -->
-      <div class="codex-chapter" id="chapter-quests" data-chapter-id="quests">
-
-      <!-- ================= 4. FEATURED PROJECTS ================= -->
-      <section class="pixel-card projects-section" id="projects">
+      <!-- ================= 4. FEATURED PROJECTS SECTION ================= -->
+      <section class="aaa-card projects-section" id="projects">
         
-        <!-- Section Header with Sakura Blossom & Studio Reel Navigation Controls -->
-        <div class="projects-header-row studio-reel-header">
-          <div class="projects-title-left">
-            <div class="header-sakura-flower-box" title="Sakura Blossom">
-              <svg viewBox="0 0 16 16" width="28" height="28" class="sakura-pixel-flower" style="image-rendering: pixelated;" aria-hidden="true">
-                <rect x="6" y="0" width="4" height="2" fill="#f472b6"/>
-                <rect x="5" y="2" width="6" height="3" fill="#fbcfe8"/>
-                <rect x="0" y="6" width="2" height="4" fill="#f472b6"/>
-                <rect x="2" y="5" width="3" height="6" fill="#fbcfe8"/>
-                <rect x="14" y="6" width="2" height="4" fill="#f472b6"/>
-                <rect x="11" y="5" width="3" height="6" fill="#fbcfe8"/>
-                <rect x="2" y="12" width="4" height="3" fill="#f472b6"/>
-                <rect x="3" y="10" width="4" height="3" fill="#fbcfe8"/>
-                <rect x="10" y="12" width="4" height="3" fill="#f472b6"/>
-                <rect x="9" y="10" width="4" height="3" fill="#fbcfe8"/>
-                <rect x="6" y="6" width="4" height="4" fill="#fbbf24"/>
-                <rect x="7" y="7" width="2" height="2" fill="#f59e0b"/>
-                <rect x="7" y="1" width="2" height="1" fill="#ec4899"/>
-                <rect x="1" y="7" width="1" height="2" fill="#ec4899"/>
-                <rect x="14" y="7" width="1" height="2" fill="#ec4899"/>
-                <rect x="3" y="14" width="2" height="1" fill="#ec4899"/>
-                <rect x="11" y="14" width="2" height="1" fill="#ec4899"/>
-              </svg>
-            </div>
-            <div>
-              <div class="studio-sub-badge">🎬 STUDIO CINEMATIC REEL</div>
-              <h2 class="section-heading-pixel">Featured Works &amp; Releases</h2>
-              <p class="section-sub-desc">Browse 5 indie titles spanning lethal 2D samurai combat, visual novels, procedural horror, and 3D physics arcade.</p>
-            </div>
+        <div class="projects-section-header">
+          <div>
+            <div class="section-kicker">// 02. PORTFOLIO</div>
+            <h2 class="section-heading">Featured Titles &amp; Releases</h2>
+            <p class="section-subtext">Browse 5 indie titles spanning lethal martial arts combat, 3D drift physics, visual novels, and procedural horror.</p>
           </div>
 
-          <!-- Studio Reel Navigation Controls -->
-          <div class="reel-controls-group">
-            <div class="reel-counter-badge" id="reelCounterBadge" title="Current Reel Slide">
-              <span class="reel-dot pulse"></span>
-              <span id="currentSlideIndicator">PROJECT 01 / 05</span>
-            </div>
-            <div class="reel-nav-buttons">
-              <button type="button" class="pixel-btn-3d btn-white reel-nav-btn" id="btnReelPrev" title="Previous Slide (◀)">
-                <span>◀ PREV</span>
-              </button>
-              <button type="button" class="pixel-btn-3d btn-purple reel-nav-btn" id="btnReelNext" title="Next Slide (▶)">
-                <span>NEXT ▶</span>
-              </button>
-            </div>
+          <!-- Category Filter Bar -->
+          <div class="projects-filter-bar" id="projectsFilterBar">
+            <button type="button" class="project-tab-pill active" data-filter="all">
+              <span>All Titles (5)</span>
+            </button>
+            <button type="button" class="project-tab-pill" data-filter="released">
+              <span>Released (3)</span>
+            </button>
+            <button type="button" class="project-tab-pill" data-filter="ongoing">
+              <span>In Development (2)</span>
+            </button>
+            <button type="button" class="project-tab-pill" data-filter="webgl">
+              <span>Playable WebGL (2)</span>
+            </button>
+            <button type="button" class="project-tab-pill" data-filter="jam">
+              <span>Jam Finalist (1)</span>
+            </button>
           </div>
         </div>
 
-        <!-- ================= PROJECTS FILTER / SELECTOR PILLS ================= -->
-        <div class="projects-filter-bar" id="projectsFilterBar">
-          <button type="button" class="project-tab-pill active" data-filter="all">
-            <span class="tab-icon">🎮</span>
-            <span>All Projects (5)</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="released">
-            <span class="tab-icon">🏆</span>
-            <span>Released (3)</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="ongoing">
-            <span class="tab-icon">🛠️</span>
-            <span>Ongoing (2)</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="swordsaint">
-            <span class="tab-icon">🗡️</span>
-            <span>Stickman: The Ultimate Sword Saint</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="maze">
-            <span class="tab-icon">🔦</span>
-            <span>Maze Explorer</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="reverie">
-            <span class="tab-icon">🌾</span>
-            <span>The Summer Reverie</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="hairpin">
-            <span class="tab-icon">🏎️</span>
-            <span>Hairpin Drift</span>
-          </button>
-          <button type="button" class="project-tab-pill" data-filter="ballpass">
-            <span class="tab-icon">⚽</span>
-            <span>BallPass3D</span>
-          </button>
-        </div>
-
-        <!-- ================= FEATURED PROJECTS STACK ================= -->
+        <!-- Featured Projects Stack -->
         <div class="featured-projects-stack" id="featuredProjectsStack">
 
-          <!-- ================= 1. FEATURED GAME: THE SUMMER REVERIE (BYOG 2026 JAM ENTRY) ================= -->
-          <div class="featured-game-showcase project-item-card" id="summerReverieShowcase" data-game="reverie" data-status="released">
-            
-            <!-- Retro Arcade Cabinet Marquee Header (Arcade Layout) -->
-            <div class="arcade-cabinet-marquee" aria-hidden="true">
-              <div class="arcade-marquee-rim">
-                <span class="arcade-bolt bolt-tl"></span>
-                <span class="arcade-bolt bolt-tr"></span>
-                <span class="arcade-bolt bolt-bl"></span>
-                <span class="arcade-bolt bolt-br"></span>
-                <div class="arcade-marquee-sign marquee-reverie">
-                  <span class="marquee-neon-icon">🌾</span>
-                  <span class="marquee-title-text">THE SUMMER REVERIE</span>
-                  <span class="marquee-sub-glow">● NARRATIVE ADVENTURE · 2026 ●</span>
+          <!-- PROJECT 1: THE SUMMER REVERIE -->
+          <div class="project-item-card" id="summerReverieShowcase" data-game="reverie" data-status="released">
+            <div class="project-media-col">
+              <div class="media-frame">
+                <div class="media-header-tag">
+                  <span class="media-status-dot"></span>
+                  <span>OFFICIAL TRAILER · BYOG 2026 FINALIST</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- Left: 3D Pixel Arcade Trailer & Screenshot Gallery Frame -->
-            <div class="game-video-column">
-              <div class="game-video-bezel">
-                <!-- Top Bezel Header / Status Badges -->
-                <div class="video-bezel-top">
-                  <div class="video-status-tag">
-                    <span class="video-rec-dot"></span>
-                    <span class="video-tag-text">OFFICIAL TRAILER</span>
-                  </div>
-                  <div class="video-badge-pill">
-                    <span>🏆 BYOG 2026 Jam Entry</span>
-                  </div>
-                </div>
-
-                <!-- Video / Trailer Viewport -->
+                
                 <div class="video-viewport" id="reverieVideoViewport" title="The Summer Reverie - Official Trailer">
                   <iframe 
                     id="reverieTrailerIframe" 
-                    class="hairpin-video-stream youtube-embed-frame" 
+                    class="youtube-embed-frame" 
                     src="https://www.youtube-nocookie.com/embed/e6KrT1liKiI?enablejsapi=1&rel=0&modestbranding=1" 
                     title="The Summer Reverie - Official Game Trailer" 
                     frameborder="0" 
@@ -802,7 +318,7 @@
                   </iframe>
                 </div>
 
-                <!-- Interactive Screenshot Strip (Click to Preview in Fullscreen Lightbox) -->
+                <!-- Screenshots Strip -->
                 <div class="screenshots-strip" id="reverieScreenshotsStrip">
                   <button type="button" class="screenshot-thumb-btn" data-img="./assets/summer-reverie-screen-1.png" title="Screenshot 1: Rural Kerala Landscape">
                     <img src="./assets/summer-reverie-screen-1.png" alt="Summer Reverie Screenshot 1" class="screenshot-thumb-img">
@@ -820,167 +336,62 @@
                     <img src="./assets/summer-reverie-screen-5.png" alt="Summer Reverie Screenshot 5" class="screenshot-thumb-img">
                   </button>
                 </div>
-
               </div>
             </div>
 
-            <!-- Arcade Control Deck & Coin Door (Arcade Layout) -->
-            <div class="arcade-cabinet-deck" aria-hidden="true">
-              <div class="arcade-cpanel">
-                <div class="cpanel-1p-badge">
-                  <span class="cpanel-player-icon">🕹️</span>
-                  <span>1P / 2P</span>
-                </div>
-                <div class="cpanel-joystick-unit">
-                  <div class="joystick-base"></div>
-                  <div class="joystick-shaft"></div>
-                  <div class="joystick-ball red-ball"></div>
-                </div>
-                <div class="cpanel-buttons-cluster">
-                  <span class="arcade-micro-btn btn-red" title="Button 1"></span>
-                  <span class="arcade-micro-btn btn-blue" title="Button 2"></span>
-                  <span class="arcade-micro-btn btn-yellow" title="Button 3"></span>
-                  <span class="arcade-micro-btn btn-green" title="Button 4"></span>
-                </div>
-              </div>
-              <div class="arcade-cabinet-lower">
-                <div class="arcade-speaker-grille">
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                </div>
-                <div class="arcade-coin-door-box">
-                  <div class="coin-slot-unit">
-                    <span class="coin-insert-label">INSERT 25¢</span>
-                    <div class="coin-entry-slit"></div>
-                    <div class="coin-return-btn">RETURN</div>
-                  </div>
-                  <div class="coin-status-led">
-                    <span class="led-blink-dot"></span>
-                    <span class="led-credit-count">CREDIT 02</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right: Game Details, Mechanics & Play CTA -->
-            <div class="game-details-column">
-              
-              <div class="game-details-header">
-                <div class="game-meta-badge">
-                  <span class="meta-dot"></span>
-                  <span>BYOG 2026 Game Jam · Built with Unity</span>
-                </div>
-                <h3 class="showcase-title">The Summer Reverie</h3>
-                <p class="showcase-tagline">
-                  An atmospheric 3D narrative adventure exploring fading childhood memories in rural Kerala.
-                </p>
+            <div class="project-info-col">
+              <div class="project-badge-row">
+                <span class="project-type-tag">3D Narrative Adventure</span>
+                <span class="project-jam-tag">🏆 BYOG 2026 Jam Entry</span>
               </div>
 
-              <p class="showcase-summary">
+              <h3 class="project-title">The Summer Reverie</h3>
+              <p class="project-tagline">An atmospheric 3D narrative adventure exploring fading childhood memories in rural Kerala.</p>
+
+              <p class="project-description">
                 A grandfather falls asleep and dreams of his childhood in rural Kerala, only to discover that his memories are slowly disappearing. Playing as his younger self, you explore a fading dreamscape, recover fragments of the past, and try to preserve the moments that made him who he is before they are lost forever.
               </p>
 
-              <!-- Team Credits Callout -->
-              <div class="jam-team-badge">
-                <span class="team-label">👥 Team Credits:</span>
-                <span class="team-member"><strong>Anantha Krishnan</strong> (Audio & Sound Design)</span> · 
-                <span class="team-member">Abhinav S (Programming)</span> · 
-                <span class="team-member">Abhijit XS (Level Design)</span>
+              <div class="team-credits-box">
+                <span class="credits-label">👥 Team Credits:</span>
+                <span><strong>Anantha Krishnan</strong> (Audio &amp; Sound Design)</span> · 
+                <span>Abhinav S (Programming)</span> · 
+                <span>Abhijit XS (Level Design)</span>
               </div>
 
-              <!-- Highlights Checklist -->
-              <div class="showcase-features-list">
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🌾</span>
-                  <span class="feature-text"><strong>Rural Kerala Setting</strong> – Evocative cultural backdrops, lush greenery, and traditional architecture.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🧩</span>
-                  <span class="feature-text"><strong>Memory Fragment Exploration</strong> – Narrative discovery mechanics, environmental puzzles, and emotive storytelling.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🎧</span>
-                  <span class="feature-text"><strong>Immersive Soundscapes</strong> – Hand-crafted spatial audio, ambient insect chirps, rustling leaves, and evocative musical motifs.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🏆</span>
-                  <span class="feature-text"><strong>Jam-Tested Polish</strong> – High visual fidelity crafted under strict game jam time constraints in Unity.</span>
-                </div>
+              <div class="project-tech-tags">
+                <span class="tech-tag">Unity Engine</span>
+                <span class="tech-tag">C# Scripting</span>
+                <span class="tech-tag">Spatial Audio</span>
+                <span class="tech-tag">Atmospheric Lighting</span>
+                <span class="tech-tag">Windows</span>
               </div>
 
-              <!-- Tech Badges -->
-              <div class="showcase-tech-shelf">
-                <span class="tech-pill">🎮 Unity Engine</span>
-                <span class="tech-pill">💻 C# Scripting</span>
-                <span class="tech-pill">🎧 Spatial Audio</span>
-                <span class="tech-pill">🌾 Narrative Adventure</span>
-                <span class="tech-pill">🏆 BYOG 2026</span>
-                <span class="tech-pill">🖥️ Windows</span>
-              </div>
-
-              <!-- Play & Action Buttons -->
-              <div class="showcase-actions-row">
-                <a href="https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5" target="_blank" rel="noopener noreferrer" class="pixel-btn-3d btn-purple btn-play-showcase" id="btnViewReverieSubmission" title="View Submission on IndieConnect">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
-                    <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/>
-                  </svg>
+              <div class="project-action-row">
+                <a href="https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary" id="btnViewReverieSubmission">
                   <span>View Jam Submission</span>
-                  <span class="btn-arrow-icon">↗</span>
+                  <span class="btn-arrow">↗</span>
                 </a>
-
-                <a href="https://mqpfcdqiucwdxsggkfib.supabase.co/storage/v1/object/public/jam-assets/699c3217-9ad9-499a-8db6-cd2842a86fbb/01b9347d-a0ad-4215-8d92-8a10f7fd1ad7/builds/c40afe47-3966-464c-8851-daeddd36ac5a.zip" target="_blank" rel="noopener noreferrer" class="pixel-btn-3d btn-white" id="btnDownloadReverieBuild" title="Download Windows Build (ZIP - 166 MB)">
-                  <span>💾</span>
-                  <span>Download Build (.zip)</span>
-                </a>
-
-                <a href="https://youtu.be/e6KrT1liKiI" target="_blank" rel="noopener noreferrer" class="pixel-btn-3d btn-white" title="Watch Trailer on YouTube">
-                  <span>▶</span>
-                  <span>Trailer</span>
+                <a href="https://mqpfcdqiucwdxsggkfib.supabase.co/storage/v1/object/public/jam-assets/699c3217-9ad9-499a-8db6-cd2842a86fbb/01b9347d-a0ad-4215-8d92-8a10f7fd1ad7/builds/c40afe47-3966-464c-8851-daeddd36ac5a.zip" target="_blank" rel="noopener noreferrer" class="aaa-btn-secondary" id="btnDownloadReverieBuild">
+                  <span>💾 Download Build (.zip)</span>
                 </a>
               </div>
-
             </div>
-
           </div>
 
-          <!-- ================= 2. FEATURED GAME: HAIRPIN DRIFT ================= -->
-          <div class="featured-game-showcase project-item-card" id="hairpinDriftShowcase" data-game="hairpin" data-status="released">
-            
-            <!-- Retro Arcade Cabinet Marquee Header (Arcade Layout) -->
-            <div class="arcade-cabinet-marquee" aria-hidden="true">
-              <div class="arcade-marquee-rim">
-                <span class="arcade-bolt bolt-tl"></span>
-                <span class="arcade-bolt bolt-tr"></span>
-                <span class="arcade-bolt bolt-bl"></span>
-                <span class="arcade-bolt bolt-br"></span>
-                <div class="arcade-marquee-sign marquee-hairpin">
-                  <span class="marquee-neon-icon">🏎️</span>
-                  <span class="marquee-title-text">HAIRPIN DRIFT</span>
-                  <span class="marquee-sub-glow">● 3D TIME ATTACK · DRIFT RACER ●</span>
+          <!-- PROJECT 2: HAIRPIN DRIFT -->
+          <div class="project-item-card" id="hairpinDriftShowcase" data-game="hairpin" data-status="released">
+            <div class="project-media-col">
+              <div class="media-frame">
+                <div class="media-header-tag">
+                  <span class="media-status-dot"></span>
+                  <span>LIVE GAMEPLAY CAPTURE</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- Left: 3D Pixel Arcade Video Display Frame -->
-            <div class="game-video-column">
-              <div class="game-video-bezel">
-                <!-- Top Bezel Header / Status Badges -->
-                <div class="video-bezel-top">
-                  <div class="video-status-tag">
-                    <span class="video-rec-dot"></span>
-                    <span class="video-tag-text">GAMEPLAY CAPTURE</span>
-                  </div>
-                  <div class="video-badge-pill">
-                    <span>🏎️ 3D Drift Physics</span>
-                  </div>
-                </div>
-
-                <!-- Video Container -->
+                
                 <div class="video-viewport" id="hairpinVideoViewport" title="Click to play / pause video">
                   <video 
                     id="hairpinDriftVideo" 
-                    class="hairpin-video-stream" 
+                    class="gameplay-video-stream" 
                     autoplay 
                     loop 
                     muted 
@@ -988,187 +399,57 @@
                     preload="auto"
                     title="Hairpin Drift - Live Gameplay Video">
                     <source src="./assets/hairpin-drift.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
                   </video>
-
-                  <!-- Video Overlay Play/Pause Tap Target -->
-                  <div class="video-tap-overlay" id="hairpinTapOverlay">
-                    <div class="video-floating-badge" id="hairpinPlayBadge">
-                      <span class="badge-icon">▶</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pixel Video Control Strip -->
-                <div class="video-controls-shelf">
-                  <div class="video-shelf-left">
-                    <button type="button" class="video-ctrl-btn" id="hairpinPlayPauseBtn" title="Play / Pause Video" aria-label="Play or Pause Video">
-                      <span id="hairpinPlayPauseIcon">⏸</span>
-                      <span id="hairpinPlayPauseText">Pause</span>
-                    </button>
-                    <button type="button" class="video-ctrl-btn" id="hairpinAudioBtn" title="Toggle Sound (Browsers autoplay muted)" aria-label="Toggle Video Sound">
-                      <span id="hairpinAudioIcon">🔇</span>
-                      <span id="hairpinAudioText">Unmute</span>
-                    </button>
-                  </div>
-
-                  <div class="video-progress-bar-wrap" id="hairpinProgressWrap" title="Click to seek video">
-                    <div class="video-progress-bar-fill" id="hairpinProgressFill"></div>
-                  </div>
-
-                  <div class="video-shelf-right">
-                    <button type="button" class="video-ctrl-btn" id="hairpinFullscreenBtn" title="Expand Fullscreen" aria-label="Fullscreen Video">
-                      <span>⛶</span>
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Arcade Control Deck & Coin Door (Arcade Layout) -->
-            <div class="arcade-cabinet-deck" aria-hidden="true">
-              <div class="arcade-cpanel">
-                <div class="cpanel-1p-badge">
-                  <span class="cpanel-player-icon">🕹️</span>
-                  <span>1P / 2P</span>
-                </div>
-                <div class="cpanel-joystick-unit">
-                  <div class="joystick-base"></div>
-                  <div class="joystick-shaft"></div>
-                  <div class="joystick-ball red-ball"></div>
-                </div>
-                <div class="cpanel-buttons-cluster">
-                  <span class="arcade-micro-btn btn-red" title="Button 1"></span>
-                  <span class="arcade-micro-btn btn-blue" title="Button 2"></span>
-                  <span class="arcade-micro-btn btn-yellow" title="Button 3"></span>
-                  <span class="arcade-micro-btn btn-green" title="Button 4"></span>
-                </div>
-              </div>
-              <div class="arcade-cabinet-lower">
-                <div class="arcade-speaker-grille">
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                </div>
-                <div class="arcade-coin-door-box">
-                  <div class="coin-slot-unit">
-                    <span class="coin-insert-label">INSERT 25¢</span>
-                    <div class="coin-entry-slit"></div>
-                    <div class="coin-return-btn">RETURN</div>
-                  </div>
-                  <div class="coin-status-led">
-                    <span class="led-blink-dot"></span>
-                    <span class="led-credit-count">CREDIT 02</span>
-                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Game Details, Mechanics & Play CTA -->
-            <div class="game-details-column">
-              
-              <div class="game-details-header">
-                <div class="game-meta-badge">
-                  <span class="meta-dot"></span>
-                  <span>Playable Web Release · Crayon AI</span>
-                </div>
-                <h3 class="showcase-title">Hairpin Drift</h3>
-                <p class="showcase-tagline">
-                  High-speed 3D arcade drifting through steep mountain curves and tight switchbacks.
-                </p>
+            <div class="project-info-col">
+              <div class="project-badge-row">
+                <span class="project-type-tag">3D Arcade Racing</span>
+                <span class="project-status-tag">Released</span>
               </div>
 
-              <p class="showcase-summary">
+              <h3 class="project-title">Hairpin Drift</h3>
+              <p class="project-tagline">High-speed 3D arcade drifting through steep mountain curves and tight switchbacks.</p>
+
+              <p class="project-description">
                 Take the driver's seat and test your precision reflexes! Feather the throttle, control dynamic weight transfer around treacherous hairpin turns, and link continuous tire-smoking drifts to clock high scores and master every curve.
               </p>
 
-              <!-- Highlights Checklist -->
-              <div class="showcase-features-list">
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🏎️</span>
-                  <span class="feature-text"><strong>Dynamic Drift Physics</strong> – Simulated tire slip angles, lateral momentum, and weight balance.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🏔️</span>
-                  <span class="feature-text"><strong>Mountain Hairpins</strong> – Demanding elevation changes and corner chains built for drift enthusiasts.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">💨</span>
-                  <span class="feature-text"><strong>Visual & Audio FX</strong> – High-revving engine sounds, smoking skid marks, and immersive arcade camera.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">⚡</span>
-                  <span class="feature-text"><strong>Instant WebGL Play</strong> – Zero install required. 60 FPS performance directly in your browser.</span>
-                </div>
+              <div class="project-tech-tags">
+                <span class="tech-tag">Unity 3D</span>
+                <span class="tech-tag">Drift Physics Math</span>
+                <span class="tech-tag">Vehicle Dynamics</span>
+                <span class="tech-tag">WebGL</span>
               </div>
 
-              <!-- Tech Badges -->
-              <div class="showcase-tech-shelf">
-                <span class="tech-pill">🎮 Crayon AI</span>
-                <span class="tech-pill">🏎️ 3D Vehicle Dynamics</span>
-                <span class="tech-pill">🌐 WebGL / 3D Canvas</span>
-                <span class="tech-pill">💨 Particle Systems</span>
-                <span class="tech-pill">🕹️ Arcade Mechanics</span>
-              </div>
-
-              <!-- Play & Action Buttons -->
-              <div class="showcase-actions-row">
-                <a href="https://app.usecrayon.ai/p/8d857df0-0ccd-4e4c-bc70-c2709965ec88" target="_blank" rel="noopener noreferrer" class="pixel-btn-3d btn-purple btn-play-showcase" id="btnPlayHairpin" title="Play Hairpin Drift on Crayon AI">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
-                    <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                  </svg>
+              <div class="project-action-row">
+                <a href="https://hairpin-drift.vercel.app/" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary" id="btnPlayHairpinDrift">
                   <span>Play Hairpin Drift</span>
-                  <span class="btn-arrow-icon">↗</span>
+                  <span class="btn-arrow">↗</span>
                 </a>
-
-                <button type="button" class="pixel-btn-3d btn-white" id="hairpinAudioQuickToggle" title="Toggle Gameplay Sound">
+                <button type="button" class="aaa-btn-ghost" id="hairpinAudioQuickToggle">
                   <span id="hairpinAudioQuickIcon">🔊</span>
                   <span id="hairpinAudioQuickText">Sound: Off</span>
                 </button>
               </div>
-
             </div>
-
           </div>
 
-          <!-- ================= 3. FEATURED GAME: BALLPASS3D ================= -->
-          <div class="featured-game-showcase project-item-card" id="ballPass3DShowcase" data-game="ballpass" data-status="released">
-            
-            <!-- Retro Arcade Cabinet Marquee Header (Arcade Layout) -->
-            <div class="arcade-cabinet-marquee" aria-hidden="true">
-              <div class="arcade-marquee-rim">
-                <span class="arcade-bolt bolt-tl"></span>
-                <span class="arcade-bolt bolt-tr"></span>
-                <span class="arcade-bolt bolt-bl"></span>
-                <span class="arcade-bolt bolt-br"></span>
-                <div class="arcade-marquee-sign marquee-ballpass">
-                  <span class="marquee-neon-icon">⚽</span>
-                  <span class="marquee-title-text">BALLPASS 3D</span>
-                  <span class="marquee-sub-glow">● SOCCER SIMULATION · UNITY 3D ●</span>
+          <!-- PROJECT 3: BALLPASS 3D -->
+          <div class="project-item-card" id="ballPass3DShowcase" data-game="ballpass" data-status="released">
+            <div class="project-media-col">
+              <div class="media-frame">
+                <div class="media-header-tag">
+                  <span class="media-status-dot"></span>
+                  <span>LIVE GAMEPLAY CAPTURE</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- Left: 3D Pixel Arcade Video Display Frame -->
-            <div class="game-video-column">
-              <div class="game-video-bezel">
-                <!-- Top Bezel Header / Status Badges -->
-                <div class="video-bezel-top">
-                  <div class="video-status-tag">
-                    <span class="video-rec-dot"></span>
-                    <span class="video-tag-text">GAMEPLAY CAPTURE</span>
-                  </div>
-                  <div class="video-badge-pill">
-                    <span>⚽ 3D Physics Arcade</span>
-                  </div>
-                </div>
-
-                <!-- Video Container -->
+                
                 <div class="video-viewport" id="ballPassVideoViewport" title="Click to play / pause video">
                   <video 
                     id="ballPassVideo" 
-                    class="hairpin-video-stream" 
+                    class="gameplay-video-stream" 
                     autoplay 
                     loop 
                     muted 
@@ -1176,552 +457,169 @@
                     preload="auto"
                     title="BallPass3D - Live Gameplay Video">
                     <source src="./assets/ball-pass-3d.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
                   </video>
-
-                  <!-- Video Overlay Play/Pause Tap Target -->
-                  <div class="video-tap-overlay" id="ballPassTapOverlay">
-                    <div class="video-floating-badge" id="ballPassPlayBadge">
-                      <span class="badge-icon">▶</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pixel Video Control Strip -->
-                <div class="video-controls-shelf">
-                  <div class="video-shelf-left">
-                    <button type="button" class="video-ctrl-btn" id="ballPassPlayPauseBtn" title="Play / Pause Video" aria-label="Play or Pause Video">
-                      <span id="ballPassPlayPauseIcon">⏸</span>
-                      <span id="ballPassPlayPauseText">Pause</span>
-                    </button>
-                    <button type="button" class="video-ctrl-btn" id="ballPassAudioBtn" title="Toggle Sound (Browsers autoplay muted)" aria-label="Toggle Video Sound">
-                      <span id="ballPassAudioIcon">🔇</span>
-                      <span id="ballPassAudioText">Unmute</span>
-                    </button>
-                  </div>
-
-                  <div class="video-progress-bar-wrap" id="ballPassProgressWrap" title="Click to seek video">
-                    <div class="video-progress-bar-fill" id="ballPassProgressFill"></div>
-                  </div>
-
-                  <div class="video-shelf-right">
-                    <button type="button" class="video-ctrl-btn" id="ballPassFullscreenBtn" title="Expand Fullscreen" aria-label="Fullscreen Video">
-                      <span>⛶</span>
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Arcade Control Deck & Coin Door (Arcade Layout) -->
-            <div class="arcade-cabinet-deck" aria-hidden="true">
-              <div class="arcade-cpanel">
-                <div class="cpanel-1p-badge">
-                  <span class="cpanel-player-icon">🕹️</span>
-                  <span>1P / 2P</span>
-                </div>
-                <div class="cpanel-joystick-unit">
-                  <div class="joystick-base"></div>
-                  <div class="joystick-shaft"></div>
-                  <div class="joystick-ball red-ball"></div>
-                </div>
-                <div class="cpanel-buttons-cluster">
-                  <span class="arcade-micro-btn btn-red" title="Button 1"></span>
-                  <span class="arcade-micro-btn btn-blue" title="Button 2"></span>
-                  <span class="arcade-micro-btn btn-yellow" title="Button 3"></span>
-                  <span class="arcade-micro-btn btn-green" title="Button 4"></span>
-                </div>
-              </div>
-              <div class="arcade-cabinet-lower">
-                <div class="arcade-speaker-grille">
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                </div>
-                <div class="arcade-coin-door-box">
-                  <div class="coin-slot-unit">
-                    <span class="coin-insert-label">INSERT 25¢</span>
-                    <div class="coin-entry-slit"></div>
-                    <div class="coin-return-btn">RETURN</div>
-                  </div>
-                  <div class="coin-status-led">
-                    <span class="led-blink-dot"></span>
-                    <span class="led-credit-count">CREDIT 02</span>
-                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Game Details, Mechanics & Play CTA -->
-            <div class="game-details-column">
-              
-              <div class="game-details-header">
-                <div class="game-meta-badge">
-                  <span class="meta-dot"></span>
-                  <span>Playable Web Release · Crayon AI</span>
-                </div>
-                <h3 class="showcase-title">BallPass3D</h3>
-                <p class="showcase-tagline">
-                  Precision 3D passing mechanics, trajectory aiming, and timing-based arcade challenges.
-                </p>
+            <div class="project-info-col">
+              <div class="project-badge-row">
+                <span class="project-type-tag">3D Physics Simulation</span>
+                <span class="project-status-tag">Released</span>
               </div>
 
-              <p class="showcase-summary">
-                A fast-paced 3D arcade physics game testing precision passing, trajectory calculation, and split-second spatial timing. Coordinate angles and release power to curve passes past dynamic moving obstacles, bypass roving defenders, and thread the needle through complex 3D environments.
+              <h3 class="project-title">BallPass3D</h3>
+              <p class="project-tagline">A fast-paced 3D soccer physics simulation demanding tactical timing and precision trajectories.</p>
+
+              <p class="project-description">
+                Pass, curve, and score! Read defender patterns, manipulate ball spin and trajectory in real-time, execute trick shots, and chain clean team combinations across dynamically obstacle-filled fields.
               </p>
 
-              <!-- Highlights Checklist -->
-              <div class="showcase-features-list">
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">⚽</span>
-                  <span class="feature-text"><strong>Precision Ball Trajectory</strong> – Calculated arc projection, velocity curves, and dynamic surface bounce physics.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🧩</span>
-                  <span class="feature-text"><strong>Spatial Timing Challenges</strong> – Time your passes through rotating barriers, moving defense zones, and narrow corridors.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🎯</span>
-                  <span class="feature-text"><strong>Target & Combo Scoring</strong> – Chain clean, uninterrupted passes across targets for multiplier bonuses and high scores.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🌐</span>
-                  <span class="feature-text"><strong>Instant Browser Play</strong> – Lightweight, immediate WebGL loading with intuitive keyboard and touch controls.</span>
-                </div>
+              <div class="project-tech-tags">
+                <span class="tech-tag">Unity 3D</span>
+                <span class="tech-tag">Rigid Body Physics</span>
+                <span class="tech-tag">Trajectory Math</span>
+                <span class="tech-tag">WebGL</span>
               </div>
 
-              <!-- Tech Badges -->
-              <div class="showcase-tech-shelf">
-                <span class="tech-pill">🎮 Crayon AI</span>
-                <span class="tech-pill">⚽ 3D Physics Engine</span>
-                <span class="tech-pill">🌐 WebGL / 3D Canvas</span>
-                <span class="tech-pill">🧩 Spatial Mechanics</span>
-                <span class="tech-pill">🕹️ Arcade Puzzler</span>
-              </div>
-
-              <!-- Play & Action Buttons -->
-              <div class="showcase-actions-row">
-                <a href="https://app.usecrayon.ai/p/d1eb4e4d-ca38-49ef-990e-197529d62ad7" target="_blank" rel="noopener noreferrer" class="pixel-btn-3d btn-purple btn-play-showcase" id="btnPlayBallPass" title="Play BallPass3D on Crayon AI">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="btn-icon">
-                    <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                  </svg>
+              <div class="project-action-row">
+                <a href="https://ball-pass-3-d.vercel.app/" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary" id="btnPlayBallPass">
                   <span>Play BallPass3D</span>
-                  <span class="btn-arrow-icon">↗</span>
+                  <span class="btn-arrow">↗</span>
                 </a>
-
-                <button type="button" class="pixel-btn-3d btn-white" id="ballPassAudioQuickToggle" title="Toggle Gameplay Sound">
+                <button type="button" class="aaa-btn-ghost" id="ballPassAudioQuickToggle">
                   <span id="ballPassAudioQuickIcon">🔊</span>
                   <span id="ballPassAudioQuickText">Sound: Off</span>
                 </button>
               </div>
-
             </div>
-
           </div>
 
-          <!-- ================= ONGOING PROJECTS SECTION DIVIDER ================= -->
-          <div class="ongoing-projects-divider" id="ongoing-projects">
-            <div class="divider-line"></div>
-            <div class="ongoing-badge-pill">
-              <span class="live-dot pulse"></span>
-              <span>🛠️ In Active Development (2 Ongoing Projects)</span>
-            </div>
-            <div class="divider-line"></div>
-          </div>
-
-          <!-- ================= 4. ONGOING PROJECT: STICKMAN: THE ULTIMATE SWORD SAINT ================= -->
-          <div class="featured-game-showcase project-item-card ongoing-project-card" id="swordSaintShowcase" data-game="swordsaint" data-status="ongoing">
-            
-            <!-- Retro Arcade Cabinet Marquee Header (Arcade Layout) -->
-            <div class="arcade-cabinet-marquee" aria-hidden="true">
-              <div class="arcade-marquee-rim">
-                <span class="arcade-bolt bolt-tl"></span>
-                <span class="arcade-bolt bolt-tr"></span>
-                <span class="arcade-bolt bolt-bl"></span>
-                <span class="arcade-bolt bolt-br"></span>
-                <div class="arcade-marquee-sign marquee-swordsaint">
-                  <span class="marquee-neon-icon">🗡️</span>
-                  <span class="marquee-title-text">STICKMAN: SWORD SAINT</span>
-                  <span class="marquee-sub-glow">● LETHAL COMBAT · BOSS AYAKASHI ●</span>
+          <!-- PROJECT 4: STICKMAN: THE ULTIMATE SWORD SAINT (STICISAW) -->
+          <div class="project-item-card ongoing-card" id="swordSaintShowcase" data-game="swordsaint" data-status="ongoing">
+            <div class="project-media-col">
+              <div class="media-frame">
+                <div class="media-header-tag ongoing-tag">
+                  <span class="media-status-dot dev-pulse"></span>
+                  <span>IN ACTIVE DEVELOPMENT · ALPHA COMBAT</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- Left: Artwork Display Frame -->
-            <div class="game-video-column">
-              <div class="game-video-bezel">
-                <!-- Top Bezel Header / Status Badges -->
-                <div class="video-bezel-top">
-                  <div class="video-status-tag ongoing-tag">
-                    <span class="video-rec-dot dev-pulse-dot"></span>
-                    <span class="video-tag-text">IN ACTIVE DEVELOPMENT</span>
-                  </div>
-                  <div class="video-badge-pill">
-                    <span>🗡️ 2D/3D Action RPG</span>
-                  </div>
-                </div>
-
-                <!-- Banner Image Viewport -->
-                <div class="video-viewport ongoing-img-viewport" title="Click to view full concept artwork" data-preview-img="./assets/ongoing-stickman-sword-saint.jpg" data-preview-title="Stickman: The Ultimate Sword Saint · Artwork">
-                  <img src="./assets/ongoing-stickman-sword-saint.jpg" alt="Stickman: The Ultimate Sword Saint - Game Artwork" class="showcase-banner-img">
-                  <div class="video-tap-overlay">
-                    <div class="video-floating-badge">
-                      <span class="badge-icon">🔍</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Bottom Status Strip -->
-                <div class="ongoing-banner-meta-strip">
-                  <span class="meta-strip-item">⚡ Health · Stamina · Guard</span>
-                  <span class="meta-strip-item">⚔️ 1 vs 1 Fighting</span>
-                  <span class="meta-strip-item">👹 Boss Fights</span>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Arcade Control Deck & Coin Door (Arcade Layout) -->
-            <div class="arcade-cabinet-deck" aria-hidden="true">
-              <div class="arcade-cpanel">
-                <div class="cpanel-1p-badge">
-                  <span class="cpanel-player-icon">🕹️</span>
-                  <span>1P / 2P</span>
-                </div>
-                <div class="cpanel-joystick-unit">
-                  <div class="joystick-base"></div>
-                  <div class="joystick-shaft"></div>
-                  <div class="joystick-ball red-ball"></div>
-                </div>
-                <div class="cpanel-buttons-cluster">
-                  <span class="arcade-micro-btn btn-red" title="Button 1"></span>
-                  <span class="arcade-micro-btn btn-blue" title="Button 2"></span>
-                  <span class="arcade-micro-btn btn-yellow" title="Button 3"></span>
-                  <span class="arcade-micro-btn btn-green" title="Button 4"></span>
-                </div>
-              </div>
-              <div class="arcade-cabinet-lower">
-                <div class="arcade-speaker-grille">
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                </div>
-                <div class="arcade-coin-door-box">
-                  <div class="coin-slot-unit">
-                    <span class="coin-insert-label">INSERT 25¢</span>
-                    <div class="coin-entry-slit"></div>
-                    <div class="coin-return-btn">RETURN</div>
-                  </div>
-                  <div class="coin-status-led">
-                    <span class="led-blink-dot"></span>
-                    <span class="led-credit-count">CREDIT 02</span>
+                
+                <div class="artwork-viewport ongoing-img-viewport" data-preview-img="./assets/ongoing-stickman-sword-saint.jpg" data-preview-title="Stickman: The Ultimate Sword Saint · Artwork">
+                  <img src="./assets/ongoing-stickman-sword-saint.jpg" alt="Stickman: The Ultimate Sword Saint Artwork" class="showcase-banner-img">
+                  <div class="viewport-expand-hint">
+                    <span>🔍 Click to Expand Artwork</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Game Details, Mechanics & Development Status -->
-            <div class="game-details-column">
-              
-              <div class="game-details-header">
-                <div class="game-meta-badge ongoing-badge">
-                  <span class="meta-dot dev-dot"></span>
-                  <span>Ongoing Project · Alpha Phase · Unity</span>
-                </div>
-                <h3 class="showcase-title">Stickman: The Ultimate Sword Saint</h3>
-                <p class="showcase-tagline">
-                  High-octane martial arts combat with guard mechanics, gang progression, weapon mastery, and multi-stage boss duels.
-                </p>
+            <div class="project-info-col">
+              <div class="project-badge-row">
+                <span class="project-type-tag">2D/3D Action RPG</span>
+                <span class="project-dev-tag">⚡ Alpha Phase · Playable in Arcade</span>
               </div>
 
-              <p class="showcase-summary">
-                A fluid, high-intensity martial arts action title pitting a solitary swordmaster against escalating waves of enemy syndicates, elite ninja warriors, and mythic bosses beneath a crimson blood moon. Built around a responsive guard defense and stamina combat system, featuring weapon customization, kill-streak combos, and cinematic finishing moves.
+              <h3 class="project-title">Stickman: The Ultimate Sword Saint</h3>
+              <p class="project-tagline">High-octane martial arts combat with guard mechanics, gang progression, weapon mastery, and multi-stage boss duels.</p>
+
+              <p class="project-description">
+                Pitting a solitary master swordsman against an escalating gang syndicate. Features lethal normal speed melee, red lightsaber blade strikes, guard posture breaking, weapon throwing (E), weapon grabbing (G), and intense boss duels with the deadly 3-second Ayakashi rage attack.
               </p>
 
-              <!-- Highlights Checklist -->
-              <div class="showcase-features-list">
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">⚔️</span>
-                  <span class="feature-text"><strong>1 vs 1 & Streak Combat</strong> – Tight parry windows, guard breaks, and rhythmic combo chaining.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🏯</span>
-                  <span class="feature-text"><strong>Gang Progression & Multi-Stage Battles</strong> – Clear criminal syndicates across diverse Japanese pagoda and urban districts.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🗡️</span>
-                  <span class="feature-text"><strong>Weapon Shop & Upgrades</strong> – Unlock and forge katanas, scythes, naginatas, and dual blades.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">⚡</span>
-                  <span class="feature-text"><strong>Health, Stamina & Guard System</strong> – Tactical resource management requiring defensive mastery and offensive timing.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">👹</span>
-                  <span class="feature-text"><strong>Epic Boss Fights</strong> – Multi-phase encounters with distinct attack patterns, counters, and arena hazards.</span>
-                </div>
+              <div class="project-tech-tags">
+                <span class="tech-tag">Combat Systems</span>
+                <span class="tech-tag">Ayakashi Boss AI</span>
+                <span class="tech-tag">80 Level Progression</span>
+                <span class="tech-tag">Posture &amp; Guard</span>
               </div>
 
-              <!-- Tech Badges -->
-              <div class="showcase-tech-shelf">
-                <span class="tech-pill">🎮 Unity Engine</span>
-                <span class="tech-pill">⚔️ Action RPG</span>
-                <span class="tech-pill">⚡ Guard Break Combat</span>
-                <span class="tech-pill">🗡️ Weapon Upgrade Mechanics</span>
-                <span class="tech-pill">👹 Multi-Stage Boss AI</span>
-                <span class="tech-pill">💨 Particle VFX</span>
-              </div>
-
-              <!-- Action / Status Row -->
-              <div class="showcase-actions-row">
-                <div class="ongoing-progress-pill">
-                  <span class="live-dot pulse"></span>
-                  <span>In Active Development · Alpha Combat Polish</span>
-                </div>
-                <button type="button" class="pixel-btn-3d btn-white btn-preview-art" data-preview-img="./assets/ongoing-stickman-sword-saint.jpg" data-preview-title="Stickman: The Ultimate Sword Saint · Official Visual" title="Expand Full Visual">
+              <div class="project-action-row">
+                <a href="#arcade-console" class="aaa-btn-primary">
+                  <span>Play StickSaw in Arcade ↓</span>
+                  <span class="btn-arrow">→</span>
+                </a>
+                <button type="button" class="aaa-btn-ghost btn-preview-art" data-preview-img="./assets/ongoing-stickman-sword-saint.jpg" data-preview-title="Stickman: The Ultimate Sword Saint · Official Visual">
                   <span>🔍 Expand Art</span>
                 </button>
               </div>
-
             </div>
-
           </div>
 
-          <!-- ================= 5. ONGOING PROJECT: MAZE EXPLORER ================= -->
-          <div class="featured-game-showcase project-item-card ongoing-project-card" id="mazeExplorerShowcase" data-game="maze" data-status="ongoing">
-            
-            <!-- Retro Arcade Cabinet Marquee Header (Arcade Layout) -->
-            <div class="arcade-cabinet-marquee" aria-hidden="true">
-              <div class="arcade-marquee-rim">
-                <span class="arcade-bolt bolt-tl"></span>
-                <span class="arcade-bolt bolt-tr"></span>
-                <span class="arcade-bolt bolt-bl"></span>
-                <span class="arcade-bolt bolt-br"></span>
-                <div class="arcade-marquee-sign marquee-maze">
-                  <span class="marquee-neon-icon">🔦</span>
-                  <span class="marquee-title-text">3D MAZE EXPLORER</span>
-                  <span class="marquee-sub-glow">● PROCEDURAL HORROR · AUDIO RADAR ●</span>
+          <!-- PROJECT 5: 3D MAZE EXPLORER -->
+          <div class="project-item-card ongoing-card" id="mazeExplorerShowcase" data-game="maze" data-status="ongoing">
+            <div class="project-media-col">
+              <div class="media-frame">
+                <div class="media-header-tag ongoing-tag">
+                  <span class="media-status-dot dev-pulse"></span>
+                  <span>IN ACTIVE DEVELOPMENT · ATMOSPHERE PASS</span>
                 </div>
-              </div>
-            </div>
-
-            <!-- Left: Artwork Display Frame -->
-            <div class="game-video-column">
-              <div class="game-video-bezel">
-                <!-- Top Bezel Header / Status Badges -->
-                <div class="video-bezel-top">
-                  <div class="video-status-tag ongoing-tag">
-                    <span class="video-rec-dot dev-pulse-dot"></span>
-                    <span class="video-tag-text">IN ACTIVE DEVELOPMENT</span>
-                  </div>
-                  <div class="video-badge-pill">
-                    <span>🔦 Survival Horror</span>
-                  </div>
-                </div>
-
-                <!-- Banner Image Viewport -->
-                <div class="video-viewport ongoing-img-viewport" title="Click to view full concept artwork" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Concept Artwork">
-                  <img src="./assets/ongoing-maze-explorer.jpg" alt="Maze Explorer - Game Artwork" class="showcase-banner-img">
-                  <div class="video-tap-overlay">
-                    <div class="video-floating-badge">
-                      <span class="badge-icon">🔍</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Bottom Status Strip -->
-                <div class="ongoing-banner-meta-strip">
-                  <span class="meta-strip-item">🔦 Volumetric Flashlight</span>
-                  <span class="meta-strip-item">👁️ Lurking Stalker AI</span>
-                  <span class="meta-strip-item">🕷️ Creeping Arachnids</span>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Arcade Control Deck & Coin Door (Arcade Layout) -->
-            <div class="arcade-cabinet-deck" aria-hidden="true">
-              <div class="arcade-cpanel">
-                <div class="cpanel-1p-badge">
-                  <span class="cpanel-player-icon">🕹️</span>
-                  <span>1P / 2P</span>
-                </div>
-                <div class="cpanel-joystick-unit">
-                  <div class="joystick-base"></div>
-                  <div class="joystick-shaft"></div>
-                  <div class="joystick-ball red-ball"></div>
-                </div>
-                <div class="cpanel-buttons-cluster">
-                  <span class="arcade-micro-btn btn-red" title="Button 1"></span>
-                  <span class="arcade-micro-btn btn-blue" title="Button 2"></span>
-                  <span class="arcade-micro-btn btn-yellow" title="Button 3"></span>
-                  <span class="arcade-micro-btn btn-green" title="Button 4"></span>
-                </div>
-              </div>
-              <div class="arcade-cabinet-lower">
-                <div class="arcade-speaker-grille">
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                  <span class="grille-slat"></span>
-                </div>
-                <div class="arcade-coin-door-box">
-                  <div class="coin-slot-unit">
-                    <span class="coin-insert-label">INSERT 25¢</span>
-                    <div class="coin-entry-slit"></div>
-                    <div class="coin-return-btn">RETURN</div>
-                  </div>
-                  <div class="coin-status-led">
-                    <span class="led-blink-dot"></span>
-                    <span class="led-credit-count">CREDIT 02</span>
+                
+                <div class="artwork-viewport ongoing-img-viewport" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Concept Artwork">
+                  <img src="./assets/ongoing-maze-explorer.jpg" alt="Maze Explorer Concept Artwork" class="showcase-banner-img">
+                  <div class="viewport-expand-hint">
+                    <span>🔍 Click to Expand Artwork</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Right: Game Details, Mechanics & Development Status -->
-            <div class="game-details-column">
-              
-              <div class="game-details-header">
-                <div class="game-meta-badge ongoing-badge">
-                  <span class="meta-dot dev-dot"></span>
-                  <span>Ongoing Project · Mechanics & AI Pass · Unity</span>
-                </div>
-                <h3 class="showcase-title">Maze Explorer</h3>
-                <p class="showcase-tagline">
-                  Traverse a decaying underground concrete labyrinth stalked by relentless subterranean entities.
-                </p>
+            <div class="project-info-col">
+              <div class="project-badge-row">
+                <span class="project-type-tag">Survival Horror</span>
+                <span class="project-dev-tag">⚡ Mechanics &amp; AI Pass</span>
               </div>
 
-              <p class="showcase-summary">
-                Plunge into the suffocating darkness of <strong>Maze Explorer</strong>, a first-person survival horror experience set within an abandoned, decaying subterranean facility. Armed only with a sputtering flashlight and precarious power switches, players must decipher spatial maze layouts, restore circuit breakers, evade lurking monstrosities with acute sensory AI, and survive the terrifying arachnid horrors infesting the damp concrete corridors.
+              <h3 class="project-title">3D Maze Explorer</h3>
+              <p class="project-tagline">Traverse a decaying underground concrete labyrinth stalked by relentless subterranean entities.</p>
+
+              <p class="project-description">
+                Armed only with a sputtering flashlight and precarious power switches, players must decipher spatial maze layouts, restore circuit breakers, evade lurking monstrosities with acute sensory AI, and survive creeping arachnid horrors infesting the damp concrete corridors.
               </p>
 
-              <!-- Highlights Checklist -->
-              <div class="showcase-features-list">
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🔦</span>
-                  <span class="feature-text"><strong>Dynamic Lighting & Battery Scarcity</strong> – Volumetric flashlight beams cutting through dense atmospheric fog.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">👁️</span>
-                  <span class="feature-text"><strong>Reactive Stalker AI</strong> – Nightmarish humanoid creatures that hunt through sound, shadow, and line of sight.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">⚡</span>
-                  <span class="feature-text"><strong>Environmental Circuit Puzzles</strong> – Restore power to locked blast doors, industrial lifts, and flickering warning beacons.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🕷️</span>
-                  <span class="feature-text"><strong>Creeping Arachnid Threats</strong> – Giant wall-crawling spiders and vermin ambushing from exposed overhead pipes.</span>
-                </div>
-                <div class="showcase-feature-item">
-                  <span class="feature-icon">🎧</span>
-                  <span class="feature-text"><strong>Binaural Spatial Horror Audio</strong> – Distant pipe clanks, creeping footsteps, electrical buzzing, and chilling foley.</span>
-                </div>
+              <div class="project-tech-tags">
+                <span class="tech-tag">Unity Engine</span>
+                <span class="tech-tag">Volumetric Lighting</span>
+                <span class="tech-tag">Sensory Stalker AI</span>
+                <span class="tech-tag">Binaural Audio</span>
               </div>
 
-              <!-- Tech Badges -->
-              <div class="showcase-tech-shelf">
-                <span class="tech-pill">🎮 Unity Engine</span>
-                <span class="tech-pill">🔦 3D First-Person Horror</span>
-                <span class="tech-pill">👁️ Sensory AI Behaviors</span>
-                <span class="tech-pill">⚡ Electrical Circuit Puzzles</span>
-                <span class="tech-pill">🌫️ Volumetric Fog & Lighting</span>
-                <span class="tech-pill">🎧 Spatial 3D Audio</span>
-              </div>
-
-              <!-- Action / Status Row -->
-              <div class="showcase-actions-row">
-                <div class="ongoing-progress-pill">
-                  <span class="live-dot pulse"></span>
-                  <span>In Active Development · Atmosphere & Enemy AI Pass</span>
-                </div>
-                <button type="button" class="pixel-btn-3d btn-white btn-preview-art" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Official Poster" title="Expand Full Visual">
+              <div class="project-action-row">
+                <button type="button" class="aaa-btn-ghost btn-preview-art" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Official Artwork">
                   <span>🔍 Expand Art</span>
                 </button>
               </div>
-
             </div>
-
           </div>
 
-        </div><!-- End Featured Projects Stack -->
-
-        <!-- Studio Reel Pagination Track with Indicator Pills & Navigation Dots -->
-        <div class="reel-pagination-container">
-          <div class="reel-drag-hint">
-            <span class="hint-icon">↔</span>
-            <span>Scroll or drag horizontally to explore reel · or use arrow buttons</span>
-          </div>
-          <div class="reel-dots-track" id="reelDotsTrack">
-            <button type="button" class="reel-dot-pill active" data-index="0" title="1. The Summer Reverie">
-              <span class="dot-num">01</span>
-              <span class="dot-name">The Summer Reverie</span>
-            </button>
-            <button type="button" class="reel-dot-pill" data-index="1" title="2. Hairpin Drift">
-              <span class="dot-num">02</span>
-              <span class="dot-name">Hairpin Drift</span>
-            </button>
-            <button type="button" class="reel-dot-pill" data-index="2" title="3. BallPass3D">
-              <span class="dot-num">03</span>
-              <span class="dot-name">BallPass3D</span>
-            </button>
-            <button type="button" class="reel-dot-pill" data-index="3" title="4. Stickman: The Ultimate Sword Saint">
-              <span class="dot-num">04</span>
-              <span class="dot-name">Stickman: Sword Saint</span>
-            </button>
-            <button type="button" class="reel-dot-pill" data-index="4" title="5. Maze Explorer">
-              <span class="dot-num">05</span>
-              <span class="dot-name">Maze Explorer</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- More Projects Incoming Strip -->
-        <div class="projects-more-shelf">
-          <div class="more-shelf-left">
-            <span class="more-sparkle-icon">✨</span>
-            <span class="more-text"><strong>More Projects In Development:</strong> Additional voxel worlds, arcade simulations, and prototypes are in progress.</span>
-          </div>
-          <a href="#arcade-console" class="pixel-pill-btn btn-sakura-pill">
-            <span>Try Built-in Retro Minigames ↓</span>
-          </a>
         </div>
 
       </section>
 
-      </div><!-- ================= END CHAPTER III: QUEST JOURNAL ================= -->
-
-      <!-- ================= CHAPTER IV: BATTLE ARENA ================= -->
-      <div class="codex-chapter" id="chapter-arena" data-chapter-id="arena">
-
-      <!-- ================= 5. INTERACTIVE ARCADE CONSOLE SCREEN ================= -->
-      <section class="pixel-card console-section studio-arcade-stage" id="arcade-console">
-        <div class="console-section-header">
-          <div class="arcade-title-group">
-            <div class="section-pixel-badge">
-              <span class="badge-creeper-box">🕹️</span>
-              <span class="badge-title-text">Playable Arcade Stage</span>
-            </div>
-            <p class="console-sub-desc">Developer testbed running browser-native 60 FPS canvas game engines with custom physics and combo combat.</p>
+      <!-- ================= 5. PLAYABLE ARCADE CONSOLE STAGE ================= -->
+      <section class="aaa-card arcade-stage-section" id="arcade-console">
+        
+        <div class="arcade-stage-header">
+          <div>
+            <div class="section-kicker">// 03. LIVE TESTBED</div>
+            <h2 class="section-heading">Interactive 60 FPS Web Arcade Console</h2>
+            <p class="section-subtext">Developer testbed running browser-native 60 FPS canvas game engines with custom physics and combo combat.</p>
           </div>
-          
+
           <!-- Game Selector Tabs -->
           <div class="game-select-tabs" id="gameSelectTabs">
-            <button class="pixel-tab-btn active" data-game="runner">
+            <button class="game-tab-btn active" data-game="runner">
               🏃 Block Runner
             </button>
-            <button class="pixel-tab-btn" data-game="breakout">
+            <button class="game-tab-btn" data-game="breakout">
               🧱 Voxel Breakout
             </button>
-            <button class="pixel-tab-btn" data-game="sword">
-              ⚔️ StickSaw
+            <button class="game-tab-btn" data-game="sword">
+              ⚔️ StickSaw v0.1
             </button>
           </div>
         </div>
 
-        <!-- Handheld Controller Style Housing -->
+        <!-- Sleek Modern Cyber Chassis -->
         <div class="console-chassis">
           <!-- Left Wing -->
           <div class="controller-wing wing-left">
@@ -1761,7 +659,7 @@
                 <div class="overlay-glass-card">
                   <h3 class="overlay-title" id="overlayTitle">PRESS [A] TO START</h3>
                   <p class="overlay-msg" id="overlayMsg">Dodge creepers and collect shiny diamonds!</p>
-                  <button class="pixel-btn-3d btn-purple" id="overlayBtn">PLAY NOW</button>
+                  <button class="aaa-btn-primary" id="overlayBtn">PLAY NOW</button>
                 </div>
               </div>
             </div>
@@ -1780,83 +678,221 @@
             <button class="pill-function-btn" id="btnConsoleStart">START</button>
           </div>
         </div>
+
       </section>
 
-      </div><!-- ================= END CHAPTER IV: BATTLE ARENA ================= -->
-
-      <!-- ================= CHAPTER V: GUILD TAVERN & MESSENGER ================= -->
-      <div class="codex-chapter" id="chapter-tavern" data-chapter-id="tavern">
-
-      <!-- ================= 6. GET IN TOUCH (SAKURA BIOME DESIGN) ================= -->
-      <section class="pixel-card contact-section" id="contact">
+      <!-- ================= 6. SKILLS & ARSENAL SECTION ================= -->
+      <section class="aaa-card skills-section" id="skills">
         
-        <!-- Header Badge: Envelope Icon + Get in Touch -->
-        <div class="section-pixel-badge badge-contact-header">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#db2777" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="contact-mail-icon" aria-hidden="true">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          <span class="badge-title-text">Get in Touch</span>
+        <div class="section-kicker">// 04. ARSENAL</div>
+        <h2 class="section-heading">Core Engines, Languages &amp; Tooling</h2>
+        <p class="section-subtext">The production-proven toolchain I use to architect games from whitebox to release.</p>
+
+        <div class="skills-grid-wrapper">
+          
+          <!-- 1. Unity -->
+          <div class="skill-card" data-skill="Unity">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 256 256" width="34" height="34">
+                <path fill="#ffffff" d="M128 20L58 60v80l70 40 70-40V60L128 20zm-10 32.5l42 24.2-42 24.2-42-24.2 42-24.2zM76 80l42 24.2v48.4L76 128.4V80zm104 48.4l-42 24.2v-48.4l42-24.2v48.4z"/>
+              </svg>
+            </div>
+            <span class="skill-name">Unity</span>
+            <span class="skill-category">Primary Engine</span>
+          </div>
+
+          <!-- 2. C# -->
+          <div class="skill-card" data-skill="C#">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <path fill="#a855f7" d="M64 12L16 39.7v55.4L64 122.9l48-27.7V39.7L64 12z"/>
+                <path fill="#fff" d="M48 48c-8.8 0-16 7.2-16 16s7.2 16 16 16c5.3 0 10-2.6 13-6.6l-5.6-4.2C53.7 71.5 51 73 48 73c-5 0-9-4-9-9s4-9 9-9c3 0 5.7 1.5 7.4 3.8l5.6-4.2C58 50.6 53.3 48 48 48zm30 8h5v8h8v5h-8v8h-5v-8h-8v-5h8v-8zm20 0h5v8h8v5h-8v8h-5v-8h-8v-5h8v-8z"/>
+              </svg>
+            </div>
+            <span class="skill-name">C#</span>
+            <span class="skill-category">Core Language</span>
+          </div>
+
+          <!-- 3. Python -->
+          <div class="skill-card" data-skill="Python">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <path fill="#38bdf8" d="M63.5 12c-28 0-26.3 12.1-26.3 12.1l.1 12.5h26.7v3.8H25.8S12 38.8 12 66.8s12.1 27.5 12.1 27.5h7.2v-10.2s-.4-12.1 11.9-12.1h26.5s11.5-.2 11.5-11.3V23.5s1.7-11.5-27.7-11.5zM48.8 20.3a4.2 4.2 0 1 1 0 8.4 4.2 4.2 0 0 1 0-8.4z"/>
+                <path fill="#facc15" d="M64.5 116c28 0 26.3-12.1 26.3-12.1l-.1-12.5H64v-3.8h38.2s13.8 1.6 13.8-26.4-12.1-27.5-12.1-27.5h-7.2v10.2s.4 12.1-11.9 12.1H48.3s-11.5.2-11.5 11.3v37.2s-1.7 11.5 27.7 11.5zm14.7-8.3a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4z"/>
+              </svg>
+            </div>
+            <span class="skill-name">Python</span>
+            <span class="skill-category">Scripting &amp; Tools</span>
+          </div>
+
+          <!-- 4. Blender -->
+          <div class="skill-card" data-skill="Blender">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <path fill="#f97316" d="M64 24a40 40 0 1 0 40 40A40 40 0 0 0 64 24zm0 64a24 24 0 1 1 24-24 24 24 0 0 1-24 24z"/>
+                <path fill="#222" d="M64 48a16 16 0 1 0 16 16A16 16 0 0 0 64 48z"/>
+              </svg>
+            </div>
+            <span class="skill-name">Blender</span>
+            <span class="skill-category">3D Modeling</span>
+          </div>
+
+          <!-- 5. Photoshop -->
+          <div class="skill-card" data-skill="Photoshop">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <rect width="128" height="128" rx="20" fill="#001e36"/>
+                <path fill="#38bdf8" d="M42 38h20.5c12 0 19.5 6.5 19.5 16.5s-7.5 16.5-19.5 16.5H53v21H42V38zm11 23.5h8.5c6 0 9.5-3 9.5-7.5s-3.5-7.5-9.5-7.5H53v15z"/>
+                <path fill="#38bdf8" d="M84.5 73.5c4 0 7.5 1.5 9.5 3.5l6-7.5c-3.5-3-9-5-15.5-5-11.5 0-18.5 7-18.5 16.5s7.5 15.5 17.5 17c5.5.8 8.5 2.2 8.5 4.5 0 2.5-3 4-7.5 4-5.5 0-10.5-2-13.5-5l-6 8c4 4 11 6.5 19.5 6.5 12.5 0 19.5-6.5 19.5-16.5s-7.5-15-17.5-16.5c-5.5-.8-8.5-2-8.5-4.5 0-2.2 2.5-3.5 6.5-3.5z"/>
+              </svg>
+            </div>
+            <span class="skill-name">Photoshop</span>
+            <span class="skill-category">Texture &amp; Concept Art</span>
+          </div>
+
+          <!-- 6. Git -->
+          <div class="skill-card" data-skill="Git">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <path fill="#ef4444" d="M124.7 57.6L70.4 3.3c-4.4-4.4-11.6-4.4-16 0L42.5 15.2l20.4 20.4c4.7-1.6 10.2-.5 13.9 3.2 3.7 3.7 4.8 9.2 3.2 13.9l19.6 19.6c4.7-1.6 10.2-.5 13.9 3.2 5.1 5.1 5.1 13.4 0 18.5s-13.4 5.1-18.5 0c-4-4-4.9-9.8-2.9-14.7L73.9 61.1v27.2c1.7 1.1 3.2 2.6 4.3 4.4 3.9 6.1 2.2 14.2-3.9 18.1-6.1 3.9-14.2 2.2-18.1-3.9-3.9-6.1-2.2-14.2 3.9-18.1 1.9-1.2 4-1.9 6.2-2.1V60.7c-2.2-.2-4.3-.9-6.2-2.1-4.1-2.6-6.3-7.2-5.7-11.9L24.4 67.2 3.3 46.1c-4.4 4.4-4.4 11.6 0 16l54.3 54.3c4.4 4.4 11.6 4.4 16 0l51.1-51.1c4.5-4.4 4.5-11.6 0-16.1"/>
+              </svg>
+            </div>
+            <span class="skill-name">Git</span>
+            <span class="skill-category">Version Control</span>
+          </div>
+
+          <!-- 7. VS Code -->
+          <div class="skill-card" data-skill="VS Code">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <path fill="#0284c7" d="M96.7 11.4L68.5 38.3 43.6 19.2c-3.1-2.4-7.5-2.2-10.4.5L16.4 35.8c-3.2 3.2-3.2 8.4 0 11.6l23.5 23.5-23.5 23.5c-3.2 3.2-3.2 8.4 0 11.6l16.8 16.1c2.9 2.7 7.3 2.9 10.4.5l24.9-19.1 28.2 26.9c3.3 3.1 8.5 2.7 11.3-.8l13-17.5c2.4-3.2 2.1-7.8-.8-10.6L102 83.5V44.5l18.5-18.1c2.9-2.8 3.2-7.4.8-10.6l-13-17.5c-2.8-3.5-8-3.9-11.6-6.9"/>
+              </svg>
+            </div>
+            <span class="skill-name">VS Code</span>
+            <span class="skill-category">IDE &amp; Tooling</span>
+          </div>
+
+          <!-- 8. Figma -->
+          <div class="skill-card" data-skill="Figma">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 128 128" width="34" height="34">
+                <path fill="#10b981" d="M43 117c11.6 0 21-9.4 21-21V75H43c-11.6 0-21 9.4-21 21s9.4 21 21 21z"/>
+                <path fill="#8b5cf6" d="M22 54c0-11.6 9.4-21 21-21h21v42H43c-11.6 0-21-9.4-21-21z"/>
+                <path fill="#f43f5e" d="M22 32c0-11.6 9.4-21 21-21h21v42H43C31.4 53 22 43.6 22 32z"/>
+                <path fill="#fb923c" d="M64 11h21c11.6 0 21 9.4 21 21s-9.4 21-21 21H64V11z"/>
+                <path fill="#06b6d4" d="M106 53c0 11.6-9.4 21-21 21s-21-9.4-21-21 9.4-21 21-21 21 9.4 21 21z"/>
+              </svg>
+            </div>
+            <span class="skill-name">Figma</span>
+            <span class="skill-category">UI / UX Prototyping</span>
+          </div>
+
+          <!-- 9. UI / UX -->
+          <div class="skill-card" data-skill="UI / UX">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <span class="skill-name">UI / UX Design</span>
+            <span class="skill-category">Player Experience</span>
+          </div>
+
+          <!-- 10. Game Design -->
+          <div class="skill-card" data-skill="Game Design">
+            <div class="skill-icon-holder">
+              <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="6" y1="12" x2="10" y2="12"></line>
+                <line x1="8" y1="10" x2="8" y2="14"></line>
+                <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+              </svg>
+            </div>
+            <span class="skill-name">Game Design</span>
+            <span class="skill-category">Combat &amp; Mechanics</span>
+          </div>
+
         </div>
 
-        <p class="contact-sub-text">Have a project, idea, or opportunity? Let's talk!</p>
+      </section>
 
-        <div class="contact-body-row">
-          <!-- Left: User's Contact Channels List (Exact Style from Sakura Reference) -->
-          <div class="contact-channels-list">
+      <!-- ================= 7. CONTACT & INQUIRY SECTION ================= -->
+      <section class="aaa-card contact-section" id="contact">
+        
+        <div class="section-kicker">// 05. CONTACT</div>
+        <h2 class="section-heading">Let's Build Something Memorable.</h2>
+        <p class="section-subtext">Have a game project, studio opportunity, or prototype in mind? Let's connect.</p>
+
+        <div class="contact-grid-row">
+          
+          <div class="contact-channels-box">
             <!-- Email -->
-            <a href="mailto:renishere2002@gmail.com" class="contact-channel-item" title="Send Email">
-              <div class="channel-icon-box channel-icon-mail">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <a href="mailto:renishere2002@gmail.com" class="contact-channel-card" title="Send Email">
+              <div class="channel-icon-box">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
               </div>
-              <span class="channel-link-text">renishere2002@gmail.com</span>
+              <div class="channel-info">
+                <span class="channel-label">Direct Email</span>
+                <span class="channel-value">renishere2002@gmail.com</span>
+              </div>
+              <span class="channel-arrow">→</span>
             </a>
 
             <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/anantha-krishnan-8842a3451" target="_blank" rel="noopener noreferrer" class="contact-channel-item" title="LinkedIn Profile">
-              <div class="channel-icon-box channel-icon-linkedin">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <a href="https://www.linkedin.com/in/anantha-krishnan-8842a3451" target="_blank" rel="noopener noreferrer" class="contact-channel-card" title="LinkedIn Profile">
+              <div class="channel-icon-box">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.62 1.62 0 1 0 0 3.24 1.62 1.62 0 0 0 0-3.24Z"/>
                 </svg>
               </div>
-              <span class="channel-link-text">linkedin.com/in/anantha-krishnan-8842a3451</span>
+              <div class="channel-info">
+                <span class="channel-label">LinkedIn</span>
+                <span class="channel-value">anantha-krishnan-8842a3451</span>
+              </div>
+              <span class="channel-arrow">↗</span>
             </a>
 
             <!-- GitHub -->
-            <a href="https://github.com/ananthakrishnanpty999-bit" target="_blank" rel="noopener noreferrer" class="contact-channel-item" title="GitHub Profile">
-              <div class="channel-icon-box channel-icon-github">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <a href="https://github.com/ananthakrishnanpty999-bit" target="_blank" rel="noopener noreferrer" class="contact-channel-card" title="GitHub Profile">
+              <div class="channel-icon-box">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
                   <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/>
                 </svg>
               </div>
-              <span class="channel-link-text">github.com/ananthakrishnanpty999-bit</span>
+              <div class="channel-info">
+                <span class="channel-label">GitHub</span>
+                <span class="channel-value">ananthakrishnanpty999-bit</span>
+              </div>
+              <span class="channel-arrow">↗</span>
             </a>
           </div>
 
-          <!-- Right: 3D Minecraft Chest with Glowing Lantern -->
-          <div class="contact-art-col">
-            <div class="chest-lantern-frame" id="chestContainer" title="Click the Chest &amp; Lantern for a pixel surprise!">
-              <img src="./assets/contact-chest-lantern.png" alt="Minecraft Chest with glowing lantern on floating grass block island" class="chest-img" id="chestImg">
+          <!-- Right: Interactive Chest Artifact -->
+          <div class="contact-artifact-col">
+            <div class="chest-lantern-frame" id="chestContainer" title="Click for a particle surprise!">
+              <img src="./assets/contact-chest-lantern.png" alt="Developer Studio Chest &amp; Lantern" class="chest-img" id="chestImg">
               <div class="chest-sparks" id="chestSparks"></div>
             </div>
           </div>
+
         </div>
 
       </section>
 
-      </div><!-- ================= END CHAPTER V: GUILD TAVERN ================= -->
-
     </main>
 
-    <!-- Footer -->
-    <footer class="pixel-footer">
-      <div class="footer-inner-box">
-        <p>© 2026 AnanthaKrishnan SB. Pixel crafted with passion.</p>
+    <!-- ================= FOOTER ================= -->
+    <footer class="aaa-footer">
+      <div class="footer-content">
+        <p>© 2026 AnanthaKrishnan SB. Engineered with passion and precision.</p>
         <button class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
-          ▲ Top
+          ↑ Back to Top
         </button>
       </div>
     </footer>
@@ -1864,17 +900,17 @@
   </div><!-- End Page Container -->
 
   <!-- Toast Notification -->
-  <div class="pixel-toast" id="pixelToast" role="alert">
+  <div class="aaa-toast" id="pixelToast" role="alert">
     <span class="toast-dot"></span>
     <span id="toastMessage">Welcome to AnanthaKrishnan's Portfolio!</span>
   </div>
 
   <!-- Lightbox Modal for Screenshots -->
-  <div class="pixel-modal hidden" id="imageModal" role="dialog" aria-modal="true">
-    <div class="pixel-modal-backdrop" id="modalBackdrop"></div>
-    <div class="pixel-modal-container">
+  <div class="aaa-modal hidden" id="imageModal" role="dialog" aria-modal="true">
+    <div class="aaa-modal-backdrop" id="modalBackdrop"></div>
+    <div class="aaa-modal-container">
       <div class="modal-header">
-        <span class="modal-title" id="modalTitle">The Summer Reverie · Screenshot</span>
+        <span class="modal-title" id="modalTitle">Screenshot Preview</span>
         <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body">

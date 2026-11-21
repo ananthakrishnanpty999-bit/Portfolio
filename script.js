@@ -1,4 +1,4 @@
-/**
+﻿/**
  * GAMEDEV - ANANTHAKRISHNAN SB PORTFOLIO ENGINE
  * 60FPS Ambient Voxel Particles, Retro Synthesizer & 3-in-1 Arcade Engine
  */
@@ -173,396 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  /* ==========================================================================
-     MINECRAFT MULTI-BIOME SYSTEM
-     Sakura Grove ?? · Overworld Plains ?? · Snowy Taiga ?? · The Nether ??
-     Synchronizes Colors, 60FPS Ambient Particles, Sound FX & All Portfolio Images
-     ========================================================================== */
-  const BIOME_CONFIGS = {
-    sakura: {
-      themeClass: 'theme-sakura',
-      icon: '??',
-      name: 'Sakura Grove',
-      heroImg: './assets/hero-sakura-grove.jpg',
-      heroAlt: 'Minecraft Adventurer overlooking Cherry Blossom Sakura Grove',
-      contactImg: './assets/contact-chest-lantern.png',
-      contactAlt: 'Minecraft Chest with glowing lantern on floating grass block island',
-      soundType: 'sakura',
-      toast: 'Biome: Sakura Blossom Grove ??'
-    },
-    plains: {
-      themeClass: 'theme-plains',
-      icon: '??',
-      name: 'Overworld (Leaf)',
-      heroImg: './assets/hero-minecraft-adventurer.jpg',
-      heroAlt: 'Minecraft Adventurer overlooking Overworld Valley with Castle and Nether Portal',
-      contactImg: './assets/contact-chest-lantern.png',
-      contactAlt: 'Minecraft Chest with glowing lantern on floating grass block island',
-      soundType: 'leaf',
-      toast: 'Biome: Overworld Leaf & Forest ??'
-    },
-    snow: {
-      themeClass: 'theme-snow',
-      icon: '??',
-      name: 'Snowy Taiga',
-      heroImg: './assets/hero-snowy-taiga.jpg',
-      heroAlt: 'Minecraft Adventurer overlooking Snowy Taiga with Aurora Borealis',
-      contactImg: './assets/contact-snow-spruce.png',
-      contactAlt: 'Minecraft Snowy Spruce Tree with Soul Lantern',
-      soundType: 'snow',
-      toast: 'Biome: Snowy Taiga & Frozen Peaks ??'
-    },
-    nether: {
-      themeClass: 'theme-nether',
-      icon: '??',
-      name: 'The Nether',
-      heroImg: './assets/hero-nether-crimson.jpg',
-      heroAlt: 'Minecraft Adventurer overlooking Nether Fortress and Crimson Forest',
-      contactImg: './assets/contact-nether-portal.png',
-      contactAlt: 'Minecraft Nether Portal and Crimson Diorama with Shroomlight',
-      soundType: 'nether',
-      toast: 'Biome: The Nether & Crimson Forest ??'
-    }
-  };
-
-  const biomeSelectorWrapper = document.getElementById('biomeSelectorWrapper');
-  const biomeSelectBtn = document.getElementById('biomeSelectBtn');
-  const biomeCurrentIcon = document.getElementById('biomeCurrentIcon');
-  const biomeDropdownMenu = document.getElementById('biomeDropdownMenu');
-  const biomeOptionBtns = document.querySelectorAll('.biome-option-btn');
-  const heroSceneImg = document.getElementById('heroSceneImg');
-  const chestImg = document.getElementById('chestImg');
-
-  let currentBiomeKey = 'plains';
-
-  function setBiome(biomeKey, notify = true) {
-    if (!BIOME_CONFIGS[biomeKey]) biomeKey = 'plains';
-    currentBiomeKey = biomeKey;
-    const config = BIOME_CONFIGS[biomeKey];
-
-    // Remove all biome classes from body
-    document.body.classList.remove('theme-sakura', 'theme-plains', 'theme-snow', 'theme-nether');
-    document.body.classList.add(config.themeClass);
-
-    // Update navbar current icon & title
-    if (biomeCurrentIcon) biomeCurrentIcon.textContent = config.icon;
-    if (biomeSelectBtn) biomeSelectBtn.title = `Current Biome: ${config.name} ${config.icon} (Click to switch)`;
-
-    // Update dropdown active item
-    biomeOptionBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-biome') === biomeKey);
-    });
-
-    // Dynamically update Hero Image according to the chosen biome
-    if (heroSceneImg) {
-      heroSceneImg.src = config.heroImg;
-      heroSceneImg.alt = config.heroAlt;
-    }
-
-    // Dynamically update Contact / Get in Touch Feature Image according to the chosen biome
-    if (chestImg) {
-      chestImg.src = config.contactImg;
-      chestImg.alt = config.contactAlt;
-    }
-
-    // Save choice to localStorage
-    localStorage.setItem('minecraft_portfolio_biome', biomeKey);
-
-    // Audio & Toast Feedback
-    if (notify) {
-      playUiSound(config.soundType);
-      showToast(config.toast);
-    }
-  }
-
-  // Load saved biome (defaults to sakura)
-  const savedBiome = localStorage.getItem('minecraft_portfolio_biome') || 'plains';
-  setBiome(savedBiome, false);
-
-  // Toggle dropdown on button click
-  if (biomeSelectBtn && biomeDropdownMenu) {
-    biomeSelectBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = !biomeDropdownMenu.classList.contains('hidden');
-      if (isOpen) {
-        biomeDropdownMenu.classList.add('hidden');
-        if (biomeSelectorWrapper) biomeSelectorWrapper.classList.remove('open');
-      } else {
-        biomeDropdownMenu.classList.remove('hidden');
-        if (biomeSelectorWrapper) biomeSelectorWrapper.classList.add('open');
-      }
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (biomeSelectorWrapper && !biomeSelectorWrapper.contains(e.target)) {
-        biomeDropdownMenu.classList.add('hidden');
-        biomeSelectorWrapper.classList.remove('open');
-      }
-    });
-  }
-
-  // Option button clicks
-  biomeOptionBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selected = btn.getAttribute('data-biome');
-      setBiome(selected, true);
-      if (biomeDropdownMenu) biomeDropdownMenu.classList.add('hidden');
-      if (biomeSelectorWrapper) biomeSelectorWrapper.classList.remove('open');
-    });
-  });
-
-  /* ==========================================================================
-     1B. PORTFOLIO LAYOUT SWITCHER (REEL / BENTO / STACK)
-     ========================================================================== */
-  const layoutSelectBtn = document.getElementById('layoutSelectBtn');
-  const layoutCurrentIcon = document.getElementById('layoutCurrentIcon');
-  const layoutBtnLabel = document.querySelector('.layout-btn-label');
-  const layoutDropdownMenu = document.getElementById('layoutDropdownMenu');
-  const layoutSelectorWrapper = document.getElementById('layoutSelectorWrapper');
-  const layoutOptionBtns = document.querySelectorAll('.layout-option-btn');
-
-  const LAYOUT_CONFIGS = {
-    reel: {
-      name: 'Cinematic Reel',
-      icon: '🎬',
-      toast: '🎬 Switched to Cinematic Reel Layout',
-      sound: 'click'
-    },
-    bento: {
-      name: 'Modern Bento',
-      icon: '🍱',
-      toast: '🍱 Switched to Modern Bento Grid Layout',
-      sound: 'click'
-    },
-    stack: {
-      name: 'Classic Stack',
-      icon: '📜',
-      toast: '📜 Switched to Classic Stack Layout',
-      sound: 'click'
-    },
-    arcade: {
-      name: 'Retro Arcade',
-      icon: '🕹️',
-      toast: '🕹️ Switched to Retro Arcade Cabinet Alley',
-      sound: 'coin'
-    }
-  };
-
-  function setLayout(layoutKey, notify = true) {
-    if (!LAYOUT_CONFIGS[layoutKey]) layoutKey = 'reel';
-    const config = LAYOUT_CONFIGS[layoutKey];
-
-    document.body.classList.remove('layout-reel', 'layout-bento', 'layout-stack', 'layout-arcade');
-    document.body.classList.add(`layout-${layoutKey}`);
-
-    if (layoutCurrentIcon) layoutCurrentIcon.textContent = config.icon;
-    if (layoutBtnLabel) layoutBtnLabel.textContent = config.name.split(' ')[1] || config.name;
-    if (layoutSelectBtn) layoutSelectBtn.title = `Current Layout: ${config.name} (Click to switch)`;
-
-    layoutOptionBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-layout') === layoutKey);
-    });
-
-    localStorage.setItem('portfolio_layout_style', layoutKey);
-
-    const projectCardsAll = document.querySelectorAll('.project-item-card');
-    projectCardsAll.forEach(c => c.classList.remove('hidden'));
-
-    // Reset filter pills to All
-    const allFilterPills = document.querySelectorAll('.project-tab-pill');
-    allFilterPills.forEach(p => {
-      p.classList.toggle('active', p.getAttribute('data-filter') === 'all');
-    });
-
-    if (layoutKey === 'reel') {
-      const track = document.getElementById('featuredProjectsStack');
-      if (track) track.scrollTo({ left: 0, behavior: 'smooth' });
-    }
-
-    if (notify) {
-      playUiSound(config.sound || 'click');
-      showToast(config.toast);
-    }
-  }
-
-  // Load saved layout (defaults to reel)
-  const savedLayout = localStorage.getItem('portfolio_layout_style') || 'reel';
-  setLayout(savedLayout, false);
-
-  if (layoutSelectBtn && layoutDropdownMenu) {
-    layoutSelectBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = !layoutDropdownMenu.classList.contains('hidden');
-      if (isOpen) {
-        layoutDropdownMenu.classList.add('hidden');
-        if (layoutSelectorWrapper) layoutSelectorWrapper.classList.remove('open');
-      } else {
-        if (biomeDropdownMenu) biomeDropdownMenu.classList.add('hidden');
-        if (biomeSelectorWrapper) biomeSelectorWrapper.classList.remove('open');
-        layoutDropdownMenu.classList.remove('hidden');
-        if (layoutSelectorWrapper) layoutSelectorWrapper.classList.add('open');
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (layoutSelectorWrapper && !layoutSelectorWrapper.contains(e.target)) {
-        layoutDropdownMenu.classList.add('hidden');
-        layoutSelectorWrapper.classList.remove('open');
-      }
-    });
-  }
-
-  layoutOptionBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selected = btn.getAttribute('data-layout');
-      setLayout(selected, true);
-      if (layoutDropdownMenu) layoutDropdownMenu.classList.add('hidden');
-      if (layoutSelectorWrapper) layoutSelectorWrapper.classList.remove('open');
-    });
-  });
-
-  /* ==========================================================================
-     1C. RPG CODEX CHAPTER NAVIGATION & MODE CONTROLLER
-     ========================================================================== */
-  const codexRibbonTabs = document.querySelectorAll('.codex-ribbon-tab');
-  const codexChapters = document.querySelectorAll('.codex-chapter');
-  const btnCodexChapterMode = document.getElementById('btnCodexChapterMode');
-  const btnCodexScrollMode = document.getElementById('btnCodexScrollMode');
-
-  const chapterIdToSection = {
-    character: 'home',
-    inventory: 'skills',
-    quests: 'projects',
-    arena: 'arcade-console',
-    tavern: 'contact'
-  };
-
-  const chapterTitles = {
-    character: 'Chapter I: Character Sheet',
-    inventory: 'Chapter II: Equipment & Skills',
-    quests: 'Chapter III: Quest Journal',
-    arena: 'Chapter IV: Battle Arena',
-    tavern: 'Chapter V: Guild Tavern'
-  };
-
-  function setCodexViewMode(mode, notify = true) {
-    if (mode !== 'codex' && mode !== 'scroll') mode = 'scroll';
-    
-    document.body.classList.remove('mode-codex', 'mode-scroll');
-    document.body.classList.add(`mode-${mode}`);
-
-    if (btnCodexChapterMode) btnCodexChapterMode.classList.toggle('active', mode === 'codex');
-    if (btnCodexScrollMode) btnCodexScrollMode.classList.toggle('active', mode === 'scroll');
-
-    localStorage.setItem('portfolio_codex_view_mode', mode);
-
-    if (mode === 'codex') {
-      const activeTab = document.querySelector('.codex-ribbon-tab.active');
-      const activeChapterKey = activeTab ? activeTab.getAttribute('data-chapter') : 'character';
-      showCodexChapter(activeChapterKey, false);
-      if (notify) {
-        playUiSound('whoosh');
-        showToast('📖 Codex Chapter Mode: Flipping between quest chapters');
-      }
-    } else {
-      codexChapters.forEach(ch => ch.classList.remove('codex-active-chapter'));
-      if (notify) {
-        playUiSound('click');
-        showToast('📜 Scroll Mode: Continuous scroll through all chapters');
-      }
-    }
-  }
-
-  function showCodexChapter(chapterKey, notify = true) {
-    const isCodexMode = document.body.classList.contains('mode-codex');
-
-    codexRibbonTabs.forEach(tab => {
-      tab.classList.toggle('active', tab.getAttribute('data-chapter') === chapterKey);
-    });
-
-    if (isCodexMode) {
-      codexChapters.forEach(ch => {
-        ch.classList.toggle('codex-active-chapter', ch.getAttribute('data-chapter-id') === chapterKey);
-      });
-
-      if (chapterKey === 'quests') {
-        const track = document.getElementById('featuredProjectsStack');
-        if (track) track.scrollTo({ left: 0 });
-      }
-
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
-      }, 50);
-
-      const navEl = document.getElementById('rpgCodexNav');
-      if (navEl) {
-        navEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      if (notify) {
-        playUiSound('whoosh');
-        showToast(`📖 ${chapterTitles[chapterKey] || 'RPG Chapter'}`);
-      }
-    } else {
-      const targetId = chapterIdToSection[chapterKey];
-      const targetEl = document.getElementById(targetId);
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      if (notify) {
-        playUiSound('click');
-      }
-    }
-  }
-
-  codexRibbonTabs.forEach(tab => {
-    tab.addEventListener('click', (e) => {
-      e.preventDefault();
-      const chapterKey = tab.getAttribute('data-chapter');
-      showCodexChapter(chapterKey, true);
-    });
-  });
-
-  if (btnCodexChapterMode) {
-    btnCodexChapterMode.addEventListener('click', () => {
-      setCodexViewMode('codex', true);
-    });
-  }
-
-  if (btnCodexScrollMode) {
-    btnCodexScrollMode.addEventListener('click', () => {
-      setCodexViewMode('scroll', true);
-    });
-  }
-
-  // Handle internal anchor links to work seamlessly with Codex Mode
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const href = anchor.getAttribute('href');
-      if (!href || href === '#') return;
-      const targetId = href.substring(1);
-      
-      let matchedChapter = null;
-      for (const [chap, secId] of Object.entries(chapterIdToSection)) {
-        if (secId === targetId || (targetId === 'about' && chap === 'character')) {
-          matchedChapter = chap;
-          break;
-        }
-      }
-
-      if (matchedChapter && document.body.classList.contains('mode-codex')) {
-        e.preventDefault();
-        showCodexChapter(matchedChapter, true);
-      }
-    });
-  });
-
-  // Load saved view mode (defaults to scroll mode for seamless accessibility)
-  const savedViewMode = localStorage.getItem('portfolio_codex_view_mode') || 'scroll';
-  setCodexViewMode(savedViewMode, false);
-
 
   /* ==========================================================================
      2. TOAST SYSTEM
@@ -1009,182 +619,52 @@ document.addEventListener('DOMContentLoaded', () => {
     playLinkId: 'btnPlayBallPass'
   });
 
-  // ==========================================================================
-  // 7. CINEMATIC STUDIO REEL CAROUSEL CONTROLLER
-  // ==========================================================================
-  const reelTrack = document.getElementById('featuredProjectsStack');
+    /* ==========================================================================
+     PROJECTS FILTER TABS (MODERN AAA STUDIO STACK)
+     ========================================================================== */
   const projectCards = Array.from(document.querySelectorAll('.project-item-card'));
   const projectFilterTabs = document.querySelectorAll('.project-tab-pill');
-  const btnReelPrev = document.getElementById('btnReelPrev');
-  const btnReelNext = document.getElementById('btnReelNext');
-  const currentSlideIndicator = document.getElementById('currentSlideIndicator');
-  const reelDotPills = document.querySelectorAll('.reel-dot-pill');
-
-  let activeSlideIndex = 0;
-
-  function scrollToProjectSlide(index) {
-    if (!reelTrack || !projectCards.length) return;
-    const clampedIndex = Math.max(0, Math.min(index, projectCards.length - 1));
-    activeSlideIndex = clampedIndex;
-    
-    // Ensure all cards are visible in reel mode
-    projectCards.forEach(c => c.classList.remove('hidden'));
-
-    const targetCard = projectCards[clampedIndex];
-    if (targetCard) {
-      const scrollPos = targetCard.offsetLeft - reelTrack.offsetLeft - 16;
-      reelTrack.scrollTo({
-        left: Math.max(0, scrollPos),
-        behavior: 'smooth'
-      });
-    }
-
-    updateReelUI(clampedIndex);
-  }
-
-  function updateReelUI(index) {
-    if (currentSlideIndicator) {
-      currentSlideIndicator.textContent = `PROJECT 0${index + 1} / 0${projectCards.length}`;
-    }
-
-    reelDotPills.forEach((pill, idx) => {
-      pill.classList.toggle('active', idx === index);
-    });
-
-    // Auto play video of active card and pause other videos
-    projectCards.forEach((card, idx) => {
-      const vid = card.querySelector('video');
-      if (vid) {
-        if (idx === index) {
-          vid.play().catch(() => {});
-        } else {
-          vid.pause();
-        }
-      }
-    });
-  }
-
-  if (btnReelPrev) {
-    btnReelPrev.addEventListener('click', () => {
-      playUiSound('click');
-      const prevIdx = activeSlideIndex > 0 ? activeSlideIndex - 1 : projectCards.length - 1;
-      scrollToProjectSlide(prevIdx);
-    });
-  }
-
-  if (btnReelNext) {
-    btnReelNext.addEventListener('click', () => {
-      playUiSound('click');
-      const nextIdx = activeSlideIndex < projectCards.length - 1 ? activeSlideIndex + 1 : 0;
-      scrollToProjectSlide(nextIdx);
-    });
-  }
-
-  reelDotPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      playUiSound('click');
-      const idx = parseInt(pill.getAttribute('data-index'), 10) || 0;
-      scrollToProjectSlide(idx);
-    });
-  });
-
-  // Track scroll position to update dots & counter
-  if (reelTrack) {
-    let scrollTimeout;
-    reelTrack.addEventListener('scroll', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        if (!projectCards.length) return;
-        const trackLeft = reelTrack.scrollLeft;
-        let closestIndex = 0;
-        let minDiff = Infinity;
-
-        projectCards.forEach((card, idx) => {
-          const cardLeft = card.offsetLeft - reelTrack.offsetLeft;
-          const diff = Math.abs(cardLeft - trackLeft);
-          if (diff < minDiff) {
-            minDiff = diff;
-            closestIndex = idx;
-          }
-        });
-
-        activeSlideIndex = closestIndex;
-        updateReelUI(closestIndex);
-      }, 60);
-    }, { passive: true });
-  }
-
-  // Filter tabs smooth-scroll carousel directly to target project
-  const gameToCardIndex = {
-    reverie: 0,
-    hairpin: 1,
-    ballpass: 2,
-    swordsaint: 3,
-    maze: 4
-  };
 
   projectFilterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       playUiSound('click');
-      const filter = tab.getAttribute('data-filter');
+      const filter = tab.getAttribute('data-filter') || 'all';
 
       projectFilterTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      const currentLayout = localStorage.getItem('portfolio_layout_style') || 'reel';
+      projectCards.forEach(card => {
+        const game = card.getAttribute('data-game');
+        const status = card.getAttribute('data-status');
 
-      if (currentLayout === 'reel') {
+        let isMatch = false;
         if (filter === 'all') {
-          scrollToProjectSlide(0);
-          showToast('🎮 Showing All 5 Portfolio Projects');
-        } else if (filter === 'released') {
-          scrollToProjectSlide(0);
-          showToast('🏆 Showing 3 Released Games');
+          isMatch = true;
+        } else if (filter === 'webgl' || filter === 'playable') {
+          isMatch = (game === 'hairpin' || game === 'ballpass');
         } else if (filter === 'ongoing') {
-          scrollToProjectSlide(3); // Stickman Sword Saint
-          showToast('🛠️ Showing 2 Ongoing Projects in Active Development');
-        } else if (gameToCardIndex[filter] !== undefined) {
-          const targetIdx = gameToCardIndex[filter];
-          scrollToProjectSlide(targetIdx);
-          if (filter === 'swordsaint') showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
-          else if (filter === 'maze') showToast('🔦 Showing Maze Explorer');
-          else if (filter === 'reverie') showToast('🌾 Showing The Summer Reverie');
-          else if (filter === 'hairpin') showToast('🏎️ Showing Hairpin Drift');
-          else if (filter === 'ballpass') showToast('⚽ Showing BallPass3D');
-        }
-      } else {
-        // Bento & Stack mode: Filter cards visibility
-        const ongoingDivider = document.getElementById('ongoing-projects');
-        projectCards.forEach(card => {
-          const game = card.getAttribute('data-game');
-          const status = card.getAttribute('data-status');
-
-          let isMatch = false;
-          if (filter === 'all') isMatch = true;
-          else if (filter === 'released' && status === 'released') isMatch = true;
-          else if (filter === 'ongoing' && status === 'ongoing') isMatch = true;
-          else if (filter === game) isMatch = true;
-
-          card.classList.toggle('hidden', !isMatch);
-        });
-
-        if (ongoingDivider) {
-          ongoingDivider.style.display = (filter === 'released' ? 'none' : 'flex');
+          isMatch = (status === 'ongoing' || game === 'swordsaint' || game === 'maze');
+        } else if (filter === 'jam') {
+          isMatch = (game === 'reverie');
+        } else if (filter === 'released') {
+          isMatch = (status === 'released');
+        } else if (filter === game) {
+          isMatch = true;
         }
 
-        if (filter === 'all') showToast('🎮 Showing All 5 Portfolio Projects');
-        else if (filter === 'released') showToast('🏆 Showing 3 Released Games');
-        else if (filter === 'ongoing') showToast('🛠️ Showing 2 Ongoing Projects in Active Development');
-        else if (filter === 'swordsaint') showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
-        else if (filter === 'maze') showToast('🔦 Showing Maze Explorer');
-        else if (filter === 'reverie') showToast('🌾 Showing The Summer Reverie');
-        else if (filter === 'hairpin') showToast('🏎️ Showing Hairpin Drift');
-        else if (filter === 'ballpass') showToast('⚽ Showing BallPass3D');
-      }
+        card.classList.toggle('hidden', !isMatch);
+      });
+
+      if (filter === 'all') showToast('🎮 Showing All 5 Portfolio Projects');
+      else if (filter === 'released') showToast('🏆 Showing 3 Released Games');
+      else if (filter === 'webgl') showToast('🌐 Showing Playable WebGL Simulators');
+      else if (filter === 'ongoing') showToast('🛠️ Showing 2 Projects in Active Development');
+      else if (filter === 'jam') showToast('🏆 Showing BYOG 2026 Finalist: The Summer Reverie');
+      else showToast('🎮 Filtering Projects');
     });
   });
 
-  // 8. Lightbox Modal & Concept Artwork Previewer
+// 8. Lightbox Modal & Concept Artwork Previewer
   const imageModal = document.getElementById('imageModal');
   const modalImage = document.getElementById('modalImage');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
@@ -1275,24 +755,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  /* ==========================================================================
+    /* ==========================================================================
      7. NAVIGATION SMOOTH SCROLL & ACTIVE SPY
      ========================================================================== */
-  const navBtns = document.querySelectorAll('.nav-btn');
-  navBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      playUiSound('click');
-      navBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+  const navLinks = document.querySelectorAll('.aaa-nav-link, .nav-btn');
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetHref = link.getAttribute('href');
+      if (targetHref && targetHref.startsWith('#')) {
+        const targetSec = document.getElementById(targetHref.substring(1));
+        if (targetSec) {
+          e.preventDefault();
+          playUiSound('click');
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     });
   });
 
-  // Automatic Scroll-Spy as user scrolls through stacked cards
-  const scrollSections = document.querySelectorAll('section[id]');
+  // Tracked Sections for Scroll-Spy
+  const trackedSections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     let currentId = '';
-    const scrollPos = window.scrollY + 200;
-    scrollSections.forEach(sec => {
+    const scrollPos = window.scrollY + 180;
+    trackedSections.forEach(sec => {
       const top = sec.offsetTop;
       const height = sec.offsetHeight;
       if (scrollPos >= top && scrollPos < top + height) {
@@ -1300,26 +788,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     if (currentId) {
-      navBtns.forEach(btn => {
-        if (btn.getAttribute('href') === `#${currentId}`) {
-          navBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === '#' + currentId) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
         }
       });
-
-      // Update RPG Codex Ribbon Active Tab in scroll mode
-      let matchedChap = null;
-      for (const [chap, secId] of Object.entries(chapterIdToSection)) {
-        if (secId === currentId || (currentId === 'about' && chap === 'character') || (currentId === 'home' && chap === 'character')) {
-          matchedChap = chap;
-          break;
-        }
-      }
-      if (matchedChap && !document.body.classList.contains('mode-codex')) {
-        codexRibbonTabs.forEach(t => {
-          t.classList.toggle('active', t.getAttribute('data-chapter') === matchedChap);
-        });
-      }
     }
   }, { passive: true });
 
@@ -1331,8 +805,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
-  /* ==========================================================================
+/* ==========================================================================
      8. 3-IN-1 PLAYABLE ARCADE ENGINE
      ========================================================================== */
   const canvasGame = document.getElementById('consoleGameCanvas');
@@ -1345,7 +818,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlayBtn = document.getElementById('overlayBtn');
   const btnRestartGame = document.getElementById('btnRestartGame');
   const btnPauseGame = document.getElementById('btnPauseGame');
-  const gameTabs = document.querySelectorAll('.pixel-tab-btn');
+  const gameTabs = document.querySelectorAll('.game-tab-btn, .pixel-tab-btn');
 
   // Controller wing buttons
   const btnDpadUp = document.getElementById('btnDpadUp');
