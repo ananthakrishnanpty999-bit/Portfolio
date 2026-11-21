@@ -304,6 +304,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ==========================================================================
+     1B. PORTFOLIO LAYOUT SWITCHER (REEL / BENTO / STACK)
+     ========================================================================== */
+  const layoutSelectBtn = document.getElementById('layoutSelectBtn');
+  const layoutCurrentIcon = document.getElementById('layoutCurrentIcon');
+  const layoutBtnLabel = document.querySelector('.layout-btn-label');
+  const layoutDropdownMenu = document.getElementById('layoutDropdownMenu');
+  const layoutSelectorWrapper = document.getElementById('layoutSelectorWrapper');
+  const layoutOptionBtns = document.querySelectorAll('.layout-option-btn');
+
+  const LAYOUT_CONFIGS = {
+    reel: {
+      name: 'Cinematic Reel',
+      icon: '🎬',
+      toast: '🎬 Switched to Cinematic Reel Layout'
+    },
+    bento: {
+      name: 'Modern Bento',
+      icon: '🍱',
+      toast: '🍱 Switched to Modern Bento Grid Layout'
+    },
+    stack: {
+      name: 'Classic Stack',
+      icon: '📜',
+      toast: '📜 Switched to Classic Stack Layout'
+    }
+  };
+
+  function setLayout(layoutKey, notify = true) {
+    if (!LAYOUT_CONFIGS[layoutKey]) layoutKey = 'reel';
+    const config = LAYOUT_CONFIGS[layoutKey];
+
+    document.body.classList.remove('layout-reel', 'layout-bento', 'layout-stack');
+    document.body.classList.add(`layout-${layoutKey}`);
+
+    if (layoutCurrentIcon) layoutCurrentIcon.textContent = config.icon;
+    if (layoutBtnLabel) layoutBtnLabel.textContent = config.name.split(' ')[1] || config.name;
+    if (layoutSelectBtn) layoutSelectBtn.title = `Current Layout: ${config.name} (Click to switch)`;
+
+    layoutOptionBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-layout') === layoutKey);
+    });
+
+    localStorage.setItem('portfolio_layout_style', layoutKey);
+
+    const projectCardsAll = document.querySelectorAll('.project-item-card');
+    projectCardsAll.forEach(c => c.classList.remove('hidden'));
+
+    // Reset filter pills to All
+    const allFilterPills = document.querySelectorAll('.project-tab-pill');
+    allFilterPills.forEach(p => {
+      p.classList.toggle('active', p.getAttribute('data-filter') === 'all');
+    });
+
+    if (layoutKey === 'reel') {
+      const track = document.getElementById('featuredProjectsStack');
+      if (track) track.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+
+    if (notify) {
+      playUiSound('click');
+      showToast(config.toast);
+    }
+  }
+
+  // Load saved layout (defaults to reel)
+  const savedLayout = localStorage.getItem('portfolio_layout_style') || 'reel';
+  setLayout(savedLayout, false);
+
+  if (layoutSelectBtn && layoutDropdownMenu) {
+    layoutSelectBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = !layoutDropdownMenu.classList.contains('hidden');
+      if (isOpen) {
+        layoutDropdownMenu.classList.add('hidden');
+        if (layoutSelectorWrapper) layoutSelectorWrapper.classList.remove('open');
+      } else {
+        if (biomeDropdownMenu) biomeDropdownMenu.classList.add('hidden');
+        if (biomeSelectorWrapper) biomeSelectorWrapper.classList.remove('open');
+        layoutDropdownMenu.classList.remove('hidden');
+        if (layoutSelectorWrapper) layoutSelectorWrapper.classList.add('open');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (layoutSelectorWrapper && !layoutSelectorWrapper.contains(e.target)) {
+        layoutDropdownMenu.classList.add('hidden');
+        layoutSelectorWrapper.classList.remove('open');
+      }
+    });
+  }
+
+  layoutOptionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selected = btn.getAttribute('data-layout');
+      setLayout(selected, true);
+      if (layoutDropdownMenu) layoutDropdownMenu.classList.add('hidden');
+      if (layoutSelectorWrapper) layoutSelectorWrapper.classList.remove('open');
+    });
+  });
+
 
   /* ==========================================================================
      2. TOAST SYSTEM
@@ -872,19 +973,51 @@ document.addEventListener('DOMContentLoaded', () => {
       projectFilterTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      if (filter === 'all') {
-        scrollToProjectSlide(0);
-        showToast('🎮 Showing All 5 Portfolio Projects');
-      } else if (filter === 'released') {
-        scrollToProjectSlide(0);
-        showToast('🏆 Showing 3 Released Games');
-      } else if (filter === 'ongoing') {
-        scrollToProjectSlide(3); // Stickman Sword Saint
-        showToast('🛠️ Showing 2 Ongoing Projects in Active Development');
-      } else if (gameToCardIndex[filter] !== undefined) {
-        const targetIdx = gameToCardIndex[filter];
-        scrollToProjectSlide(targetIdx);
-        if (filter === 'swordsaint') showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
+      const currentLayout = localStorage.getItem('portfolio_layout_style') || 'reel';
+
+      if (currentLayout === 'reel') {
+        if (filter === 'all') {
+          scrollToProjectSlide(0);
+          showToast('🎮 Showing All 5 Portfolio Projects');
+        } else if (filter === 'released') {
+          scrollToProjectSlide(0);
+          showToast('🏆 Showing 3 Released Games');
+        } else if (filter === 'ongoing') {
+          scrollToProjectSlide(3); // Stickman Sword Saint
+          showToast('🛠️ Showing 2 Ongoing Projects in Active Development');
+        } else if (gameToCardIndex[filter] !== undefined) {
+          const targetIdx = gameToCardIndex[filter];
+          scrollToProjectSlide(targetIdx);
+          if (filter === 'swordsaint') showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
+          else if (filter === 'maze') showToast('🔦 Showing Maze Explorer');
+          else if (filter === 'reverie') showToast('🌾 Showing The Summer Reverie');
+          else if (filter === 'hairpin') showToast('🏎️ Showing Hairpin Drift');
+          else if (filter === 'ballpass') showToast('⚽ Showing BallPass3D');
+        }
+      } else {
+        // Bento & Stack mode: Filter cards visibility
+        const ongoingDivider = document.getElementById('ongoing-projects');
+        projectCards.forEach(card => {
+          const game = card.getAttribute('data-game');
+          const status = card.getAttribute('data-status');
+
+          let isMatch = false;
+          if (filter === 'all') isMatch = true;
+          else if (filter === 'released' && status === 'released') isMatch = true;
+          else if (filter === 'ongoing' && status === 'ongoing') isMatch = true;
+          else if (filter === game) isMatch = true;
+
+          card.classList.toggle('hidden', !isMatch);
+        });
+
+        if (ongoingDivider) {
+          ongoingDivider.style.display = (filter === 'released' ? 'none' : 'flex');
+        }
+
+        if (filter === 'all') showToast('🎮 Showing All 5 Portfolio Projects');
+        else if (filter === 'released') showToast('🏆 Showing 3 Released Games');
+        else if (filter === 'ongoing') showToast('🛠️ Showing 2 Ongoing Projects in Active Development');
+        else if (filter === 'swordsaint') showToast('⚔️ Showing Stickman: The Ultimate Sword Saint');
         else if (filter === 'maze') showToast('🔦 Showing Maze Explorer');
         else if (filter === 'reverie') showToast('🌾 Showing The Summer Reverie');
         else if (filter === 'hairpin') showToast('🏎️ Showing Hairpin Drift');

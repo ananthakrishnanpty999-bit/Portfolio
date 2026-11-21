@@ -435,6 +435,81 @@ body.pixel-theme {
   line-height: 1;
 }
 
+/* Portfolio Layout Selector Dropdown UI */
+.layout-selector-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-layout-select {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 82px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 2px solid var(--border-purple);
+  border-bottom: 4px solid var(--border-purple-dark);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+}
+
+.btn-layout-select:hover {
+  transform: translateY(-2px);
+  background: var(--primary-purple-light);
+}
+
+.btn-layout-select:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.layout-current-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.layout-btn-label {
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+}
+
+.layout-dropdown-menu {
+  width: 260px;
+  right: 0;
+  left: auto;
+}
+
+.layout-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+}
+
+.layout-opt-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.layout-opt-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-family: var(--font-body);
+}
+
+.layout-selector-wrapper.open .biome-caret {
+  transform: rotate(180deg);
+}
+
 /* Biome Selector Dropdown UI */
 .biome-selector-wrapper {
   position: relative;
@@ -1331,8 +1406,13 @@ body.pixel-theme {
   cursor: pointer;
 }
 
-/* Horizontal Reel Track */
-.featured-projects-stack {
+/* ==========================================================================
+   LAYOUT MODES (CINEMATIC REEL / BENTO GRID / CLASSIC STACK)
+   ========================================================================== */
+
+/* 1. Cinematic Reel (Default) */
+.featured-projects-stack,
+body.layout-reel .featured-projects-stack {
   display: flex;
   flex-direction: row;
   overflow-x: auto;
@@ -1344,11 +1424,13 @@ body.pixel-theme {
   scrollbar-width: none;
 }
 
-.featured-projects-stack::-webkit-scrollbar {
+.featured-projects-stack::-webkit-scrollbar,
+body.layout-reel .featured-projects-stack::-webkit-scrollbar {
   display: none;
 }
 
-.featured-game-showcase {
+.featured-game-showcase,
+body.layout-reel .featured-game-showcase {
   flex: 0 0 calc(100% - 16px);
   min-width: 0;
   scroll-snap-align: center;
@@ -1357,12 +1439,115 @@ body.pixel-theme {
 }
 
 @media (min-width: 1280px) {
-  .featured-game-showcase {
+  .featured-game-showcase,
+  body.layout-reel .featured-game-showcase {
     flex: 0 0 calc(100% - 48px);
   }
 }
 
-.featured-projects-stack .ongoing-projects-divider {
+.featured-projects-stack .ongoing-projects-divider,
+body.layout-reel .featured-projects-stack .ongoing-projects-divider {
+  display: none !important;
+}
+
+/* 2. Modern Bento Grid Dashboard */
+body.layout-bento .featured-projects-stack {
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
+  gap: 24px !important;
+  overflow-x: visible !important;
+  padding: 14px 4px 20px !important;
+  scroll-snap-type: none !important;
+}
+
+body.layout-bento .reel-controls-group,
+body.layout-bento .reel-pagination-container {
+  display: none !important;
+}
+
+body.layout-bento .featured-projects-stack .ongoing-projects-divider {
+  display: none !important;
+}
+
+body.layout-bento .featured-game-showcase {
+  flex: none !important;
+  width: 100% !important;
+  scroll-snap-align: none !important;
+  margin-top: 0 !important;
+  box-sizing: border-box !important;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.25s ease !important;
+}
+
+/* Bento Card Grid Positioning */
+body.layout-bento #swordSaintShowcase {
+  grid-column: span 12 !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(254, 242, 242, 0.95)) !important;
+  border-width: 2.5px !important;
+}
+
+body.layout-bento #summerReverieShowcase {
+  grid-column: span 7 !important;
+}
+
+body.layout-bento #mazeExplorerShowcase {
+  grid-column: span 5 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+body.layout-bento #hairpinDriftShowcase {
+  grid-column: span 6 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+body.layout-bento #ballPass3DShowcase {
+  grid-column: span 6 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+body.layout-bento #mazeExplorerShowcase .game-video-bezel,
+body.layout-bento #hairpinDriftShowcase .game-video-bezel,
+body.layout-bento #ballPass3DShowcase .game-video-bezel {
+  max-height: 250px !important;
+}
+
+@media (max-width: 1080px) {
+  body.layout-bento #summerReverieShowcase,
+  body.layout-bento #mazeExplorerShowcase,
+  body.layout-bento #hairpinDriftShowcase,
+  body.layout-bento #ballPass3DShowcase {
+    grid-column: span 12 !important;
+  }
+}
+
+/* 3. Classic Minecraft Vertical Stack */
+body.layout-stack .featured-projects-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 28px !important;
+  overflow-x: visible !important;
+  padding: 14px 4px 20px !important;
+  scroll-snap-type: none !important;
+}
+
+body.layout-stack .featured-game-showcase {
+  flex: none !important;
+  width: 100% !important;
+  scroll-snap-align: none !important;
+  margin-top: 10px !important;
+}
+
+body.layout-stack .featured-projects-stack .ongoing-projects-divider {
+  display: flex !important;
+}
+
+body.layout-stack .reel-controls-group,
+body.layout-stack .reel-pagination-container {
   display: none !important;
 }
 
@@ -2744,6 +2929,7 @@ body.theme-plains .navbar-brand:hover .brand-text {
 
 /* 3. Minecraft Leaf Wood Switches & Navigation */
 body.theme-plains .nav-btn,
+body.theme-plains .btn-layout-select,
 body.theme-plains .btn-biome-select,
 body.theme-plains .btn-audio-toggle,
 body.theme-plains .social-pixel-btn,
@@ -2762,6 +2948,7 @@ body.theme-plains #backToTopBtn {
 }
 
 body.theme-plains .nav-btn:hover,
+body.theme-plains .btn-layout-select:hover,
 body.theme-plains .btn-biome-select:hover,
 body.theme-plains .btn-audio-toggle:hover,
 body.theme-plains .social-pixel-btn:hover,
@@ -2774,6 +2961,7 @@ body.theme-plains #backToTopBtn:hover {
 }
 
 body.theme-plains .nav-btn:active,
+body.theme-plains .btn-layout-select:active,
 body.theme-plains .btn-biome-select:active,
 body.theme-plains .btn-audio-toggle:active,
 body.theme-plains .social-pixel-btn:active,
@@ -3219,6 +3407,7 @@ body.theme-sakura .navbar-brand:hover .brand-text {
 
 /* 3. Sakura Cherry Blossom Switches & Navigation */
 body.theme-sakura .nav-btn,
+body.theme-sakura .btn-layout-select,
 body.theme-sakura .btn-biome-select,
 body.theme-sakura .btn-audio-toggle,
 body.theme-sakura .social-pixel-btn,
@@ -3237,6 +3426,7 @@ body.theme-sakura #backToTopBtn {
 }
 
 body.theme-sakura .nav-btn:hover,
+body.theme-sakura .btn-layout-select:hover,
 body.theme-sakura .btn-biome-select:hover,
 body.theme-sakura .btn-audio-toggle:hover,
 body.theme-sakura .social-pixel-btn:hover,
@@ -3249,6 +3439,7 @@ body.theme-sakura #backToTopBtn:hover {
 }
 
 body.theme-sakura .nav-btn:active,
+body.theme-sakura .btn-layout-select:active,
 body.theme-sakura .btn-biome-select:active,
 body.theme-sakura .btn-audio-toggle:active,
 body.theme-sakura .social-pixel-btn:active,
@@ -3693,6 +3884,7 @@ body.theme-snow .navbar-brand:hover .brand-text {
 
 /* 3. Packed Ice Switches & Navigation */
 body.theme-snow .nav-btn,
+body.theme-snow .btn-layout-select,
 body.theme-snow .btn-biome-select,
 body.theme-snow .btn-audio-toggle,
 body.theme-snow .social-pixel-btn,
@@ -3711,6 +3903,7 @@ body.theme-snow #backToTopBtn {
 }
 
 body.theme-snow .nav-btn:hover,
+body.theme-snow .btn-layout-select:hover,
 body.theme-snow .btn-biome-select:hover,
 body.theme-snow .btn-audio-toggle:hover,
 body.theme-snow .social-pixel-btn:hover,
@@ -3723,6 +3916,7 @@ body.theme-snow #backToTopBtn:hover {
 }
 
 body.theme-snow .nav-btn:active,
+body.theme-snow .btn-layout-select:active,
 body.theme-snow .btn-biome-select:active,
 body.theme-snow .btn-audio-toggle:active,
 body.theme-snow .social-pixel-btn:active,
@@ -4167,6 +4361,7 @@ body.theme-nether .navbar-brand:hover .brand-text {
 
 /* 3. Polished Blackstone Buttons & Magma Levers */
 body.theme-nether .nav-btn,
+body.theme-nether .btn-layout-select,
 body.theme-nether .btn-biome-select,
 body.theme-nether .btn-audio-toggle,
 body.theme-nether .social-pixel-btn,
@@ -4185,6 +4380,7 @@ body.theme-nether #backToTopBtn {
 }
 
 body.theme-nether .nav-btn:hover,
+body.theme-nether .btn-layout-select:hover,
 body.theme-nether .btn-biome-select:hover,
 body.theme-nether .btn-audio-toggle:hover,
 body.theme-nether .social-pixel-btn:hover,
@@ -4197,6 +4393,7 @@ body.theme-nether #backToTopBtn:hover {
 }
 
 body.theme-nether .nav-btn:active,
+body.theme-nether .btn-layout-select:active,
 body.theme-nether .btn-biome-select:active,
 body.theme-nether .btn-audio-toggle:active,
 body.theme-nether .social-pixel-btn:active,

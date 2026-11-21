@@ -111,8 +111,44 @@
         </a>
       </nav>
 
-      <!-- Right: Social Pixel Action Buttons & Biome Selector -->
+      <!-- Right: Social Pixel Action Buttons, Layout Switcher & Biome Selector -->
       <div class="navbar-social-group">
+        
+        <!-- Portfolio Layout Switcher (Interactive Dropdown: Reel / Bento / Stack) -->
+        <div class="layout-selector-wrapper" id="layoutSelectorWrapper">
+          <button class="social-pixel-btn btn-layout-select" id="layoutSelectBtn" title="Change Portfolio Layout (Click to switch)" aria-label="Select Layout" aria-haspopup="true" aria-expanded="false">
+            <span class="layout-current-icon" id="layoutCurrentIcon">🎬</span>
+            <span class="layout-btn-label">Reel</span>
+            <span class="biome-caret">▾</span>
+          </button>
+          
+          <!-- Dropdown Layout Menu (Stepped Pixel UI) -->
+          <div class="biome-dropdown-menu layout-dropdown-menu hidden" id="layoutDropdownMenu" role="menu">
+            <div class="biome-menu-header">Portfolio Layout</div>
+            <button class="biome-option-btn layout-option-btn active" data-layout="reel" role="menuitem">
+              <span class="biome-opt-icon">🎬</span>
+              <div class="layout-opt-meta">
+                <span class="biome-opt-text">Cinematic Reel</span>
+                <span class="layout-opt-desc">Horizontal carousel &amp; wide stage</span>
+              </div>
+            </button>
+            <button class="biome-option-btn layout-option-btn" data-layout="bento" role="menuitem">
+              <span class="biome-opt-icon">🍱</span>
+              <div class="layout-opt-meta">
+                <span class="biome-opt-text">Modern Bento Grid</span>
+                <span class="layout-opt-desc">Modular multi-card dashboard</span>
+              </div>
+            </button>
+            <button class="biome-option-btn layout-option-btn" data-layout="stack" role="menuitem">
+              <span class="biome-opt-icon">📜</span>
+              <div class="layout-opt-meta">
+                <span class="biome-opt-text">Classic Stack</span>
+                <span class="layout-opt-desc">Linear vertical scroll flow</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
         <!-- Minecraft Biome Switcher (Interactive Dropdown & Quick Toggle) -->
         <div class="biome-selector-wrapper" id="biomeSelectorWrapper">
           <button class="social-pixel-btn btn-biome-select" id="biomeSelectBtn" title="Choose Minecraft Biome (Click to open menu)" aria-label="Select Biome" aria-haspopup="true" aria-expanded="false">
