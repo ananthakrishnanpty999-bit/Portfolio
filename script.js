@@ -755,10 +755,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-    /* ==========================================================================
-     7. NAVIGATION SMOOTH SCROLL & ACTIVE SPY
+  /* ==========================================================================
+     7. NAVIGATION SMOOTH SCROLL, ACTIVE SPY & CYBER MOBILE DRAWER
      ========================================================================== */
-  const navLinks = document.querySelectorAll('.aaa-nav-link, .nav-btn');
+  const navLinks = document.querySelectorAll('.aaa-nav-link, .mobile-nav-item, .nav-btn, .mobile-cta-link');
+  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileNavCloseBtn = document.getElementById('mobileNavCloseBtn');
+  const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+
+  function openMobileNav() {
+    if (!mobileNavDrawer) return;
+    playUiSound('click');
+    mobileNavDrawer.classList.add('open');
+    mobileNavDrawer.setAttribute('aria-hidden', 'false');
+    if (mobileMenuBtn) mobileMenuBtn.classList.add('active');
+    document.body.classList.add('mobile-nav-locked');
+  }
+
+  function closeMobileNav() {
+    if (!mobileNavDrawer) return;
+    mobileNavDrawer.classList.remove('open');
+    mobileNavDrawer.setAttribute('aria-hidden', 'true');
+    if (mobileMenuBtn) mobileMenuBtn.classList.remove('active');
+    document.body.classList.remove('mobile-nav-locked');
+  }
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      if (mobileNavDrawer && mobileNavDrawer.classList.contains('open')) {
+        closeMobileNav();
+      } else {
+        openMobileNav();
+      }
+    });
+  }
+
+  if (mobileNavCloseBtn) {
+    mobileNavCloseBtn.addEventListener('click', closeMobileNav);
+  }
+
+  if (mobileNavBackdrop) {
+    mobileNavBackdrop.addEventListener('click', closeMobileNav);
+  }
+
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       const targetHref = link.getAttribute('href');
@@ -767,6 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (targetSec) {
           e.preventDefault();
           playUiSound('click');
+          closeMobileNav();
           navLinks.forEach(l => l.classList.remove('active'));
           link.classList.add('active');
           targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1081,52 +1122,74 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     bindControls() {
-      if (btnDpadUp) btnDpadUp.addEventListener('click', () => { 
+      const handleTap = (el, fn) => {
+        if (!el) return;
+        el.addEventListener('click', fn);
+        el.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          fn();
+        }, { passive: false });
+      };
+
+      if (btnDpadUp) handleTap(btnDpadUp, () => { 
         if (this.activeGame === 'runner') blockRunner.jump(); 
         else if (this.activeGame === 'sword') stickmanSwordSaint.handleKeyDown({ code: 'KeyW', key: 'w' });
       });
-      if (btnDpadDown) btnDpadDown.addEventListener('click', () => { 
+
+      if (btnDpadDown) handleTap(btnDpadDown, () => { 
         if (this.activeGame === 'sword') stickmanSwordSaint.startPlayerBlock();
       });
+
       if (btnDpadLeft) {
-        btnDpadLeft.addEventListener('mousedown', () => { 
+        const startLeft = (e) => {
+          if (e && e.cancelable) e.preventDefault();
           if (this.activeGame === 'breakout') voxelBreakout.moveLeft(true); 
           else if (this.activeGame === 'sword') stickmanSwordSaint.handleKeyDown({ code: 'KeyA', key: 'a' });
-        });
-        btnDpadLeft.addEventListener('mouseup', () => { 
+        };
+        const stopLeft = (e) => {
+          if (e && e.cancelable) e.preventDefault();
           if (this.activeGame === 'breakout') voxelBreakout.moveLeft(false); 
           else if (this.activeGame === 'sword') stickmanSwordSaint.handleKeyUp({ code: 'KeyA', key: 'a' });
-        });
+        };
+        btnDpadLeft.addEventListener('mousedown', startLeft);
+        btnDpadLeft.addEventListener('mouseup', stopLeft);
+        btnDpadLeft.addEventListener('touchstart', startLeft, { passive: false });
+        btnDpadLeft.addEventListener('touchend', stopLeft, { passive: false });
       }
+
       if (btnDpadRight) {
-        btnDpadRight.addEventListener('mousedown', () => { 
+        const startRight = (e) => {
+          if (e && e.cancelable) e.preventDefault();
           if (this.activeGame === 'breakout') voxelBreakout.moveRight(true); 
           else if (this.activeGame === 'sword') stickmanSwordSaint.handleKeyDown({ code: 'KeyD', key: 'd' });
-        });
-        btnDpadRight.addEventListener('mouseup', () => { 
+        };
+        const stopRight = (e) => {
+          if (e && e.cancelable) e.preventDefault();
           if (this.activeGame === 'breakout') voxelBreakout.moveRight(false); 
           else if (this.activeGame === 'sword') stickmanSwordSaint.handleKeyUp({ code: 'KeyD', key: 'd' });
-        });
+        };
+        btnDpadRight.addEventListener('mousedown', startRight);
+        btnDpadRight.addEventListener('mouseup', stopRight);
+        btnDpadRight.addEventListener('touchstart', startRight, { passive: false });
+        btnDpadRight.addEventListener('touchend', stopRight, { passive: false });
       }
-      if (btnActionX) {
-        btnActionX.addEventListener('click', () => {
-          if (this.activeGame === 'sword') stickmanSwordSaint.playerAttack('light');
-        });
-      }
-      if (btnActionY) {
-        btnActionY.addEventListener('click', () => {
-          if (this.activeGame === 'sword') stickmanSwordSaint.playerAttack('heavy');
-        });
-      }
-      if (btnActionB) {
-        btnActionB.addEventListener('click', () => {
-          if (this.activeGame === 'sword') stickmanSwordSaint.startPlayerBlock();
-        });
-      }
-      if (btnActionA) btnActionA.addEventListener('click', () => this.pressA());
-      if (btnConsoleStart) btnConsoleStart.addEventListener('click', () => this.togglePause());
+
+      if (btnActionX) handleTap(btnActionX, () => {
+        if (this.activeGame === 'sword') stickmanSwordSaint.playerAttack('light');
+      });
+
+      if (btnActionY) handleTap(btnActionY, () => {
+        if (this.activeGame === 'sword') stickmanSwordSaint.playerAttack('heavy');
+      });
+
+      if (btnActionB) handleTap(btnActionB, () => {
+        if (this.activeGame === 'sword') stickmanSwordSaint.startPlayerBlock();
+      });
+
+      if (btnActionA) handleTap(btnActionA, () => this.pressA());
+      if (btnConsoleStart) handleTap(btnConsoleStart, () => this.togglePause());
       if (btnConsoleSelect) {
-        btnConsoleSelect.addEventListener('click', () => {
+        handleTap(btnConsoleSelect, () => {
           if (this.activeGame === 'sword') {
             stickmanSwordSaint.state = stickmanSwordSaint.state === 'SHOP' ? 'MENU' : 'SHOP';
           }
