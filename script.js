@@ -143,6 +143,15 @@ document.addEventListener('DOMContentLoaded', () => {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
       osc.start(now);
       osc.stop(now + 0.45);
+    } else if (type === 'coin') {
+      // Classic 8-bit arcade coin insert chime
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(987.77, now);
+      osc.frequency.setValueAtTime(1318.51, now + 0.08);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      osc.start(now);
+      osc.stop(now + 0.35);
     }
   }
 
@@ -318,17 +327,26 @@ document.addEventListener('DOMContentLoaded', () => {
     reel: {
       name: 'Cinematic Reel',
       icon: '🎬',
-      toast: '🎬 Switched to Cinematic Reel Layout'
+      toast: '🎬 Switched to Cinematic Reel Layout',
+      sound: 'click'
     },
     bento: {
       name: 'Modern Bento',
       icon: '🍱',
-      toast: '🍱 Switched to Modern Bento Grid Layout'
+      toast: '🍱 Switched to Modern Bento Grid Layout',
+      sound: 'click'
     },
     stack: {
       name: 'Classic Stack',
       icon: '📜',
-      toast: '📜 Switched to Classic Stack Layout'
+      toast: '📜 Switched to Classic Stack Layout',
+      sound: 'click'
+    },
+    arcade: {
+      name: 'Retro Arcade',
+      icon: '🕹️',
+      toast: '🕹️ Switched to Retro Arcade Cabinet Alley',
+      sound: 'coin'
     }
   };
 
@@ -336,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!LAYOUT_CONFIGS[layoutKey]) layoutKey = 'reel';
     const config = LAYOUT_CONFIGS[layoutKey];
 
-    document.body.classList.remove('layout-reel', 'layout-bento', 'layout-stack');
+    document.body.classList.remove('layout-reel', 'layout-bento', 'layout-stack', 'layout-arcade');
     document.body.classList.add(`layout-${layoutKey}`);
 
     if (layoutCurrentIcon) layoutCurrentIcon.textContent = config.icon;
@@ -364,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (notify) {
-      playUiSound('click');
+      playUiSound(config.sound || 'click');
       showToast(config.toast);
     }
   }
