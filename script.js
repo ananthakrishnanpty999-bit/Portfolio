@@ -1570,7 +1570,7 @@ const stickmanSwordSaint = {
       targetHp: 90,
       targetColor: '#fbbf24',
       descLine1: 'Throw away your blade (E) and win',
-      descLine2: 'using only lethal martial arts fists.',
+      descLine2: 'using only lethal bare-knuckle fists.',
       timeLimit: 0,
       requiredParries: 0,
       unarmedOnly: true,
@@ -2188,7 +2188,7 @@ const stickmanSwordSaint = {
     this.player.comboStep = (this.player.comboStep + 1) % 3;
     this.player.isBlocking = false;
 
-    // Normal subtle forward step (controlled martial arts movement)
+    // Normal subtle forward step (controlled samurai movement)
     this.player.vx = this.player.dir * (type === 'light' ? 1.2 : 1.8);
 
     const isUnarmed = this.player.hasWeapon === false || (this.player.weapon && this.player.weapon.id === 'bare_hands');
@@ -3632,7 +3632,7 @@ const stickmanSwordSaint = {
   drawStickmanWeapon(ctx, f, hx, hy, dir, isAttacking, isBlocking) {
     const isEnemy = (f === this.enemy);
     if (f.hasWeapon === false || (f.weapon && f.weapon.id === 'bare_hands') || (f.weapon && f.weapon.id === 'enemy_fists')) {
-      // Unarmed martial arts fist
+      // Unarmed bare-knuckle fist
       ctx.save();
       ctx.translate(hx, hy);
       ctx.fillStyle = f.isHurt ? '#ef4444' : (f.color || '#e2e8f0');
@@ -3908,7 +3908,7 @@ const stickmanSwordSaint = {
 
     ctx.font = 'bold 12px sans-serif';
     ctx.fillStyle = '#94a3b8';
-    ctx.fillText('2D Martial Arts Duel | Epic Boss Encounters | Lethal Combo Combat', w / 2, 90);
+    ctx.fillText('2D Samurai Duel | Epic Boss Encounters | Lethal Combo Combat', w / 2, 90);
 
     // Player Name Input Box
     ctx.fillStyle = '#1e293b';
