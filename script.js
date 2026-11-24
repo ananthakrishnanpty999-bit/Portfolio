@@ -3621,7 +3621,7 @@ const stickmanSwordSaint = {
 
     ctx.font = 'bold 12px sans-serif';
     ctx.fillStyle = '#94a3b8';
-    ctx.fillText('2D Martial Arts Duel | 80 Levels & Epic Bosses | Lethal Combo Combat', w / 2, 90);
+    ctx.fillText('2D Martial Arts Duel | Epic Boss Encounters | Lethal Combo Combat', w / 2, 90);
 
     // Player Name Input Box
     ctx.fillStyle = '#1e293b';
@@ -3867,7 +3867,7 @@ const stickmanSwordSaint = {
 
     ctx.font = 'bold 16px sans-serif';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText("All 80 Levels & Bosses Conquered!", w / 2, 145);
+    ctx.fillText("All Martial Stages & Bosses Conquered!", w / 2, 145);
     ctx.font = '13px sans-serif';
     ctx.fillStyle = '#94a3b8';
     ctx.fillText(`Master ${this.playerName}, your martial legend will echo forever.`, w / 2, 175);
