@@ -512,10 +512,14 @@
               </div>
 
               <div class="project-action-row">
-                <a href="#arcade-console" class="aaa-btn-primary">
+                <a href="#arcade-console" class="aaa-btn-primary" id="btnPlayStickSaw">
                   <span>Play StickSaw in Arcade ↓</span>
                   <span class="btn-arrow">→</span>
                 </a>
+                <button type="button" class="aaa-btn-secondary" id="btnPlaySideQuest">
+                  <span>📜 Play Side Quest</span>
+                  <span class="btn-arrow">⚡</span>
+                </button>
                 <button type="button" class="aaa-btn-ghost btn-preview-art" data-preview-img="./assets/ongoing-stickman-sword-saint.jpg" data-preview-title="Stickman: The Ultimate Sword Saint · Official Visual">
                   <span>🔍 Expand Art</span>
                 </button>
@@ -625,6 +629,7 @@
                 <span>BEST: <strong id="consoleHighScore">0</strong></span>
               </div>
               <div class="hud-right">
+                <button class="hud-btn hud-quest-btn" id="btnSideQuestPrompt" title="Play Side Quest">📜 Quest</button>
                 <button class="hud-btn" id="btnRestartGame" title="Restart">🔄</button>
                 <button class="hud-btn" id="btnPauseGame" title="Pause">⏸️</button>
               </div>

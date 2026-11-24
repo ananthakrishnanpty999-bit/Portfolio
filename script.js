@@ -909,6 +909,41 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPauseGame.addEventListener('click', () => this.togglePause());
       }
 
+      const btnSideQuestPrompt = document.getElementById('btnSideQuestPrompt');
+      if (btnSideQuestPrompt) {
+        btnSideQuestPrompt.addEventListener('click', () => {
+          playUiSound('click');
+          if (this.activeGame !== 'sword') {
+            this.switchGame('sword');
+          }
+          stickmanSwordSaint.openQuestBoard();
+        });
+      }
+
+      const btnPlaySideQuest = document.getElementById('btnPlaySideQuest');
+      if (btnPlaySideQuest) {
+        btnPlaySideQuest.addEventListener('click', () => {
+          playUiSound('click');
+          const arcadeSec = document.getElementById('arcade-console');
+          if (arcadeSec) {
+            arcadeSec.scrollIntoView({ behavior: 'smooth' });
+          }
+          if (this.activeGame !== 'sword') {
+            this.switchGame('sword');
+          }
+          stickmanSwordSaint.openQuestBoard();
+        });
+      }
+
+      const btnPlayStickSaw = document.getElementById('btnPlayStickSaw');
+      if (btnPlayStickSaw) {
+        btnPlayStickSaw.addEventListener('click', () => {
+          if (this.activeGame !== 'sword') {
+            this.switchGame('sword');
+          }
+        });
+      }
+
       if (overlayBtn) {
         overlayBtn.addEventListener('click', () => {
           playUiSound('click');
@@ -1476,9 +1511,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const stickmanSwordSaint = {
   engine: null,
-  state: 'MENU', // 'MENU', 'BATTLE', 'SHOP', 'HOW_TO_PLAY', 'STAGE_CLEAR', 'GANG_CLEAR', 'GAME_OVER', 'VICTORY'
+  state: 'MENU', // 'MENU', 'BATTLE', 'SHOP', 'QUEST_SELECT', 'QUEST_VICTORY', 'QUEST_FAILED', 'STAGE_CLEAR', 'GANG_CLEAR', 'GAME_OVER', 'VICTORY'
   thrownWeapons: [],
   keys: {},
+
+  // Playable Side Quest System
+  isSideQuest: false,
+  activeQuest: null,
+  questTimer: 0,
+  questParries: 0,
+  questFailReason: '',
+  sideQuests: [
+    {
+      id: 'quest_speed',
+      badge: '[SPEED TRIAL]',
+      badgeColor: '#38bdf8',
+      title: 'Swift Blade Trial',
+      targetName: 'Kage the Swift',
+      targetWeapon: 'wakizashi',
+      targetHp: 85,
+      targetColor: '#38bdf8',
+      descLine1: 'Defeat the agile shadow shinobi',
+      descLine2: 'within a strict 30-second timer.',
+      timeLimit: 30,
+      requiredParries: 0,
+      unarmedOnly: false,
+      rewardGold: 250,
+      rewardWeapon: 'wakizashi',
+      rewardWeaponName: 'Twin Wakizashi',
+      completed: false
+    },
+    {
+      id: 'quest_parry',
+      badge: '[PARRY TRIAL]',
+      badgeColor: '#ef4444',
+      title: 'Iron Guard Mastery',
+      targetName: 'Tessai the Brute',
+      targetWeapon: 'kanabo',
+      targetHp: 110,
+      targetColor: '#ef4444',
+      descLine1: 'Perform 3 perfect timed parries',
+      descLine2: 'against heavy attacks, then finish him.',
+      timeLimit: 0,
+      requiredParries: 3,
+      unarmedOnly: false,
+      rewardGold: 350,
+      rewardWeapon: 'naginata',
+      rewardWeaponName: 'Thunder Naginata',
+      completed: false
+    },
+    {
+      id: 'quest_unarmed',
+      badge: '[UNARMED TRIAL]',
+      badgeColor: '#fbbf24',
+      title: 'Bare-Knuckle Ronin',
+      targetName: 'Goro the Enforcer',
+      targetWeapon: 'katana',
+      targetHp: 90,
+      targetColor: '#fbbf24',
+      descLine1: 'Throw away your blade (E) and win',
+      descLine2: 'using only lethal martial arts fists.',
+      timeLimit: 0,
+      requiredParries: 0,
+      unarmedOnly: true,
+      rewardGold: 500,
+      rewardWeapon: 'muramasa',
+      rewardWeaponName: 'Cursed Muramasa',
+      completed: false
+    }
+  ],
+
   bareHandsWeapon: {
     id: 'bare_hands',
     name: 'Bare Fists',
@@ -1705,35 +1807,74 @@ const stickmanSwordSaint = {
     }
   },
 
-  startFight() {
+  openQuestBoard() {
+    if (this.engine && !this.engine.isPlaying) {
+      this.engine.startCurrentGame();
+    }
+    this.state = 'QUEST_SELECT';
+  },
+
+  startSideQuest(qId) {
+    const q = this.sideQuests.find(item => item.id === qId) || this.sideQuests[0];
+    this.isSideQuest = true;
+    this.activeQuest = q;
+    this.questTimer = q.timeLimit || 0;
+    this.questParries = 0;
+    this.questFailReason = '';
+    this.isFightFinished = false;
+    this.fightVictor = null;
+    this.state = 'BATTLE';
+
+    this.startFight({
+      isQuest: true,
+      enemyName: q.targetName,
+      enemyTitle: q.badge,
+      enemyWeapon: q.targetWeapon,
+      enemyHp: q.targetHp,
+      enemyColor: q.targetColor,
+      unarmedOnly: q.unarmedOnly
+    });
+
+    this.addCombatMessage(`📜 QUEST: ${q.title}!`, 400, 180, '#fbbf24', 2.5);
+    this.playSamuraiSound('clash');
+  },
+
+  startFight(opts = {}) {
     this.level = this.level || 1;
     this.lastCombatActionTime = this.gameTime;
-    const isBoss = this.bossLevels.includes(this.level);
+    const isBoss = opts.isQuest ? false : this.bossLevels.includes(this.level);
 
-    let enemyName = '';
-    let enemyTitle = '';
-    let enemyColor = '#cbd5e1';
+    let enemyName = opts.enemyName || '';
+    let enemyTitle = opts.enemyTitle || '';
+    let enemyColor = opts.enemyColor || '#cbd5e1';
     let enemyScale = 1.0;
     let auraColor = null;
 
-    if (isBoss) {
-      const bData = this.getBossData(this.level);
-      enemyName = bData.name;
-      enemyTitle = bData.title;
-      enemyColor = bData.color;
-      enemyScale = bData.scale;
-      auraColor = bData.auraColor;
-    } else {
-      const regularNames = ['Kenji', 'Ayane', 'Daiki', 'Kazuki', 'Ren', 'Hanzo', 'Sakura', 'Kaede', 'Jin', 'Raiden', 'Musashi', 'Kuro', 'Hayate', 'Yuki'];
-      enemyName = regularNames[(this.level - 1) % regularNames.length];
-      enemyTitle = 'Fighter L' + this.level;
-      const colors = ['#38bdf8', '#22c55e', '#f472b6', '#fbbf24', '#cbd5e1', '#a855f7'];
-      enemyColor = colors[(this.level - 1) % colors.length];
-      enemyScale = 1.0;
+    if (!opts.isQuest) {
+      if (isBoss) {
+        const bData = this.getBossData(this.level);
+        enemyName = bData.name;
+        enemyTitle = bData.title;
+        enemyColor = bData.color;
+        enemyScale = bData.scale;
+        auraColor = bData.auraColor;
+      } else {
+        const regularNames = ['Kenji', 'Ayane', 'Daiki', 'Kazuki', 'Ren', 'Hanzo', 'Sakura', 'Kaede', 'Jin', 'Raiden', 'Musashi', 'Kuro', 'Hayate', 'Yuki'];
+        enemyName = regularNames[(this.level - 1) % regularNames.length];
+        enemyTitle = 'Fighter L' + this.level;
+        const colors = ['#38bdf8', '#22c55e', '#f472b6', '#fbbf24', '#cbd5e1', '#a855f7'];
+        enemyColor = colors[(this.level - 1) % colors.length];
+        enemyScale = 1.0;
+      }
     }
 
-    // Pick random weapon from pool
-    const randomWp = this.randomWeaponPool[Math.floor(Math.random() * this.randomWeaponPool.length)];
+    // Pick weapon from pool or quest target
+    let randomWp = null;
+    if (opts.enemyWeapon) {
+      randomWp = this.randomWeaponPool.find(w => w.id === opts.enemyWeapon) || this.randomWeaponPool[0];
+    } else {
+      randomWp = this.randomWeaponPool[Math.floor(Math.random() * this.randomWeaponPool.length)];
+    }
 
     const equippedWeapon = this.weapons[this.currentWeaponIndex];
     this.maxStreakTimer = 1.0 + equippedWeapon.streakGrace;
@@ -1766,6 +1907,7 @@ const stickmanSwordSaint = {
     }
 
     // Initialize Player Fighter (Firmly grounded on exact floor line 320)
+    const startUnarmed = opts.unarmedOnly === true;
     this.player = {
       x: 220,
       y: 320, // Exact ground level
@@ -1793,8 +1935,8 @@ const stickmanSwordSaint = {
       hurtTimer: 0,
       isStunned: false,
       stunTimer: 0,
-      hasWeapon: true,
-      weapon: equippedWeapon,
+      hasWeapon: !startUnarmed,
+      weapon: startUnarmed ? this.bareHandsWeapon : equippedWeapon,
       scale: 1.0,
       animTime: 0,
       isFallen: false,
@@ -1802,8 +1944,8 @@ const stickmanSwordSaint = {
     };
 
     // Initialize Enemy Fighter (Firmly grounded on exact floor line 320)
-    let enemyHp = 65 + this.level * 9;
-    if (isBoss) enemyHp = Math.round(enemyHp * 1.5);
+    let enemyHp = opts.enemyHp || (65 + this.level * 9);
+    if (isBoss && !opts.isQuest) enemyHp = Math.round(enemyHp * 1.5);
 
     let enemyStartY = 320;
     if (isBoss && this.bossIntro && this.bossIntro.type === 0) {
@@ -1886,16 +2028,27 @@ const stickmanSwordSaint = {
         return;
       }
       if (e.code === 'KeyF' || e.code === 'Space' || e.code === 'Enter' || e.code === 'NumpadEnter') {
+        this.isSideQuest = false;
+        this.activeQuest = null;
         this.startFight();
       } else if (e.code === 'KeyS') {
         this.state = 'SHOP';
+      } else if (e.code === 'KeyQ') {
+        this.state = 'QUEST_SELECT';
       }
       return;
     }
 
-    if (this.state === 'SHOP') {
+    if (this.state === 'SHOP' || this.state === 'QUEST_SELECT') {
       if (e.code === 'Escape' || e.code === 'KeyB') {
         this.state = 'MENU';
+      }
+      return;
+    }
+
+    if (this.state === 'QUEST_VICTORY' || this.state === 'QUEST_FAILED') {
+      if (e.code === 'Space' || e.code === 'Enter' || e.code === 'Escape') {
+        this.state = 'QUEST_SELECT';
       }
       return;
     }
@@ -2164,6 +2317,10 @@ const stickmanSwordSaint = {
         this.playSamuraiSound('parry');
         this.createSparks(this.player.x, this.player.y - 30, '#38bdf8');
         this.addCombatMessage("PARRY!", this.player.x, this.player.y - 55, '#38bdf8', 1.2);
+        if (this.isSideQuest && this.activeQuest && this.activeQuest.requiredParries > 0) {
+          this.questParries = (this.questParries || 0) + 1;
+          this.addCombatMessage(`QUEST: PARRY ${this.questParries}/${this.activeQuest.requiredParries}!`, 400, 140, '#fbbf24', 1.5);
+        }
         this.enemy.posture += 35;
         this.enemy.isHurt = true;
         this.enemy.hurtTimer = 0.4;
@@ -2267,12 +2424,61 @@ const stickmanSwordSaint = {
       this.finisherEffect = null;
 
       if (victor === 'player') {
-        this.onRoundCleared();
+        if (this.isSideQuest) {
+          this.onQuestCompleted();
+        } else {
+          this.onRoundCleared();
+        }
       } else {
-        this.state = 'GAME_OVER';
-        this.playSamuraiSound('game_over');
+        if (this.isSideQuest) {
+          this.questFailReason = 'Defeated in battle by ' + (this.activeQuest ? this.activeQuest.targetName : 'enemy');
+          this.state = 'QUEST_FAILED';
+          this.playSamuraiSound('game_over');
+        } else {
+          this.state = 'GAME_OVER';
+          this.playSamuraiSound('game_over');
+        }
       }
     }
+  },
+
+  onQuestCompleted() {
+    if (!this.activeQuest) {
+      this.state = 'QUEST_SELECT';
+      return;
+    }
+
+    // Check trial requirements
+    if (this.activeQuest.requiredParries > 0 && (this.questParries || 0) < this.activeQuest.requiredParries) {
+      this.questFailReason = `Required ${this.activeQuest.requiredParries} parries, but only landed ${this.questParries || 0}.`;
+      this.state = 'QUEST_FAILED';
+      this.playSamuraiSound('game_over');
+      return;
+    }
+    if (this.activeQuest.unarmedOnly && this.player && this.player.hasWeapon) {
+      this.questFailReason = 'Violated Unarmed Rule: Ended battle with a weapon.';
+      this.state = 'QUEST_FAILED';
+      this.playSamuraiSound('game_over');
+      return;
+    }
+
+    // Quest Succeeded!
+    this.activeQuest.completed = true;
+    this.gold += this.activeQuest.rewardGold;
+    if (this.engine && this.engine.updateHudScore) {
+      this.engine.updateHudScore(this.gold);
+    }
+
+    // Unlock reward weapon if locked
+    if (this.activeQuest.rewardWeapon) {
+      const rw = this.weapons.find(w => w.id === this.activeQuest.rewardWeapon);
+      if (rw && !rw.unlocked) {
+        rw.unlocked = true;
+      }
+    }
+
+    this.state = 'QUEST_VICTORY';
+    this.playSamuraiSound('victory');
   },
   onRoundCleared() {
     this.level = (this.level || 1) + 1;
@@ -2410,6 +2616,12 @@ const stickmanSwordSaint = {
       this.drawMainMenu(ctx, width, height);
     } else if (this.state === 'SHOP') {
       this.drawWeaponShop(ctx, width, height);
+    } else if (this.state === 'QUEST_SELECT') {
+      this.drawSideQuestSelect(ctx, width, height);
+    } else if (this.state === 'QUEST_VICTORY') {
+      this.drawQuestVictory(ctx, width, height);
+    } else if (this.state === 'QUEST_FAILED') {
+      this.drawQuestFailed(ctx, width, height);
     } else if (this.state === 'BATTLE') {
       this.updateBattle(dt);
       this.drawBattle(ctx, width, height);
@@ -2433,6 +2645,24 @@ const stickmanSwordSaint = {
         this.updateFinisher(dt);
       }
       return;
+    }
+
+    // Side Quest Live Objective Tracking & Conditions
+    if (this.isSideQuest && this.activeQuest) {
+      if (this.activeQuest.timeLimit > 0) {
+        this.questTimer -= dt;
+        if (this.questTimer <= 0) {
+          this.questTimer = 0;
+          this.questFailReason = 'Time Limit Expired (' + this.activeQuest.timeLimit + 's)';
+          this.triggerFinisher('enemy');
+          return;
+        }
+      }
+      if (this.activeQuest.unarmedOnly && this.player && this.player.hasWeapon) {
+        this.questFailReason = 'Violated Unarmed Rule: Picked up a weapon!';
+        this.triggerFinisher('enemy');
+        return;
+      }
     }
 
     // Special Random Intro Animations for Bosses
@@ -2931,6 +3161,63 @@ const stickmanSwordSaint = {
     this.drawMeter(ctx, w - 238, 48, 140, 6, this.enemy.stamina, this.enemy.maxStamina, '#a855f7', '#581c87', 'STAM');
     // Enemy Posture Bar
     this.drawMeter(ctx, w - 238, 58, 180, 8, this.enemy.posture, this.enemy.maxPosture, '#fbbf24', '#78350f', 'POSTURE');
+
+    // Center: Live Side Quest Tracker HUD
+    if (this.isSideQuest && this.activeQuest) {
+      ctx.save();
+      const qBoxW = 270;
+      const qBoxH = 72;
+      const qBoxX = Math.round((w - qBoxW) / 2);
+      const qBoxY = 12;
+
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 1.5;
+      ctx.fillRect(qBoxX, qBoxY, qBoxW, qBoxH);
+      ctx.strokeRect(qBoxX, qBoxY, qBoxW, qBoxH);
+
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillStyle = '#fbbf24';
+      ctx.fillText(`📜 QUEST: ${this.activeQuest.title}`, w / 2, qBoxY + 18);
+
+      if (this.activeQuest.timeLimit > 0) {
+        const isUrgent = this.questTimer < 8;
+        ctx.font = 'bold 12px "Courier New", monospace';
+        ctx.fillStyle = isUrgent ? '#ef4444' : '#38bdf8';
+        ctx.fillText(`⏱️ TIME: ${Math.max(0, this.questTimer).toFixed(1)}s / ${this.activeQuest.timeLimit}s`, w / 2, qBoxY + 36);
+
+        // Timer meter
+        const pct = Math.max(0, Math.min(1, this.questTimer / this.activeQuest.timeLimit));
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(w / 2 - 90, qBoxY + 43, 180, 5);
+        ctx.fillStyle = isUrgent ? '#ef4444' : '#38bdf8';
+        ctx.fillRect(w / 2 - 90, qBoxY + 43, 180 * pct, 5);
+      } else if (this.activeQuest.requiredParries > 0) {
+        const curParries = Math.min(this.activeQuest.requiredParries, this.questParries || 0);
+        const pDone = curParries >= this.activeQuest.requiredParries;
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillStyle = pDone ? '#22c55e' : '#fbbf24';
+        ctx.fillText(`🛡️ PARRIES: ${curParries} / ${this.activeQuest.requiredParries} ${pDone ? '✓ READY' : ''}`, w / 2, qBoxY + 36);
+
+        // Parry meter
+        const pct = Math.max(0, Math.min(1, curParries / this.activeQuest.requiredParries));
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(w / 2 - 90, qBoxY + 43, 180, 5);
+        ctx.fillStyle = pDone ? '#22c55e' : '#fbbf24';
+        ctx.fillRect(w / 2 - 90, qBoxY + 43, 180 * pct, 5);
+      } else if (this.activeQuest.unarmedOnly) {
+        const isUnarmed = !this.player.hasWeapon;
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillStyle = isUnarmed ? '#22c55e' : '#ef4444';
+        ctx.fillText(isUnarmed ? '👊 BARE FISTS ONLY (READY)' : '⚠️ WEAPON HELD! PRESS E TO THROW', w / 2, qBoxY + 36);
+      }
+
+      ctx.font = '10px sans-serif';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillText(`Bounty: +${this.activeQuest.rewardGold} Ryo · Unlock: ${this.activeQuest.rewardWeaponName}`, w / 2, qBoxY + 63);
+      ctx.restore();
+    }
 
     // Live In-Game Combat Controls Reminder Strip
     ctx.font = 'bold 11px sans-serif';
@@ -3656,31 +3943,47 @@ const stickmanSwordSaint = {
     });
 
     // Main Action Buttons
-    // Start Duel Button
-    ctx.fillStyle = '#22c55e';
-    ctx.fillRect(w / 2 - 120, 214, 240, 40);
-    ctx.strokeStyle = '#86efac';
-    ctx.strokeRect(w / 2 - 120, 214, 240, 40);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 16px sans-serif';
-    ctx.fillText('START DUEL', w / 2, 239);
-    this.registerUiClick('start_duel', w / 2 - 120, 214, 240, 40);
+    const btnW = 260;
+    const btnX = w / 2 - btnW / 2;
 
-    // Weapon Shop Button
-    ctx.fillStyle = '#8b5cf6';
-    ctx.fillRect(w / 2 - 120, 264, 240, 36);
-    ctx.strokeStyle = '#c4b5fd';
-    ctx.strokeRect(w / 2 - 120, 264, 240, 36);
+    // 1. Start Duel Button
+    ctx.fillStyle = '#22c55e';
+    ctx.fillRect(btnX, 206, btnW, 34);
+    ctx.strokeStyle = '#86efac';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(btnX, 206, btnW, 34);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 15px sans-serif';
+    ctx.fillText('⚔️ START DUEL (ARCADE)', w / 2, 228);
+    this.registerUiClick('start_duel', btnX, 206, btnW, 34);
+
+    // 2. Play Side Quest (Bounty Board) Button
+    ctx.fillStyle = '#d97706';
+    ctx.fillRect(btnX, 246, btnW, 34);
+    ctx.strokeStyle = '#fde047';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(btnX, 246, btnW, 34);
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 14px sans-serif';
-    ctx.fillText(`WEAPON SHOP (${this.gold} Ryo)`, w / 2, 287);
-    this.registerUiClick('open_shop', w / 2 - 120, 264, 240, 36);
+    ctx.fillText('📜 PLAY SIDE QUEST (BOUNTY)', w / 2, 268);
+    this.registerUiClick('open_quests', btnX, 246, btnW, 34);
+
+    // 3. Weapon Shop Button
+    ctx.fillStyle = '#7c3aed';
+    ctx.fillRect(btnX, 286, btnW, 32);
+    ctx.strokeStyle = '#c4b5fd';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(btnX, 286, btnW, 32);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText(`🛒 WEAPON SHOP (${this.gold} Ryo)`, w / 2, 307);
+    this.registerUiClick('open_shop', btnX, 286, btnW, 32);
 
     // Controls Footer
     ctx.font = '11px sans-serif';
     ctx.fillStyle = '#94a3b8';
-    ctx.fillText('A/D: Move | W: Jump | J: Light Attack | K/Enter: Heavy Attack | L: Block | E: Throw Weapon | G: Grab Weapon', w / 2, 332);
-    ctx.fillText('Rules: 8 Streaks (Normal) Defeat Enemy | 1s Decay Timer | Break Guard to Stun', w / 2, 350);
+    ctx.fillText('A/D: Move | W: Jump | J: Light Attack | K/Enter: Heavy Attack | L: Block | E: Throw | G: Grab', w / 2, 336);
+    ctx.fillText('Shortcuts: [Space] Duel | [Q] Side Quests | [S] Weapon Shop | [Esc] Back', w / 2, 354);
     ctx.textAlign = 'left';
   },
 
@@ -3819,6 +4122,285 @@ const stickmanSwordSaint = {
     ctx.textAlign = 'left';
   },
 
+  /* ==========================================================================
+     PLAYABLE SIDE QUEST UI (SHINOBI BOUNTY BOARD)
+     ========================================================================== */
+  drawSideQuestSelect(ctx, w, h) {
+    this.uiBounds = [];
+
+    // Backdrop Board
+    ctx.fillStyle = 'rgba(11, 15, 25, 0.94)';
+    ctx.fillRect(30, 15, w - 60, 370);
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(30, 15, w - 60, 370);
+
+    // Header
+    ctx.textAlign = 'center';
+    ctx.font = '900 22px "Pixelify Sans", sans-serif';
+    ctx.fillStyle = '#fbbf24';
+    ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
+    ctx.shadowBlur = 10;
+    ctx.fillText('📜 SHINOBI BOUNTY BOARD · PLAYABLE SIDE QUESTS', w / 2, 45);
+    ctx.shadowBlur = 0;
+
+    ctx.font = '11px sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText('Accept specialized combat trials. Defeat bounty targets to claim heavy Ryo & unlock rare weapons.', w / 2, 64);
+
+    // 3 Side Quest Bounty Cards
+    const cardW = 226;
+    const cardH = 245;
+    const startX = 47;
+    const gap = 16;
+    const cardY = 76;
+
+    this.sideQuests.forEach((q, idx) => {
+      const cx = startX + idx * (cardW + gap);
+
+      // Card Background
+      ctx.fillStyle = q.completed ? 'rgba(34, 197, 94, 0.08)' : 'rgba(30, 41, 59, 0.9)';
+      ctx.fillRect(cx, cardY, cardW, cardH);
+      ctx.strokeStyle = q.completed ? '#22c55e' : (q.badgeColor || '#64748b');
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(cx, cardY, cardW, cardH);
+
+      // Top Badge
+      ctx.fillStyle = q.badgeColor || '#38bdf8';
+      ctx.fillRect(cx + 8, cardY + 8, cardW - 16, 20);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '900 11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(q.badge, cx + cardW / 2, cardY + 22);
+
+      // Quest Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.fillText(q.title, cx + cardW / 2, cardY + 46);
+
+      // Target Name
+      ctx.font = '11px sans-serif';
+      ctx.fillStyle = q.targetColor || '#f472b6';
+      ctx.fillText(`Target: ${q.targetName}`, cx + cardW / 2, cardY + 63);
+
+      // Description lines
+      ctx.font = '11px sans-serif';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillText(q.descLine1, cx + cardW / 2, cardY + 85);
+      ctx.fillText(q.descLine2, cx + cardW / 2, cardY + 101);
+
+      // Condition Tag
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(cx + 12, cardY + 114, cardW - 24, 22);
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(cx + 12, cardY + 114, cardW - 24, 22);
+      ctx.font = 'bold 10px monospace';
+      ctx.fillStyle = '#fbbf24';
+      let condText = '';
+      if (q.timeLimit > 0) condText = `⏱️ TIME LIMIT: ${q.timeLimit}s`;
+      else if (q.requiredParries > 0) condText = `🛡️ PARRY REQUIRED: ${q.requiredParries}x`;
+      else if (q.unarmedOnly) condText = `👊 BARE FISTS ONLY`;
+      ctx.fillText(condText, cx + cardW / 2, cardY + 129);
+
+      // Reward Box
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText(`💰 Bounty: +${q.rewardGold} Ryo`, cx + cardW / 2, cardY + 154);
+      ctx.font = '10px sans-serif';
+      ctx.fillStyle = '#a855f7';
+      ctx.fillText(`🎁 Unlock: ${q.rewardWeaponName}`, cx + cardW / 2, cardY + 170);
+
+      // Completion status indicator
+      if (q.completed) {
+        ctx.fillStyle = '#22c55e';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillText('✓ CLEARED', cx + cardW / 2, cardY + 188);
+      }
+
+      // Action Button
+      const btnBtnY = cardY + 196;
+      const btnBtnH = 34;
+      const btnBtnW = cardW - 28;
+      const btnBtnX = cx + 14;
+
+      ctx.fillStyle = q.completed ? '#1e293b' : '#f59e0b';
+      ctx.fillRect(btnBtnX, btnBtnY, btnBtnW, btnBtnH);
+      ctx.strokeStyle = q.completed ? '#22c55e' : '#fef08a';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(btnBtnX, btnBtnY, btnBtnW, btnBtnH);
+
+      ctx.fillStyle = q.completed ? '#22c55e' : '#0f172a';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText(q.completed ? 'PLAY AGAIN ⚡' : 'ACCEPT BOUNTY ⚔️', btnBtnX + btnBtnW / 2, btnBtnY + 22);
+      this.registerUiClick('start_quest_' + q.id, btnBtnX, btnBtnY, btnBtnW, btnBtnH);
+    });
+
+    // Return to Menu Button
+    const backW = 180;
+    const backH = 32;
+    const backX = w / 2 - backW / 2;
+    const backY = 336;
+
+    ctx.fillStyle = '#334155';
+    ctx.fillRect(backX, backY, backW, backH);
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(backX, backY, backW, backH);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('← RETURN TO MENU [ESC]', w / 2, backY + 21);
+    this.registerUiClick('open_menu', backX, backY, backW, backH);
+    ctx.textAlign = 'left';
+  },
+
+  drawQuestVictory(ctx, w, h) {
+    this.uiBounds = [];
+
+    // Modal Background
+    ctx.fillStyle = 'rgba(10, 16, 28, 0.96)';
+    ctx.fillRect(100, 35, w - 200, 330);
+    ctx.strokeStyle = '#22c55e';
+    ctx.lineWidth = 2.5;
+    ctx.strokeRect(100, 35, w - 200, 330);
+
+    ctx.textAlign = 'center';
+    ctx.font = '900 28px "Pixelify Sans", sans-serif';
+    ctx.fillStyle = '#22c55e';
+    ctx.shadowColor = 'rgba(34, 197, 94, 0.5)';
+    ctx.shadowBlur = 12;
+    ctx.fillText('🎉 BOUNTY COMPLETED! 🎉', w / 2, 85);
+    ctx.shadowBlur = 0;
+
+    const q = this.activeQuest || this.sideQuests[0];
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(q.title, w / 2, 118);
+
+    ctx.font = '13px sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText(`Eliminated target: ${q.targetName}`, w / 2, 142);
+
+    // Rewards Card
+    ctx.fillStyle = 'rgba(34, 197, 94, 0.12)';
+    ctx.fillRect(w / 2 - 160, 156, 320, 75);
+    ctx.strokeStyle = '#22c55e';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(w / 2 - 160, 156, 320, 75);
+
+    ctx.font = 'bold 15px sans-serif';
+    ctx.fillStyle = '#fbbf24';
+    ctx.fillText(`💰 Bounty Claimed: +${q.rewardGold} Ryo!`, w / 2, 185);
+
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillText(`⚔️ Weapon Unlocked: ${q.rewardWeaponName}`, w / 2, 212);
+
+    // Action Buttons
+    const btnW = 145;
+    const btnH = 36;
+    const btnY = 285;
+
+    // Button 1: More Quests
+    const b1X = w / 2 - btnW - 10;
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillRect(b1X, btnY, btnW, btnH);
+    ctx.strokeStyle = '#fef08a';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(b1X, btnY, btnW, btnH);
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('📜 MORE BOUNTIES', b1X + btnW / 2, btnY + 23);
+    this.registerUiClick('open_quests', b1X, btnY, btnW, btnH);
+
+    // Button 2: Main Menu
+    const b2X = w / 2 + 10;
+    ctx.fillStyle = '#334155';
+    ctx.fillRect(b2X, btnY, btnW, btnH);
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(b2X, btnY, btnW, btnH);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('🏠 MAIN MENU', b2X + btnW / 2, btnY + 23);
+    this.registerUiClick('open_menu', b2X, btnY, btnW, btnH);
+    ctx.textAlign = 'left';
+  },
+
+  drawQuestFailed(ctx, w, h) {
+    this.uiBounds = [];
+
+    // Modal Background
+    ctx.fillStyle = 'rgba(20, 10, 15, 0.96)';
+    ctx.fillRect(100, 35, w - 200, 330);
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 2.5;
+    ctx.strokeRect(100, 35, w - 200, 330);
+
+    ctx.textAlign = 'center';
+    ctx.font = '900 28px "Pixelify Sans", sans-serif';
+    ctx.fillStyle = '#ef4444';
+    ctx.shadowColor = 'rgba(239, 68, 68, 0.5)';
+    ctx.shadowBlur = 12;
+    ctx.fillText('💀 BOUNTY FAILED 💀', w / 2, 85);
+    ctx.shadowBlur = 0;
+
+    const q = this.activeQuest || this.sideQuests[0];
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(q.title, w / 2, 118);
+
+    // Failure Reason Card
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.12)';
+    ctx.fillRect(w / 2 - 160, 140, 320, 68);
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(w / 2 - 160, 140, 320, 68);
+
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillStyle = '#fca5a5';
+    ctx.fillText('FAILED CONDITION:', w / 2, 162);
+    ctx.font = '12px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(this.questFailReason || 'Defeated before achieving trial objective.', w / 2, 185);
+
+    ctx.font = '13px sans-serif';
+    ctx.fillStyle = '#94a3b8';
+    ctx.fillText(`Target survived: ${q.targetName}`, w / 2, 235);
+
+    // Action Buttons
+    const btnW = 145;
+    const btnH = 36;
+    const btnY = 285;
+
+    // Button 1: Retry
+    const b1X = w / 2 - btnW - 10;
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(b1X, btnY, btnW, btnH);
+    ctx.strokeStyle = '#fca5a5';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(b1X, btnY, btnW, btnH);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('🔄 RETRY QUEST', b1X + btnW / 2, btnY + 23);
+    this.registerUiClick('retry_quest', b1X, btnY, btnW, btnH);
+
+    // Button 2: Bounty Board
+    const b2X = w / 2 + 10;
+    ctx.fillStyle = '#334155';
+    ctx.fillRect(b2X, btnY, btnW, btnH);
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(b2X, btnY, btnW, btnH);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('📜 BOUNTY BOARD', b2X + btnW / 2, btnY + 23);
+    this.registerUiClick('open_quests', b2X, btnY, btnW, btnH);
+    ctx.textAlign = 'left';
+  },
+
   drawGameOver(ctx, w, h) {
     this.uiBounds = [];
     ctx.fillStyle = 'rgba(11, 15, 25, 0.92)';
@@ -3932,9 +4514,22 @@ const stickmanSwordSaint = {
     this.playSamuraiSound('click');
 
     if (action === 'start_duel') {
+      this.isSideQuest = false;
+      this.activeQuest = null;
       this.startFight();
     } else if (action === 'open_shop') {
       this.state = 'SHOP';
+    } else if (action === 'open_quests') {
+      this.openQuestBoard();
+    } else if (action.startsWith('start_quest_')) {
+      const qId = action.replace('start_quest_', '');
+      this.startSideQuest(qId);
+    } else if (action === 'retry_quest') {
+      if (this.activeQuest) {
+        this.startSideQuest(this.activeQuest.id);
+      } else {
+        this.openQuestBoard();
+      }
     } else if (action === 'close_shop' || action === 'open_menu') {
       this.state = 'MENU';
     } else if (action === 'edit_name') {

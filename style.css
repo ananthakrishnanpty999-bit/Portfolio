@@ -1645,6 +1645,23 @@ body.aaa-minimal-white-theme {
   transform: scale(1.05);
 }
 
+.hud-quest-btn {
+  background: rgba(245, 158, 11, 0.16) !important;
+  color: #fbbf24 !important;
+  border-color: rgba(245, 158, 11, 0.45) !important;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.hud-quest-btn:hover {
+  background: #f59e0b !important;
+  color: #0f172a !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.6) !important;
+  transform: scale(1.05);
+}
+
 .canvas-wrapper {
   position: relative;
   width: 100%;
