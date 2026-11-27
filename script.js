@@ -233,7 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let frame = 0;
+    let ambientRafId = null;
     function renderAmbientParticles() {
+      if (document.hidden) {
+        ambientRafId = null;
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
       frame++;
 
@@ -308,8 +313,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      requestAnimationFrame(renderAmbientParticles);
+      ambientRafId = requestAnimationFrame(renderAmbientParticles);
     }
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !ambientRafId) {
+        ambientRafId = requestAnimationFrame(renderAmbientParticles);
+      }
+    });
 
     renderAmbientParticles();
   }
@@ -481,16 +492,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!video) return;
 
+    let userPaused = false;
+
+    // Lazy-play video only when scrolled into view so initial page load avoids 30+ MB eager download
+    if ('IntersectionObserver' in window) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!userPaused && video.paused) {
+              if (video.preload === 'none') video.preload = 'metadata';
+              video.play().catch(() => {});
+            }
+          } else if (!video.paused) {
+            video.pause();
+          }
+        });
+      }, { rootMargin: '200px 0px', threshold: 0.1 });
+      videoObserver.observe(video);
+    }
+
     // 1. Play / Pause Toggle
     function togglePlay() {
       playUiSound('click');
       if (video.paused || video.ended) {
+        userPaused = false;
         video.play().then(() => {
           if (playPauseIcon) playPauseIcon.textContent = '?';
           if (playPauseText) playPauseText.textContent = 'Pause';
           showToast(`?? Playing ${config.title} Gameplay Video`);
         }).catch(() => {});
       } else {
+        userPaused = true;
         video.pause();
         if (playPauseIcon) playPauseIcon.textContent = '?';
         if (playPauseText) playPauseText.textContent = 'Play';
