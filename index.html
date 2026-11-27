@@ -17,7 +17,7 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="./style.css">
 </head>
-<body class="glitch-theme">
+<body class="glitch-theme horizontal-world-mode">
 
   <!-- Cybernetic Dark Ambient Glow Background -->
   <div class="ambient-dark-bg" aria-hidden="true">
@@ -84,8 +84,8 @@
 
     </header>
 
-    <!-- ================= MAIN CONTENT FLOW ================= -->
-    <main class="aaa-main-flow">
+    <!-- ================= MAIN HORIZONTAL WORLD TRACK ================= -->
+    <main class="aaa-main-flow horizontal-track" id="horizontalTrack">
 
       <!-- ================= 2. HERO SECTION ================= -->
       <section class="aaa-card hero-section" id="home">
@@ -419,6 +419,8 @@
 
       </section>
 
+      <div class="zone-divider-glitch" aria-hidden="true"><span>01 → 02</span></div>
+
       <!-- ================= 3. ABOUT SECTION ================= -->
       <section class="aaa-card about-section" id="about">
         
@@ -500,6 +502,8 @@
         </div>
 
       </section>
+
+      <div class="zone-divider-glitch" aria-hidden="true"><span>02 → 03</span></div>
 
       <!-- ================= 4. FEATURED PROJECTS SECTION ================= -->
       <section class="aaa-card projects-section" id="projects">
@@ -825,6 +829,8 @@
 
       </section>
 
+      <div class="zone-divider-glitch" aria-hidden="true"><span>03 → 04</span></div>
+
       <!-- ================= 5. PLAYABLE ARCADE CONSOLE STAGE ================= -->
       <section class="aaa-card arcade-stage-section" id="arcade-console">
         
@@ -911,6 +917,8 @@
         </div>
 
       </section>
+
+      <div class="zone-divider-glitch" aria-hidden="true"><span>04 → 05</span></div>
 
       <!-- ================= 6. SKILLS & ARSENAL SECTION ================= -->
       <section class="aaa-card skills-section" id="skills">
@@ -1038,6 +1046,8 @@
 
       </section>
 
+      <div class="zone-divider-glitch" aria-hidden="true"><span>05 → 06</span></div>
+
       <!-- ================= 7. CONTACT & INQUIRY SECTION ================= -->
       <section class="aaa-card contact-section" id="contact">
         
@@ -1108,12 +1118,41 @@
 
     </main>
 
-    <!-- ================= FOOTER ================= -->
-    <footer class="aaa-footer">
-      <div class="footer-content">
-        <p>© 2026 AnanthaKrishnan SB. Engineered with passion and precision.</p>
-        <button class="back-to-top-btn" id="backToTopBtn" title="Back to Top">
-          ↑ Back to Top
+    <!-- ================= HORIZONTAL LEVEL-PROGRESS SCRUBBER BAR ================= -->
+    <footer class="aaa-footer world-scrubber-footer">
+      <div class="footer-content world-scrubber-inner">
+        <p class="footer-copy">© 2026 AnanthaKrishnan SB</p>
+
+        <div class="world-scrubber-wrap">
+          <div class="world-scrubber-pill" id="worldScrubberPill">
+            <div class="world-zones-row" id="worldZonesRow">
+              <button type="button" class="world-zone-btn active" data-zone="home">01 [SHELF]</button>
+              <span class="world-arrow-sep">---›</span>
+              <button type="button" class="world-zone-btn" data-zone="about">02 [ABOUT]</button>
+              <span class="world-arrow-sep">---›</span>
+              <button type="button" class="world-zone-btn" data-zone="projects">03 [TITLES]</button>
+              <span class="world-arrow-sep">---›</span>
+              <button type="button" class="world-zone-btn" data-zone="arcade-console">04 [ARCADE]</button>
+              <span class="world-arrow-sep">---›</span>
+              <button type="button" class="world-zone-btn" data-zone="skills">05 [SKILLS]</button>
+              <span class="world-arrow-sep">---›</span>
+              <button type="button" class="world-zone-btn" data-zone="contact">06 [CHEST]</button>
+            </div>
+            <div class="world-progress-rail" id="worldProgressRail" title="Click anywhere on track to jump">
+              <div class="world-progress-fill" id="worldProgressFill">
+                <span class="world-playhead-dot"></span>
+              </div>
+            </div>
+          </div>
+          <div class="world-scrubber-hint">
+            <button type="button" class="world-step-arrow" id="worldPrevBtn" aria-label="Previous Zone">‹</button>
+            <span>Scroll Wheel or Drag Horizontally</span>
+            <button type="button" class="world-step-arrow" id="worldNextBtn" aria-label="Next Zone">›</button>
+          </div>
+        </div>
+
+        <button class="back-to-top-btn" id="backToTopBtn" title="Return to Zone 01 Spawn">
+          ⌂ Spawn
         </button>
       </div>
     </footer>

@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
             video.pause();
           }
         });
-      }, { rootMargin: '200px 0px', threshold: 0.1 });
+      }, { rootMargin: '200px 250px', threshold: 0.1 });
       videoObserver.observe(video);
     }
 
@@ -798,11 +798,36 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      7. NAVIGATION SMOOTH SCROLL, ACTIVE SPY & CYBER MOBILE DRAWER
      ========================================================================== */
-  const navLinks = document.querySelectorAll('.aaa-nav-link, .mobile-nav-item, .nav-btn, .mobile-cta-link');
+  const navLinks = document.querySelectorAll('.aaa-nav-link, .mobile-nav-item, .nav-btn, .mobile-cta-link, #axeBrandBtn, .nav-cta-btn, #btnHeroProjects, #btnHeroArcade, #btnHeroAbout, #cfDockArcade, #cfDockAbout, #cfDockContact');
   const mobileNavDrawer = document.getElementById('mobileNavDrawer');
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileNavCloseBtn = document.getElementById('mobileNavCloseBtn');
   const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+
+  function scrollToTrackElement(targetEl, align = 'start') {
+    const track = document.getElementById('horizontalTrack');
+    if (!targetEl) return;
+    if (!track) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: align === 'center' ? 'center' : 'start' });
+      return;
+    }
+    if (targetEl.id === 'home') {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+    const trackRect = track.getBoundingClientRect();
+    const elRect = targetEl.getBoundingClientRect();
+    let nextLeft = track.scrollLeft + (elRect.left - trackRect.left);
+    if (align === 'center') {
+      nextLeft -= Math.max(0, (trackRect.width - elRect.width) / 2);
+    } else {
+      nextLeft -= 16;
+    }
+    track.scrollTo({
+      left: Math.max(0, Math.min(nextLeft, track.scrollWidth - track.clientWidth)),
+      behavior: 'smooth'
+    });
+  }
 
   function openMobileNav() {
     if (!mobileNavDrawer) return;
@@ -843,46 +868,27 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       const targetHref = link.getAttribute('href');
       if (targetHref && targetHref.startsWith('#')) {
-        const targetSec = document.getElementById(targetHref.substring(1));
+        const targetId = targetHref.substring(1);
+        const targetSec = document.getElementById(targetId);
         if (targetSec) {
           e.preventDefault();
           playUiSound('click');
           closeMobileNav();
-          navLinks.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.aaa-nav-link, .mobile-nav-item').forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === '#' + targetId);
+          });
+          scrollToTrackElement(targetSec, 'start');
         }
       }
     });
   });
 
-  // Tracked Sections for Scroll-Spy
-  const trackedSections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    let currentId = '';
-    const scrollPos = window.scrollY + 180;
-    trackedSections.forEach(sec => {
-      const top = sec.offsetTop;
-      const height = sec.offsetHeight;
-      if (scrollPos >= top && scrollPos < top + height) {
-        currentId = sec.getAttribute('id');
-      }
-    });
-    if (currentId) {
-      navLinks.forEach(link => {
-        if (link.getAttribute('href') === '#' + currentId) {
-          navLinks.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-        }
-      });
-    }
-  }, { passive: true });
-
   const backToTopBtn = document.getElementById('backToTopBtn');
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
       playUiSound('click');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const homeEl = document.getElementById('home');
+      if (homeEl) scrollToTrackElement(homeEl, 'start');
     });
   }
 
@@ -966,7 +972,7 @@ document.addEventListener('DOMContentLoaded', () => {
           playUiSound('click');
           const arcadeSec = document.getElementById('arcade-console');
           if (arcadeSec) {
-            arcadeSec.scrollIntoView({ behavior: 'smooth' });
+            scrollToTrackElement(arcadeSec, 'start');
           }
           if (this.activeGame !== 'sword') {
             this.switchGame('sword');
@@ -977,7 +983,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const btnPlayStickSaw = document.getElementById('btnPlayStickSaw');
       if (btnPlayStickSaw) {
-        btnPlayStickSaw.addEventListener('click', () => {
+        btnPlayStickSaw.addEventListener('click', (e) => {
+          e.preventDefault();
+          playUiSound('diamond');
+          const arcadeSec = document.getElementById('arcade-console');
+          if (arcadeSec) scrollToTrackElement(arcadeSec, 'start');
           if (this.activeGame !== 'sword') {
             this.switchGame('sword');
           }
@@ -1146,7 +1156,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Do not hijack arrow keys when the Cover Flow Shelf is active and Arcade is idle off-screen
       const arcadeSection = document.getElementById('arcade-console');
-      const arcadeInView = arcadeSection && arcadeSection.getBoundingClientRect().top < window.innerHeight * 0.72;
+      const rect = arcadeSection ? arcadeSection.getBoundingClientRect() : null;
+      const arcadeInView = rect && rect.left < window.innerWidth * 0.72 && rect.right > window.innerWidth * 0.28;
       if (!this.isPlaying && !arcadeInView && document.activeElement !== this.canvas) return;
 
       if (this.activeGame === 'sword') {
@@ -4886,12 +4897,12 @@ const stickmanSwordSaint = {
       setTimeout(() => { didDrag = false; }, 60);
     });
 
-    // Keyboard Left/Right navigation when Cover Flow is in view and Arcade isn't active
+    // Keyboard Left/Right navigation when Cover Flow is horizontally in view and Arcade isn't active
     window.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (window.gameEngine && window.gameEngine.isPlaying && !window.gameEngine.isPaused) return;
       const rect = shell.getBoundingClientRect();
-      const inView = rect.bottom > 100 && rect.top < window.innerHeight * 0.8;
+      const inView = rect.right > window.innerWidth * 0.25 && rect.left < window.innerWidth * 0.75;
       if (!inView) return;
 
       if (e.key === 'ArrowLeft') {
@@ -4903,7 +4914,7 @@ const stickmanSwordSaint = {
       }
     });
 
-    // Expand Details -> ensure card is unfiltered, smooth-scroll, and pulse highlight
+    // Expand Details -> ensure card is unfiltered, pan horizontal track, and pulse highlight
     stage.querySelectorAll('.cf-expand-btn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -4915,7 +4926,7 @@ const stickmanSwordSaint = {
         const targetEl = targetSel ? document.querySelector(targetSel) : null;
         if (!targetEl) return;
 
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        scrollToTrackElement(targetEl, 'center');
         targetEl.classList.remove('cf-target-pulse');
         void targetEl.offsetWidth;
         targetEl.classList.add('cf-target-pulse');
@@ -4932,12 +4943,12 @@ const stickmanSwordSaint = {
         const tabBtn = document.querySelector(`.game-tab-btn[data-game="${gameKey}"]`);
         if (tabBtn) tabBtn.click();
         const consoleEl = document.getElementById('arcade-console');
-        if (consoleEl) consoleEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (consoleEl) scrollToTrackElement(consoleEl, 'start');
         setTimeout(() => {
           if (window.gameEngine && !window.gameEngine.isPlaying) {
             window.gameEngine.startCurrentGame();
           }
-        }, 420);
+        }, 480);
       });
     });
 
@@ -4945,5 +4956,166 @@ const stickmanSwordSaint = {
   }
 
   initCoverflowShelf();
+
+
+  /* ==========================================================================
+     9. CONCEPT B: HORIZONTAL PARALLAX WORLD TRACK & LEVEL SCRUBBER
+     ========================================================================== */
+  function initHorizontalWorldTrack() {
+    const track = document.getElementById('horizontalTrack');
+    if (!track) return;
+
+    const zones = ['home', 'about', 'projects', 'arcade-console', 'skills', 'contact'];
+    const zoneButtons = Array.from(document.querySelectorAll('.world-zone-btn'));
+    const progressRail = document.getElementById('worldProgressRail');
+    const progressFill = document.getElementById('worldProgressFill');
+    const prevBtn = document.getElementById('worldPrevBtn');
+    const nextBtn = document.getElementById('worldNextBtn');
+    const cyberGrid = document.querySelector('.cyber-grid-overlay');
+    const glows = Array.from(document.querySelectorAll('.ambient-glow'));
+    let activeZoneIndex = 0;
+
+    function updateScrubberAndNav() {
+      const maxScroll = Math.max(1, track.scrollWidth - track.clientWidth);
+      const pct = Math.max(0, Math.min(100, (track.scrollLeft / maxScroll) * 100));
+      if (progressFill) progressFill.style.width = `${pct.toFixed(2)}%`;
+
+      // Parallax drift on background glow & grid
+      const pxShift = -(track.scrollLeft * 0.06);
+      if (cyberGrid) cyberGrid.style.transform = `translate3d(${(pxShift * 0.5).toFixed(1)}px, 0, 0)`;
+      glows.forEach((g, idx) => {
+        const mult = idx === 0 ? 0.8 : idx === 1 ? 1.2 : 0.6;
+        g.style.transform = `translate3d(${(pxShift * mult).toFixed(1)}px, 0, 0)`;
+      });
+
+      // Determine active zone nearest horizontal center
+      const centerX = track.getBoundingClientRect().left + track.clientWidth * 0.42;
+      let closestIdx = 0;
+      let closestDist = Infinity;
+      zones.forEach((zid, idx) => {
+        const el = document.getElementById(zid);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const dist = Math.abs((r.left + r.right) / 2 - centerX);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIdx = idx;
+        }
+      });
+
+      activeZoneIndex = closestIdx;
+      const activeId = zones[closestIdx];
+
+      zoneButtons.forEach((btn) => {
+        btn.classList.toggle('active', btn.getAttribute('data-zone') === activeId);
+      });
+      document.querySelectorAll('.aaa-nav-link, .mobile-nav-item').forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
+      });
+    }
+
+    let scrollRaf = false;
+    track.addEventListener('scroll', () => {
+      if (scrollRaf) return;
+      scrollRaf = true;
+      requestAnimationFrame(() => {
+        updateScrubberAndNav();
+        scrollRaf = false;
+      });
+    }, { passive: true });
+
+    window.addEventListener('resize', updateScrubberAndNav);
+
+    // Smooth vertical mouse-wheel -> horizontal scroll translation
+    track.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+
+      // Allow inner vertical scroll first if the card under cursor has vertical overflow
+      const scrollableCard = e.target.closest('.horizontal-track > .aaa-card, .project-item-card');
+      if (scrollableCard && scrollableCard.scrollHeight > scrollableCard.clientHeight + 2) {
+        const atTop = scrollableCard.scrollTop <= 0;
+        const atBottom = scrollableCard.scrollTop + scrollableCard.clientHeight >= scrollableCard.scrollHeight - 2;
+        if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
+          return;
+        }
+      }
+
+      e.preventDefault();
+      track.scrollLeft += e.deltaY * 1.15;
+    }, { passive: false });
+
+    // Click & Drag panning across open track space
+    let dragStart = null;
+    let scrollStart = 0;
+    track.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      if (e.target.closest('a, button, input, video, iframe, canvas, .coverflow-stage')) return;
+      dragStart = e.clientX;
+      scrollStart = track.scrollLeft;
+      track.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (dragStart === null) return;
+      const dx = e.clientX - dragStart;
+      track.scrollLeft = scrollStart - dx;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (dragStart !== null) {
+        dragStart = null;
+        track.classList.remove('is-dragging');
+      }
+    });
+
+    // Scrubber Zone Buttons & Arrows
+    zoneButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const zid = btn.getAttribute('data-zone');
+        const el = zid ? document.getElementById(zid) : null;
+        if (el) {
+          playUiSound('click');
+          scrollToTrackElement(el, 'start');
+        }
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        const nextIdx = Math.max(0, activeZoneIndex - 1);
+        const el = document.getElementById(zones[nextIdx]);
+        if (el) {
+          playUiSound('click');
+          scrollToTrackElement(el, 'start');
+        }
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const nextIdx = Math.min(zones.length - 1, activeZoneIndex + 1);
+        const el = document.getElementById(zones[nextIdx]);
+        if (el) {
+          playUiSound('click');
+          scrollToTrackElement(el, 'start');
+        }
+      });
+    }
+
+    // Click directly on progress rail to scrub
+    if (progressRail) {
+      progressRail.addEventListener('click', (e) => {
+        const rect = progressRail.getBoundingClientRect();
+        const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        playUiSound('click');
+        track.scrollTo({ left: frac * maxScroll, behavior: 'smooth' });
+      });
+    }
+
+    updateScrubberAndNav();
+  }
+
+  initHorizontalWorldTrack();
 
 });
