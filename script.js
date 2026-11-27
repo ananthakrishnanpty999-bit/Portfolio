@@ -811,22 +811,23 @@ document.addEventListener('DOMContentLoaded', () => {
       targetEl.scrollIntoView({ behavior: 'smooth', block: align === 'center' ? 'center' : 'start' });
       return;
     }
-    if (targetEl.id === 'home') {
-      track.scrollTo({ left: 0, behavior: 'smooth' });
-      return;
+    let nextLeft = 0;
+    if (targetEl.id !== 'home') {
+      const trackRect = track.getBoundingClientRect();
+      const elRect = targetEl.getBoundingClientRect();
+      nextLeft = track.scrollLeft + (elRect.left - trackRect.left);
+      if (align === 'center') {
+        nextLeft -= Math.max(0, (trackRect.width - elRect.width) / 2);
+      } else {
+        nextLeft -= 16;
+      }
+      nextLeft = Math.max(0, Math.min(nextLeft, track.scrollWidth - track.clientWidth));
     }
-    const trackRect = track.getBoundingClientRect();
-    const elRect = targetEl.getBoundingClientRect();
-    let nextLeft = track.scrollLeft + (elRect.left - trackRect.left);
-    if (align === 'center') {
-      nextLeft -= Math.max(0, (trackRect.width - elRect.width) / 2);
+    if (typeof window.__smoothTrackScrollTo === 'function') {
+      window.__smoothTrackScrollTo(nextLeft);
     } else {
-      nextLeft -= 16;
+      track.scrollTo({ left: nextLeft, behavior: 'smooth' });
     }
-    track.scrollTo({
-      left: Math.max(0, Math.min(nextLeft, track.scrollWidth - track.clientWidth)),
-      behavior: 'smooth'
-    });
   }
 
   function openMobileNav() {
@@ -4959,27 +4960,20 @@ const stickmanSwordSaint = {
 
 
   /* ==========================================================================
-     9. CONCEPT B: HORIZONTAL PARALLAX WORLD TRACK & LEVEL SCRUBBER
+     9. CONCEPT B: SMOOTH INERTIA HORIZONTAL TRACK & PARALLAX DRIFT
      ========================================================================== */
   function initHorizontalWorldTrack() {
     const track = document.getElementById('horizontalTrack');
     if (!track) return;
 
     const zones = ['home', 'about', 'projects', 'arcade-console', 'skills', 'contact'];
-    const zoneButtons = Array.from(document.querySelectorAll('.world-zone-btn'));
-    const progressRail = document.getElementById('worldProgressRail');
-    const progressFill = document.getElementById('worldProgressFill');
-    const prevBtn = document.getElementById('worldPrevBtn');
-    const nextBtn = document.getElementById('worldNextBtn');
     const cyberGrid = document.querySelector('.cyber-grid-overlay');
     const glows = Array.from(document.querySelectorAll('.ambient-glow'));
-    let activeZoneIndex = 0;
+    let targetScrollLeft = track.scrollLeft;
+    let currentScrollLeft = track.scrollLeft;
+    let lerpRafId = null;
 
-    function updateScrubberAndNav() {
-      const maxScroll = Math.max(1, track.scrollWidth - track.clientWidth);
-      const pct = Math.max(0, Math.min(100, (track.scrollLeft / maxScroll) * 100));
-      if (progressFill) progressFill.style.width = `${pct.toFixed(2)}%`;
-
+    function updateNavAndParallax() {
       // Parallax drift on background glow & grid
       const pxShift = -(track.scrollLeft * 0.06);
       if (cyberGrid) cyberGrid.style.transform = `translate3d(${(pxShift * 0.5).toFixed(1)}px, 0, 0)`;
@@ -5003,34 +4997,58 @@ const stickmanSwordSaint = {
         }
       });
 
-      activeZoneIndex = closestIdx;
       const activeId = zones[closestIdx];
-
-      zoneButtons.forEach((btn) => {
-        btn.classList.toggle('active', btn.getAttribute('data-zone') === activeId);
-      });
       document.querySelectorAll('.aaa-nav-link, .mobile-nav-item').forEach((link) => {
         link.classList.toggle('active', link.getAttribute('href') === '#' + activeId);
       });
     }
 
+    function stepSmoothScroll() {
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      targetScrollLeft = Math.max(0, Math.min(targetScrollLeft, maxScroll));
+      const diff = targetScrollLeft - currentScrollLeft;
+
+      if (Math.abs(diff) < 0.45) {
+        currentScrollLeft = targetScrollLeft;
+        track.scrollLeft = targetScrollLeft;
+        lerpRafId = null;
+        updateNavAndParallax();
+        return;
+      }
+
+      currentScrollLeft += diff * 0.13;
+      track.scrollLeft = currentScrollLeft;
+      updateNavAndParallax();
+      lerpRafId = requestAnimationFrame(stepSmoothScroll);
+    }
+
+    window.__smoothTrackScrollTo = (nextLeft) => {
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      currentScrollLeft = track.scrollLeft;
+      targetScrollLeft = Math.max(0, Math.min(nextLeft, maxScroll));
+      if (!lerpRafId) {
+        lerpRafId = requestAnimationFrame(stepSmoothScroll);
+      }
+    };
+
     let scrollRaf = false;
     track.addEventListener('scroll', () => {
+      if (!lerpRafId) {
+        currentScrollLeft = track.scrollLeft;
+        targetScrollLeft = track.scrollLeft;
+      }
       if (scrollRaf) return;
       scrollRaf = true;
       requestAnimationFrame(() => {
-        updateScrubberAndNav();
+        updateNavAndParallax();
         scrollRaf = false;
       });
     }, { passive: true });
 
-    window.addEventListener('resize', updateScrubberAndNav);
+    window.addEventListener('resize', updateNavAndParallax);
 
-    // Smooth vertical mouse-wheel -> horizontal scroll translation
+    // Smooth inertia mouse-wheel -> horizontal transition
     track.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-
-      // Allow inner vertical scroll first if the card under cursor has vertical overflow
       const scrollableCard = e.target.closest('.horizontal-track > .aaa-card, .project-item-card');
       if (scrollableCard && scrollableCard.scrollHeight > scrollableCard.clientHeight + 2) {
         const atTop = scrollableCard.scrollTop <= 0;
@@ -5040,16 +5058,26 @@ const stickmanSwordSaint = {
         }
       }
 
+      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (!delta) return;
       e.preventDefault();
-      track.scrollLeft += e.deltaY * 1.15;
+      if (!lerpRafId) {
+        currentScrollLeft = track.scrollLeft;
+        targetScrollLeft = track.scrollLeft;
+      }
+      window.__smoothTrackScrollTo(targetScrollLeft + delta * 1.25);
     }, { passive: false });
 
-    // Click & Drag panning across open track space
+    // Click & Drag panning with smooth inertia release
     let dragStart = null;
     let scrollStart = 0;
     track.addEventListener('mousedown', (e) => {
       if (e.button !== 0) return;
       if (e.target.closest('a, button, input, video, iframe, canvas, .coverflow-stage')) return;
+      if (lerpRafId) {
+        cancelAnimationFrame(lerpRafId);
+        lerpRafId = null;
+      }
       dragStart = e.clientX;
       scrollStart = track.scrollLeft;
       track.classList.add('is-dragging');
@@ -5058,7 +5086,10 @@ const stickmanSwordSaint = {
     window.addEventListener('mousemove', (e) => {
       if (dragStart === null) return;
       const dx = e.clientX - dragStart;
-      track.scrollLeft = scrollStart - dx;
+      const next = scrollStart - dx;
+      track.scrollLeft = next;
+      currentScrollLeft = track.scrollLeft;
+      targetScrollLeft = track.scrollLeft;
     });
 
     window.addEventListener('mouseup', () => {
@@ -5068,52 +5099,7 @@ const stickmanSwordSaint = {
       }
     });
 
-    // Scrubber Zone Buttons & Arrows
-    zoneButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const zid = btn.getAttribute('data-zone');
-        const el = zid ? document.getElementById(zid) : null;
-        if (el) {
-          playUiSound('click');
-          scrollToTrackElement(el, 'start');
-        }
-      });
-    });
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        const nextIdx = Math.max(0, activeZoneIndex - 1);
-        const el = document.getElementById(zones[nextIdx]);
-        if (el) {
-          playUiSound('click');
-          scrollToTrackElement(el, 'start');
-        }
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        const nextIdx = Math.min(zones.length - 1, activeZoneIndex + 1);
-        const el = document.getElementById(zones[nextIdx]);
-        if (el) {
-          playUiSound('click');
-          scrollToTrackElement(el, 'start');
-        }
-      });
-    }
-
-    // Click directly on progress rail to scrub
-    if (progressRail) {
-      progressRail.addEventListener('click', (e) => {
-        const rect = progressRail.getBoundingClientRect();
-        const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-        playUiSound('click');
-        track.scrollTo({ left: frac * maxScroll, behavior: 'smooth' });
-      });
-    }
-
-    updateScrubberAndNav();
+    updateNavAndParallax();
   }
 
   initHorizontalWorldTrack();
@@ -5154,5 +5140,84 @@ const stickmanSwordSaint = {
   }
 
   initColorModeToggle();
+
+
+  /* ==========================================================================
+     11. STUDIO BOOT LOADER, ENTRANCE REVEALS & HOME SCREEN PARALLAX
+     ========================================================================== */
+  function initStudioLoaderAndReveals() {
+    const loader = document.getElementById('studioLoader');
+    const track = document.getElementById('horizontalTrack');
+
+    const finishBoot = () => {
+      if (loader) loader.classList.add('is-done');
+      document.body.classList.add('studio-ready');
+    };
+    setTimeout(finishBoot, 480);
+
+    // Reveal zones smoothly as they enter the horizontal viewport
+    const revealTargets = Array.from(
+      document.querySelectorAll('#about, #arcade-console, #skills, #contact, .project-item-card')
+    );
+    revealTargets.forEach((el) => el.classList.add('reveal-zone'));
+
+    if ('IntersectionObserver' in window && track) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { root: track, rootMargin: '0px 80px', threshold: 0.08 });
+
+      revealTargets.forEach((el) => revealObserver.observe(el));
+    } else {
+      revealTargets.forEach((el) => el.classList.add('reveal-visible'));
+    }
+  }
+
+  function initHomeParallax() {
+    const homeEl = document.getElementById('home');
+    if (!homeEl) return;
+
+    let targetX = 0;
+    let targetY = 0;
+    let curX = 0;
+    let curY = 0;
+    let pRaf = null;
+
+    function tickParallax() {
+      curX += (targetX - curX) * 0.12;
+      curY += (targetY - curY) * 0.12;
+
+      homeEl.style.setProperty('--home-px', `${(curX * 16).toFixed(2)}px`);
+      homeEl.style.setProperty('--home-py', `${(curY * 11).toFixed(2)}px`);
+      homeEl.style.setProperty('--home-rx', `${(-curY * 2.4).toFixed(2)}deg`);
+      homeEl.style.setProperty('--home-ry', `${(curX * 3.0).toFixed(2)}deg`);
+
+      if (Math.abs(targetX - curX) > 0.002 || Math.abs(targetY - curY) > 0.002) {
+        pRaf = requestAnimationFrame(tickParallax);
+      } else {
+        pRaf = null;
+      }
+    }
+
+    homeEl.addEventListener('mousemove', (e) => {
+      const rect = homeEl.getBoundingClientRect();
+      targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      if (!pRaf) pRaf = requestAnimationFrame(tickParallax);
+    });
+
+    homeEl.addEventListener('mouseleave', () => {
+      targetX = 0;
+      targetY = 0;
+      if (!pRaf) pRaf = requestAnimationFrame(tickParallax);
+    });
+  }
+
+  initStudioLoaderAndReveals();
+  initHomeParallax();
 
 });

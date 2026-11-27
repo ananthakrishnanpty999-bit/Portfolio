@@ -4575,3 +4575,167 @@ body.dark-mode .chest-hint-badge {
     overflow-y: auto;
   }
 }
+
+/* ==========================================================================
+   20. STUDIO BOOT LOADER, ENTRANCE REVEAL & HOME PARALLAX
+   ========================================================================== */
+
+/* Smooth Studio Boot Loader */
+.studio-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: #f8fafc;
+  transition: opacity 0.5s var(--ease-spring), transform 0.55s var(--ease-spring), visibility 0.55s ease;
+}
+body.dark-mode .studio-loader {
+  background: #050814;
+}
+.studio-loader.is-done {
+  opacity: 0;
+  transform: scale(1.03);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.loader-crest-box {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: #0f172a;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    -3px 0 18px rgba(0, 240, 255, 0.45),
+     3px 0 18px rgba(255, 0, 85, 0.45),
+     0 16px 32px rgba(15, 23, 42, 0.25);
+  animation: loaderPulse 1.1s ease-in-out infinite;
+}
+@keyframes loaderPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.loader-brand {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #0f172a;
+}
+body.dark-mode .loader-brand {
+  color: #f8fafc;
+}
+
+.loader-bar-track {
+  width: 220px;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.25);
+  overflow: hidden;
+}
+.loader-bar-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #00f0ff, #4f46e5, #ff0055);
+  animation: loaderFillBar 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes loaderFillBar {
+  0% { width: 8%; }
+  100% { width: 100%; }
+}
+
+.loader-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 1px;
+}
+
+/* Home Entrance Reveal Animation */
+body.horizontal-world-mode:not(.studio-ready) .coverflow-card {
+  opacity: 0 !important;
+  transform: translate(-50%, -44%) scale(0.84) !important;
+}
+body.horizontal-world-mode:not(.studio-ready) .coverflow-bottom-dock {
+  opacity: 0;
+  transform: translateY(16px);
+}
+body.horizontal-world-mode.studio-ready .coverflow-card[data-cf-slot="0"] {
+  transition-delay: 0.04s;
+}
+body.horizontal-world-mode.studio-ready .coverflow-card[data-cf-slot="-1"],
+body.horizontal-world-mode.studio-ready .coverflow-card[data-cf-slot="1"] {
+  transition-delay: 0.1s;
+}
+body.horizontal-world-mode.studio-ready .coverflow-card[data-cf-slot="-2"],
+body.horizontal-world-mode.studio-ready .coverflow-card[data-cf-slot="2"] {
+  transition-delay: 0.16s;
+}
+body.horizontal-world-mode.studio-ready .coverflow-bottom-dock {
+  opacity: 1;
+  transform: translate3d(calc(var(--home-px, 0px) * 0.75), calc(var(--home-py, 0px) * 0.55), 0);
+  transition: opacity 0.65s var(--ease-spring) 0.22s, transform 0.28s ease-out;
+}
+
+/* Horizontal Scroll Zone Entrance Reveal */
+.reveal-zone {
+  opacity: 0;
+  transform: translateY(20px) scale(0.985);
+  transition: opacity 0.55s var(--ease-spring), transform 0.65s var(--ease-spring);
+}
+.reveal-zone.reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Home Multi-Layer Mouse & Scroll Parallax */
+body.horizontal-world-mode .hero-section {
+  --home-px: 0px;
+  --home-py: 0px;
+  --home-rx: 0deg;
+  --home-ry: 0deg;
+}
+
+@media (min-width: 921px) {
+  body.horizontal-world-mode .coverflow-stage {
+    height: 465px;
+    transform: translate3d(calc(var(--home-px) * 0.45), calc(var(--home-py) * 0.4), 0)
+               rotateX(var(--home-rx))
+               rotateY(var(--home-ry));
+    transition: transform 0.24s ease-out;
+  }
+  body.horizontal-world-mode .coverflow-card {
+    width: 300px;
+    height: 412px;
+  }
+  body.horizontal-world-mode .coverflow-horizon-floor {
+    bottom: 52px;
+    height: 128px;
+    transform: translate3d(calc(var(--home-px) * -0.9), calc(var(--home-py) * -0.7), 0);
+    transition: transform 0.28s ease-out, background 0.55s ease;
+  }
+  body.horizontal-world-mode .coverflow-bottom-dock {
+    margin-top: 14px;
+  }
+}
+
+/* Slim clean footer without scrubber */
+body.horizontal-world-mode .world-scrubber-footer {
+  padding: 2px 0;
+}
+body.horizontal-world-mode .world-scrubber-inner {
+  justify-content: space-between;
+}
