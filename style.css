@@ -4114,3 +4114,464 @@ body.dark-mode .mobile-nav-item.active {
   background: #00f0ff;
   color: #020617;
 }
+
+/* ==========================================================================
+   19. BORDERLESS NO-SCROLL CREATIVE TABS (ALL 6 ZONES)
+   ========================================================================== */
+
+/* 1. Remove outlines, borders, and outer card frames across all tabs & pills */
+body.horizontal-world-mode .horizontal-track > .aaa-card,
+body.dark-mode.horizontal-world-mode .horizontal-track > .aaa-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline: none !important;
+}
+
+body.horizontal-world-mode .project-tab-pill,
+body.horizontal-world-mode .game-tab-btn,
+body.horizontal-world-mode .world-zone-btn,
+body.horizontal-world-mode .cf-page-dot,
+body.horizontal-world-mode .cf-dock-pill,
+body.horizontal-world-mode .cf-drag-pill,
+body.horizontal-world-mode .aaa-nav-links,
+body.horizontal-world-mode .aaa-nav-link,
+body.horizontal-world-mode .back-to-top-btn,
+body.horizontal-world-mode .theme-mode-btn,
+body.horizontal-world-mode .world-step-arrow,
+body.horizontal-world-mode .world-scrubber-pill,
+body.horizontal-world-mode .about-avatar-card,
+body.horizontal-world-mode .project-item-card,
+body.horizontal-world-mode .skill-card,
+body.horizontal-world-mode .contact-channel-card,
+body.horizontal-world-mode .media-frame,
+body.horizontal-world-mode .cf-face,
+body.horizontal-world-mode .avatar-stat-item,
+body.horizontal-world-mode .tech-tag,
+body.horizontal-world-mode .cf-meta-pill,
+body.horizontal-world-mode .telemetry-cell,
+body.horizontal-world-mode .team-credits-box,
+body.horizontal-world-mode .console-chassis,
+body.horizontal-world-mode .console-screen-frame,
+body.horizontal-world-mode .aaa-btn-primary,
+body.horizontal-world-mode .aaa-btn-secondary,
+body.horizontal-world-mode .aaa-btn-ghost {
+  border: none !important;
+  outline: none !important;
+}
+
+body.horizontal-world-mode *:focus,
+body.horizontal-world-mode *:focus-visible {
+  outline: none !important;
+}
+
+/* Soft borderless glass elevation for cards instead of outlines */
+body.horizontal-world-mode .about-avatar-card,
+body.horizontal-world-mode .project-item-card,
+body.horizontal-world-mode .skill-card,
+body.horizontal-world-mode .contact-channel-card,
+body.horizontal-world-mode .telemetry-cell {
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 14px 34px -14px rgba(15, 23, 42, 0.1) !important;
+}
+body.horizontal-world-mode .project-item-card:hover,
+body.horizontal-world-mode .skill-card:hover,
+body.horizontal-world-mode .contact-channel-card:hover {
+  box-shadow: 0 22px 44px -14px rgba(15, 23, 42, 0.16) !important;
+}
+
+body.dark-mode.horizontal-world-mode .about-avatar-card,
+body.dark-mode.horizontal-world-mode .project-item-card,
+body.dark-mode.horizontal-world-mode .skill-card,
+body.dark-mode.horizontal-world-mode .contact-channel-card,
+body.dark-mode.horizontal-world-mode .telemetry-cell {
+  background: rgba(15, 23, 42, 0.84);
+  box-shadow: 0 18px 38px -14px rgba(0, 0, 0, 0.55) !important;
+}
+body.dark-mode.horizontal-world-mode .project-item-card:hover,
+body.dark-mode.horizontal-world-mode .skill-card:hover,
+body.dark-mode.horizontal-world-mode .contact-channel-card:hover {
+  background: rgba(20, 31, 56, 0.94);
+  box-shadow: 0 22px 48px -12px rgba(0, 0, 0, 0.7), 0 0 24px rgba(0, 240, 255, 0.12) !important;
+}
+
+body.horizontal-world-mode .project-tab-pill,
+body.horizontal-world-mode .game-tab-btn,
+body.horizontal-world-mode .cf-dock-pill,
+body.horizontal-world-mode .cf-drag-pill {
+  box-shadow: 0 6px 18px -6px rgba(15, 23, 42, 0.1) !important;
+}
+body.horizontal-world-mode .project-tab-pill.active,
+body.horizontal-world-mode .game-tab-btn.active {
+  box-shadow: 0 8px 20px -6px rgba(15, 23, 42, 0.25) !important;
+}
+body.dark-mode.horizontal-world-mode .project-tab-pill.active,
+body.dark-mode.horizontal-world-mode .game-tab-btn.active {
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.35) !important;
+}
+body.dark-mode .project-tab-pill.active::before,
+body.dark-mode .project-tab-pill.active::after,
+body.dark-mode .game-tab-btn.active::before,
+body.dark-mode .game-tab-btn.active::after {
+  color: #020617;
+}
+
+/* 2. Remove ALL inner vertical scrollbars on Desktop across every Zone tab */
+@media (min-width: 921px) {
+  body.horizontal-world-mode .horizontal-track > .aaa-card {
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 14px 28px;
+  }
+
+  body.horizontal-world-mode .horizontal-track > .projects-section {
+    overflow: visible !important;
+    justify-content: flex-start;
+    padding: 10px 24px 12px;
+    gap: 10px;
+  }
+
+  /* Tab 02: About Bento Dossier + Telemetry Bar */
+  body.horizontal-world-mode .about-section {
+    flex: 0 0 min(1040px, 88vw);
+  }
+  body.horizontal-world-mode .about-section .section-heading {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  body.horizontal-world-mode .about-grid-row {
+    grid-template-columns: 310px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  body.horizontal-world-mode .about-avatar-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+  body.horizontal-world-mode .avatar-img-frame {
+    width: 104px;
+    height: 104px;
+    margin-bottom: 12px;
+  }
+  body.horizontal-world-mode .avatar-stats-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  body.horizontal-world-mode .avatar-stat-item {
+    padding: 7px 9px;
+    font-size: 0.72rem;
+  }
+  body.horizontal-world-mode .about-lead-bio {
+    font-size: 1.06rem;
+    line-height: 1.62;
+    margin-bottom: 14px;
+  }
+  body.horizontal-world-mode .about-sub-bio {
+    font-size: 0.92rem;
+    line-height: 1.58;
+    margin-bottom: 20px;
+  }
+  .about-telemetry-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .telemetry-cell {
+    padding: 12px 14px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .telemetry-cell::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #00f0ff, #ff0055);
+  }
+  .tele-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 0.8px;
+  }
+  .tele-val {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  body.dark-mode .tele-label {
+    color: #94a3b8;
+  }
+  body.dark-mode .tele-val {
+    color: #f8fafc;
+  }
+
+  /* Tab 03: Museum Gallery Horizontal Cards (ZERO vertical scroll on any card) */
+  body.horizontal-world-mode .projects-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: nowrap;
+    width: min(1160px, 90vw);
+    max-width: min(1160px, 90vw);
+    left: 24px;
+  }
+  body.horizontal-world-mode .projects-section-header .section-kicker {
+    margin-bottom: 4px;
+    padding: 3px 10px;
+    font-size: 0.68rem;
+  }
+  body.horizontal-world-mode .projects-section-header .section-heading {
+    font-size: 1.45rem;
+    margin-bottom: 2px;
+    white-space: nowrap;
+  }
+  body.horizontal-world-mode .projects-section-header .section-subtext {
+    font-size: 0.78rem;
+    margin: 0;
+  }
+  body.horizontal-world-mode .projects-filter-bar {
+    margin: 0;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  body.horizontal-world-mode .project-tab-pill {
+    padding: 6px 12px;
+    font-size: 0.74rem;
+  }
+  body.horizontal-world-mode .project-item-card {
+    flex: 0 0 min(920px, 84vw);
+    height: 100%;
+    overflow: hidden !important;
+    padding: 16px 22px;
+    gap: 24px;
+    grid-template-columns: 0.96fr 1.04fr;
+    align-items: center;
+    position: relative;
+  }
+  body.horizontal-world-mode .project-item-card::after {
+    content: attr(data-title-idx);
+    position: absolute;
+    top: 8px;
+    right: 18px;
+    font-family: var(--font-display);
+    font-size: 3.4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #0f172a;
+    opacity: 0.045;
+    pointer-events: none;
+  }
+  body.dark-mode.horizontal-world-mode .project-item-card::after {
+    color: #00f0ff;
+    opacity: 0.08;
+  }
+  body.horizontal-world-mode .media-header-tag {
+    padding: 5px 12px;
+    font-size: 0.68rem;
+  }
+  body.horizontal-world-mode .video-viewport,
+  body.horizontal-world-mode .artwork-viewport {
+    aspect-ratio: 16 / 9;
+    max-height: 230px;
+  }
+  body.horizontal-world-mode .showcase-banner-img {
+    height: 230px;
+    object-fit: cover;
+  }
+  body.horizontal-world-mode .screenshots-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    padding: 6px;
+  }
+  body.horizontal-world-mode .screenshot-thumb-btn {
+    width: 100%;
+    height: 44px;
+  }
+  body.horizontal-world-mode .project-badge-row {
+    margin-bottom: 4px;
+    gap: 6px;
+  }
+  body.horizontal-world-mode .project-title {
+    font-size: 1.32rem;
+    margin: 4px 0 3px;
+  }
+  body.horizontal-world-mode .project-tagline {
+    font-size: 0.82rem;
+    line-height: 1.38;
+    margin-bottom: 6px;
+  }
+  body.horizontal-world-mode .project-description {
+    font-size: 0.79rem;
+    line-height: 1.42;
+    margin-bottom: 8px;
+  }
+  body.horizontal-world-mode .team-credits-box {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    margin-bottom: 8px;
+  }
+  body.horizontal-world-mode .project-tech-tags {
+    margin-bottom: 10px;
+    gap: 5px;
+  }
+  body.horizontal-world-mode .tech-tag {
+    padding: 3px 9px;
+    font-size: 0.7rem;
+  }
+  body.horizontal-world-mode .project-action-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  body.horizontal-world-mode .project-action-row .aaa-btn-primary,
+  body.horizontal-world-mode .project-action-row .aaa-btn-secondary,
+  body.horizontal-world-mode .project-action-row .aaa-btn-ghost {
+    padding: 7px 12px;
+    font-size: 0.74rem;
+    white-space: nowrap;
+  }
+
+  /* Tab 04: Floating Borderless Console Deck */
+  body.horizontal-world-mode .arcade-stage-section {
+    flex: 0 0 min(1080px, 88vw);
+    padding: 10px 24px;
+  }
+  body.horizontal-world-mode .arcade-stage-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  body.horizontal-world-mode .arcade-stage-header .section-heading {
+    font-size: 1.65rem;
+    margin-bottom: 2px;
+  }
+  body.horizontal-world-mode .arcade-stage-header .section-subtext {
+    font-size: 0.82rem;
+    margin: 0;
+  }
+  body.horizontal-world-mode .game-select-tabs {
+    margin: 0;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+  body.horizontal-world-mode .game-tab-btn {
+    padding: 7px 14px;
+    font-size: 0.76rem;
+  }
+  body.horizontal-world-mode .console-chassis {
+    padding: 14px 20px;
+    gap: 16px;
+    box-shadow: 0 28px 60px -15px rgba(15, 23, 42, 0.32) !important;
+  }
+  body.horizontal-world-mode #consoleGameCanvas {
+    max-height: 315px;
+  }
+
+  /* Tab 05: 3x3 RPG Loadout Matrix (Horizontal Inventory Slots) */
+  body.horizontal-world-mode .skills-section {
+    flex: 0 0 min(1000px, 88vw);
+  }
+  body.horizontal-world-mode .skills-section .section-heading {
+    font-size: 1.9rem;
+    margin-bottom: 4px;
+  }
+  body.horizontal-world-mode .skills-grid-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+  }
+  body.horizontal-world-mode .skill-card {
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 18px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+  body.horizontal-world-mode .skill-icon-holder {
+    flex-shrink: 0;
+  }
+  body.horizontal-world-mode .skill-name {
+    display: block;
+    font-size: 1rem;
+  }
+  body.horizontal-world-mode .skill-category {
+    display: block;
+    font-size: 0.68rem;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  /* Tab 06: Mission Comms + Floating Chest Pedestal */
+  body.horizontal-world-mode .contact-section {
+    flex: 0 0 min(1140px, 90vw);
+  }
+  body.horizontal-world-mode .contact-section .section-heading {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+  body.horizontal-world-mode .contact-grid-row {
+    margin-top: 22px;
+    gap: 36px;
+  }
+  body.horizontal-world-mode .contact-channel-card {
+    padding: 15px 20px;
+  }
+  body.horizontal-world-mode .chest-img {
+    max-width: 215px;
+  }
+}
+
+/* Chest Prompt Badge */
+.chest-hint-badge {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.88);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.22);
+  pointer-events: none;
+}
+body.dark-mode .chest-hint-badge {
+  background: rgba(0, 240, 255, 0.16);
+  color: #00f0ff;
+}
+
+@media (max-width: 920px) {
+  .about-telemetry-bar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  body.horizontal-world-mode .horizontal-track > .aaa-card {
+    overflow-y: auto;
+  }
+}
