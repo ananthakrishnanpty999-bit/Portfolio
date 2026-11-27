@@ -1136,6 +1136,13 @@ document.addEventListener('DOMContentLoaded', () => {
     handleKeyDown(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+      // Do not hijack keyboard from the landing Studio Hub when Arcade is idle & off-screen
+      const arcadeSection = document.getElementById('arcade-console');
+      const arcadeInView = arcadeSection && arcadeSection.getBoundingClientRect().top < window.innerHeight * 0.72;
+      const hubCanvas = document.getElementById('studioHubCanvas');
+      if (document.activeElement === hubCanvas) return;
+      if (!this.isPlaying && !arcadeInView && document.activeElement !== this.canvas) return;
+
       if (this.activeGame === 'sword') {
         stickmanSwordSaint.handleKeyDown(e);
         if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyW', 'KeyS', 'KeyA', 'KeyD', 'KeyJ', 'KeyK', 'KeyL', 'KeyE', 'KeyG', 'Enter', 'NumpadEnter'].includes(e.code)) {
@@ -4719,5 +4726,700 @@ const stickmanSwordSaint = {
   window.gameEngine = gameEngine;
   window.stickmanSwordSaint = stickmanSwordSaint;
   gameEngine.init();
+
+
+  /* ==========================================================================
+     8. PLAYABLE STUDIO HUB MINI-MAP ENGINE (CONCEPT 2 LANDING)
+     ========================================================================== */
+  function initStudioHub() {
+    const canvas = document.getElementById('studioHubCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width;
+    const H = canvas.height;
+
+    const telemetryEl = document.getElementById('studioHubTelemetry');
+    const progressPillEl = document.getElementById('hubProgressPill');
+    const dossierEl = document.getElementById('studioHubDossier');
+    const dossierKicker = document.getElementById('dossierKicker');
+    const dossierStatus = document.getElementById('dossierStatus');
+    const dossierTitle = document.getElementById('dossierTitle');
+    const dossierDesc = document.getElementById('dossierDesc');
+    const dossierTags = document.getElementById('dossierTags');
+    const dossierPrimaryBtn = document.getElementById('dossierPrimaryBtn');
+    const dossierSecondaryLink = document.getElementById('dossierSecondaryLink');
+    const warpPills = Array.from(document.querySelectorAll('.hub-warp-pill'));
+
+    const stations = [
+      {
+        id: 'dev',
+        shortLabel: 'DEV DESK',
+        kicker: '00 // STUDIO WORKSTATION',
+        status: 'ONLINE',
+        title: 'AnanthaKrishnan SB',
+        desc: 'Indie Game Developer & Technical Artist from Kerala, India. Specializing in Unity, C#, combat architecture, and 60 FPS custom physics.',
+        tags: ['Unity & C#', '1+ Yrs Exp', '4 Core Pillars'],
+        x: 95, y: 105,
+        color: '#0f172a', accent: '#00f0ff',
+        scrollTarget: '#about',
+        primaryLabel: 'Open Dev Profile ↓',
+        secondaryLabel: 'Chest & Contact ↓',
+        secondaryTarget: '#contact'
+      },
+      {
+        id: 'reverie',
+        shortLabel: 'REVERIE',
+        kicker: '01 // BYOG 2026 JAM ENTRY',
+        status: 'RELEASED',
+        title: 'The Summer Reverie',
+        desc: 'An atmospheric 3D narrative adventure exploring fading childhood memories in rural Kerala. Audio & Sound Design by Anantha Krishnan.',
+        tags: ['Unity Engine', 'Spatial Audio', 'Windows'],
+        x: 225, y: 225,
+        color: '#059669', accent: '#34d399',
+        scrollTarget: '#summerReverieShowcase',
+        primaryLabel: 'Trailer & Screens ↓',
+        secondaryLabel: 'Jam Entry ↗',
+        secondaryHref: 'https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5'
+      },
+      {
+        id: 'hairpin',
+        shortLabel: 'HAIRPIN DRIFT',
+        kicker: '02 // 3D ARCADE RACING',
+        status: 'RELEASED · WEBGL',
+        title: 'Hairpin Drift',
+        desc: 'High-speed 3D arcade drifting through steep mountain curves and tight switchbacks. Built with Crayon AI.',
+        tags: ['Crayon AI', 'WebGL', 'Live Capture'],
+        x: 355, y: 100,
+        color: '#0284c7', accent: '#00f0ff',
+        scrollTarget: '#hairpinDriftShowcase',
+        primaryLabel: 'Watch Gameplay ↓',
+        secondaryLabel: 'Play Hairpin ↗',
+        secondaryHref: 'https://app.usecrayon.ai/play/8d857df0-0ccd-4e4c-bc70-c2709965ec88'
+      },
+      {
+        id: 'ballpass',
+        shortLabel: 'BALLPASS 3D',
+        kicker: '03 // 3D PHYSICS SIMULATION',
+        status: 'RELEASED · WEBGL',
+        title: 'BallPass3D',
+        desc: 'Fast-paced 3D soccer physics simulation demanding tactical timing, curve spin, and trick shots across obstacle fields.',
+        tags: ['Crayon AI', 'WebGL', 'Trick Shots'],
+        x: 485, y: 225,
+        color: '#4f46e5', accent: '#818cf8',
+        scrollTarget: '#ballPass3DShowcase',
+        primaryLabel: 'Watch Gameplay ↓',
+        secondaryLabel: 'Play BallPass3D ↗',
+        secondaryHref: 'https://app.usecrayon.ai/play/d1eb4e4d-ca38-49ef-990e-197529d62ad7'
+      },
+      {
+        id: 'swordsaint',
+        shortLabel: 'SWORD SAINT',
+        kicker: '04 // 2D/3D ACTION RPG',
+        status: 'ALPHA · PLAYABLE',
+        title: 'Stickman: The Ultimate Sword Saint',
+        desc: 'Lethal sword strikes, guard posture breaking, weapon throwing (E), weapon grabbing (G), and multi-stage boss duels.',
+        tags: ['Unity Engine', 'Posture & Guard', 'Side Quests'],
+        x: 605, y: 105,
+        color: '#e11d48', accent: '#ff0055',
+        scrollTarget: '#swordSaintShowcase',
+        primaryLabel: 'Inspect Card ↓',
+        secondaryLabel: 'Play StickSaw ⚔️',
+        secondaryAction: 'boot-sticksaw'
+      },
+      {
+        id: 'maze',
+        shortLabel: '3D MAZE',
+        kicker: '05 // SURVIVAL HORROR',
+        status: 'IN DEVELOPMENT',
+        title: '3D Maze Explorer',
+        desc: 'Traverse a decaying underground concrete labyrinth armed only with a sputtering flashlight while evading subterranean entities.',
+        tags: ['Unity Engine', 'Survival Horror', 'Atmosphere'],
+        x: 695, y: 230,
+        color: '#7c3aed', accent: '#c084fc',
+        scrollTarget: '#mazeExplorerShowcase',
+        primaryLabel: 'Inspect Concept Art ↓'
+      },
+      {
+        id: 'arcade',
+        shortLabel: 'ARCADE',
+        kicker: '06 // LIVE TESTBED',
+        status: '60 FPS READY',
+        title: 'Interactive Web Arcade Console',
+        desc: 'Boot Block Runner, Voxel Breakout, or StickSaw v0.1 with Shinobi Bounty Side Quests right inside the browser.',
+        tags: ['Block Runner', 'Voxel Breakout', 'StickSaw v0.1'],
+        x: 785, y: 155,
+        color: '#0f172a', accent: '#00f0ff',
+        scrollTarget: '#arcade-console',
+        primaryLabel: 'Enter Live Arcade 🕹️',
+        primaryAction: 'boot-arcade'
+      }
+    ];
+
+    const player = {
+      x: 115,
+      y: 160,
+      vx: 0,
+      vy: 0,
+      facing: 1,
+      walkPhase: 0,
+      target: null
+    };
+
+    const keys = {};
+    const trail = [];
+    const visited = new Set(['dev']);
+    let activeStation = stations[0];
+    let allFoundAnnounced = false;
+    let tick = 0;
+    let isInViewport = true;
+    let rafId = null;
+
+    function scrollAndPulse(selector) {
+      const targetEl = document.querySelector(selector);
+      if (!targetEl) return;
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetEl.classList.remove('hub-target-pulse');
+      void targetEl.offsetWidth;
+      targetEl.classList.add('hub-target-pulse');
+      setTimeout(() => targetEl.classList.remove('hub-target-pulse'), 1500);
+    }
+
+    function launchArcade(gameKey) {
+      const tabBtn = document.querySelector(`.game-tab-btn[data-game="${gameKey}"]`);
+      if (tabBtn) tabBtn.click();
+      const consoleEl = document.getElementById('arcade-console');
+      if (consoleEl) consoleEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        if (window.gameEngine && !window.gameEngine.isPlaying) {
+          window.gameEngine.startCurrentGame();
+        }
+      }, 420);
+    }
+
+    function updateDossier(station) {
+      if (!station) return;
+      if (dossierKicker) dossierKicker.textContent = station.kicker;
+      if (dossierStatus) dossierStatus.textContent = station.status;
+      if (dossierTitle) dossierTitle.textContent = station.title;
+      if (dossierDesc) dossierDesc.textContent = station.desc;
+
+      if (dossierTags) {
+        dossierTags.innerHTML = '';
+        station.tags.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'dossier-tag';
+          span.textContent = tag;
+          dossierTags.appendChild(span);
+        });
+      }
+
+      if (dossierPrimaryBtn) {
+        dossierPrimaryBtn.querySelector('span').textContent = station.primaryLabel || 'Inspect ↓';
+        dossierPrimaryBtn.onclick = () => {
+          playUiSound('click');
+          if (station.primaryAction === 'boot-arcade') {
+            launchArcade('sword');
+          } else {
+            scrollAndPulse(station.scrollTarget);
+          }
+        };
+      }
+
+      if (dossierSecondaryLink) {
+        if (station.secondaryHref) {
+          dossierSecondaryLink.classList.remove('hidden');
+          dossierSecondaryLink.href = station.secondaryHref;
+          dossierSecondaryLink.target = '_blank';
+          dossierSecondaryLink.rel = 'noopener noreferrer';
+          dossierSecondaryLink.onclick = () => playUiSound('diamond');
+          dossierSecondaryLink.querySelector('span').textContent = station.secondaryLabel;
+        } else if (station.secondaryTarget) {
+          dossierSecondaryLink.classList.remove('hidden');
+          dossierSecondaryLink.href = station.secondaryTarget;
+          dossierSecondaryLink.removeAttribute('target');
+          dossierSecondaryLink.onclick = (e) => {
+            e.preventDefault();
+            playUiSound('click');
+            scrollAndPulse(station.secondaryTarget);
+          };
+          dossierSecondaryLink.querySelector('span').textContent = station.secondaryLabel;
+        } else if (station.secondaryAction === 'boot-sticksaw') {
+          dossierSecondaryLink.classList.remove('hidden');
+          dossierSecondaryLink.href = '#arcade-console';
+          dossierSecondaryLink.removeAttribute('target');
+          dossierSecondaryLink.onclick = (e) => {
+            e.preventDefault();
+            playUiSound('diamond');
+            launchArcade('sword');
+          };
+          dossierSecondaryLink.querySelector('span').textContent = station.secondaryLabel;
+        } else {
+          dossierSecondaryLink.classList.add('hidden');
+        }
+      }
+
+      if (dossierEl) {
+        dossierEl.classList.remove('glitch-flash');
+        void dossierEl.offsetWidth;
+        dossierEl.classList.add('glitch-flash');
+      }
+
+      warpPills.forEach(pill => {
+        const sid = pill.getAttribute('data-station');
+        pill.classList.toggle('active', sid === station.id);
+        pill.classList.toggle('visited', visited.has(sid));
+      });
+
+      if (progressPillEl) {
+        progressPillEl.textContent = `Discovered: ${visited.size} / ${stations.length}`;
+      }
+      if (telemetryEl) {
+        telemetryEl.textContent = `EXPLORED ${visited.size}/${stations.length} · NEAR: ${station.shortLabel} · [E] OPEN`;
+      }
+    }
+
+    function activateStation(station) {
+      if (!station) return;
+      playUiSound('diamond');
+      if (station.primaryAction === 'boot-arcade') {
+        launchArcade('sword');
+      } else if (station.secondaryAction === 'boot-sticksaw') {
+        scrollAndPulse(station.scrollTarget);
+      } else {
+        scrollAndPulse(station.scrollTarget);
+      }
+    }
+
+    // Quick-warp pill clicks make the avatar run directly to that station
+    warpPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const sid = pill.getAttribute('data-station');
+        const st = stations.find(s => s.id === sid);
+        if (!st) return;
+        playUiSound('click');
+        player.target = { x: st.x, y: st.y + 22, station: st };
+        if (activeStation && activeStation.id === st.id) {
+          activateStation(st);
+        }
+      });
+    });
+
+    // Click / Tap directly on the studio floor to walk there
+    canvas.addEventListener('click', (e) => {
+      canvas.focus({ preventScroll: true });
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = W / rect.width;
+      const scaleY = H / rect.height;
+      const cx = (e.clientX - rect.left) * scaleX;
+      const cy = (e.clientY - rect.top) * scaleY;
+
+      let clickedStation = null;
+      stations.forEach(st => {
+        if (Math.hypot(cx - st.x, cy - st.y) < 38) clickedStation = st;
+      });
+
+      if (clickedStation && activeStation && activeStation.id === clickedStation.id && Math.hypot(player.x - clickedStation.x, player.y - clickedStation.y) < 55) {
+        activateStation(clickedStation);
+        return;
+      }
+
+      player.target = {
+        x: Math.max(36, Math.min(W - 36, clickedStation ? clickedStation.x : cx)),
+        y: Math.max(42, Math.min(H - 36, clickedStation ? clickedStation.y + 20 : cy)),
+        station: clickedStation
+      };
+      playUiSound('click');
+    });
+
+    function isHubKeyboardEligible() {
+      if (window.gameEngine && window.gameEngine.isPlaying && !window.gameEngine.isPaused) return false;
+      const rect = canvas.getBoundingClientRect();
+      return document.activeElement === canvas || (rect.bottom > 80 && rect.top < window.innerHeight * 0.8);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (!isHubKeyboardEligible()) return;
+
+      const isMoveKey = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code);
+      if (isMoveKey) {
+        keys[e.code] = true;
+        player.target = null;
+        if (e.code.startsWith('Arrow')) e.preventDefault();
+      } else if ((e.code === 'KeyE' || (e.code === 'Space' && document.activeElement === canvas) || (e.code === 'Enter' && document.activeElement === canvas)) && activeStation) {
+        e.preventDefault();
+        activateStation(activeStation);
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      keys[e.code] = false;
+    });
+
+    function update() {
+      tick++;
+      let dx = 0;
+      let dy = 0;
+
+      if (keys['KeyW'] || keys['ArrowUp']) dy -= 1;
+      if (keys['KeyS'] || keys['ArrowDown']) dy += 1;
+      if (keys['KeyA'] || keys['ArrowLeft']) dx -= 1;
+      if (keys['KeyD'] || keys['ArrowRight']) dx += 1;
+
+      if (dx !== 0 || dy !== 0) {
+        const len = Math.hypot(dx, dy);
+        dx /= len;
+        dy /= len;
+        player.vx = dx * 3.4;
+        player.vy = dy * 3.4;
+      } else if (player.target) {
+        const tdx = player.target.x - player.x;
+        const tdy = player.target.y - player.y;
+        const dist = Math.hypot(tdx, tdy);
+        if (dist < 5) {
+          player.target = null;
+          player.vx = 0;
+          player.vy = 0;
+        } else {
+          const speed = Math.min(4.2, Math.max(2.2, dist * 0.14));
+          player.vx = (tdx / dist) * speed;
+          player.vy = (tdy / dist) * speed;
+        }
+      } else {
+        player.vx *= 0.72;
+        player.vy *= 0.72;
+      }
+
+      player.x = Math.max(34, Math.min(W - 34, player.x + player.vx));
+      player.y = Math.max(40, Math.min(H - 34, player.y + player.vy));
+
+      const moving = Math.hypot(player.vx, player.vy) > 0.35;
+      if (moving) {
+        if (Math.abs(player.vx) > 0.15) player.facing = player.vx > 0 ? 1 : -1;
+        player.walkPhase += 0.28;
+        if (tick % 4 === 0) {
+          trail.push({ x: player.x, y: player.y + 10, life: 1 });
+          if (trail.length > 18) trail.shift();
+        }
+      }
+
+      for (let i = trail.length - 1; i >= 0; i--) {
+        trail[i].life -= 0.045;
+        if (trail[i].life <= 0) trail.splice(i, 1);
+      }
+
+      // Check proximity to nearest station
+      let nearest = null;
+      let nearestDist = 56;
+      stations.forEach(st => {
+        const d = Math.hypot(player.x - st.x, player.y - st.y);
+        if (d < nearestDist) {
+          nearestDist = d;
+          nearest = st;
+        }
+      });
+
+      if (nearest && (!activeStation || activeStation.id !== nearest.id)) {
+        activeStation = nearest;
+        const isNew = !visited.has(nearest.id);
+        visited.add(nearest.id);
+        updateDossier(nearest);
+        if (isNew) {
+          playUiSound('coin');
+          if (visited.size === stations.length && !allFoundAnnounced) {
+            allFoundAnnounced = true;
+            playUiSound('diamond');
+            showToast('🏆 Studio Explorer: All 7 Stations Discovered!');
+          }
+        }
+      }
+    }
+
+    function drawStationIcon(st, isCurrent) {
+      ctx.save();
+      ctx.translate(st.x, st.y);
+
+      // Floor halo
+      const pulse = 1 + Math.sin(tick * 0.08 + st.x) * 0.07;
+      ctx.beginPath();
+      ctx.arc(0, 0, 26 * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = isCurrent ? 'rgba(0, 240, 255, 0.14)' : 'rgba(241, 245, 249, 0.85)';
+      ctx.fill();
+      ctx.lineWidth = isCurrent ? 2 : 1.25;
+      ctx.strokeStyle = isCurrent ? st.color : '#cbd5e1';
+      ctx.stroke();
+
+      if (isCurrent) {
+        ctx.beginPath();
+        ctx.arc(0, 0, 32 * pulse, 0, Math.PI * 2);
+        ctx.strokeStyle = '#ff0055';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Station-specific crisp glyph
+      if (st.id === 'dev') {
+        // Dual monitors + chest sparkle
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-13, -10, 11, 8);
+        ctx.fillRect(2, -10, 11, 8);
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillRect(-11, -8, 7, 4);
+        ctx.fillRect(4, -8, 7, 4);
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(-6, 3, 12, 7);
+      } else if (st.id === 'reverie') {
+        // Kerala glowing brass lamp / memory orb
+        ctx.fillStyle = '#059669';
+        ctx.beginPath();
+        ctx.arc(0, 0, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fde68a';
+        ctx.beginPath();
+        ctx.arc(0, -1, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (st.id === 'hairpin') {
+        // Racing apex + car wedge
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(0, 2, 10, Math.PI, 0);
+        ctx.stroke();
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-7, -3, 14, 6);
+        ctx.fillStyle = '#00f0ff';
+        ctx.fillRect(3, -2, 3, 4);
+      } else if (st.id === 'ballpass') {
+        // Pitch + bouncing ball
+        ctx.strokeStyle = '#4f46e5';
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-11, -7, 22, 14);
+        const by = Math.abs(Math.sin(tick * 0.08)) * -5;
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(0, by, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (st.id === 'swordsaint') {
+        // Glowing red katana slash
+        ctx.strokeStyle = '#e11d48';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(-10, 9);
+        ctx.lineTo(10, -10);
+        ctx.stroke();
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-11, 6, 6, 4);
+      } else if (st.id === 'maze') {
+        // Rotating flashlight beam
+        const ang = Math.sin(tick * 0.04) * 0.6;
+        ctx.save();
+        ctx.rotate(ang);
+        ctx.fillStyle = 'rgba(124, 58, 237, 0.25)';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(18, -9);
+        ctx.lineTo(18, 9);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        ctx.fillStyle = '#7c3aed';
+        ctx.fillRect(-5, -5, 10, 10);
+      } else if (st.id === 'arcade') {
+        // Obsidian arcade cabinet
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-11, -13, 22, 26);
+        ctx.fillStyle = tick % 30 < 15 ? '#00f0ff' : '#ff0055';
+        ctx.fillRect(-7, -9, 14, 9);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(-6, 4, 4, 2);
+        ctx.fillRect(2, 4, 4, 2);
+      }
+
+      // Label plate under pedestal
+      ctx.font = '700 10px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isCurrent ? '#0f172a' : '#475569';
+      ctx.fillText(st.shortLabel, 0, 39);
+
+      if (visited.has(st.id)) {
+        ctx.fillStyle = st.color;
+        ctx.beginPath();
+        ctx.arc(19, -19, 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+
+    function drawPlayer() {
+      ctx.save();
+      ctx.translate(player.x, player.y);
+
+      const bob = Math.hypot(player.vx, player.vy) > 0.35 ? Math.abs(Math.sin(player.walkPhase)) * -3 : 0;
+
+      // Ground shadow
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.16)';
+      ctx.beginPath();
+      ctx.ellipse(0, 14, 11, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Flowing crimson glitch scarf
+      ctx.strokeStyle = '#ff0055';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(-2 * player.facing, -2 + bob);
+      ctx.lineTo(-14 * player.facing, 2 + bob + Math.sin(tick * 0.2) * 2.5);
+      ctx.stroke();
+
+      // Assassin-inspired white/obsidian hooded cloak
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.moveTo(0, -16 + bob);
+      ctx.lineTo(10, 9 + bob);
+      ctx.lineTo(-10, 9 + bob);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(0, -14 + bob);
+      ctx.lineTo(6, 2 + bob);
+      ctx.lineTo(-6, 2 + bob);
+      ctx.closePath();
+      ctx.fill();
+
+      // Cyan visor glow
+      ctx.fillStyle = '#00f0ff';
+      ctx.fillRect(player.facing > 0 ? 1 : -4, -9 + bob, 4, 2);
+
+      // Prompt bubble when near an active station
+      if (activeStation && Math.hypot(player.x - activeStation.x, player.y - activeStation.y) < 56) {
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-36, -38 + bob, 72, 16);
+        ctx.strokeStyle = '#00f0ff';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(-36, -38 + bob, 72, 16);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 9px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('[E] INSPECT', 0, -27 + bob);
+      }
+
+      ctx.restore();
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Crisp Minimal White Studio Blueprint Floor
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle architectural grid
+      ctx.strokeStyle = '#f1f5f9';
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx <= W; gx += 32) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, H);
+        ctx.stroke();
+      }
+      for (let gy = 0; gy <= H; gy += 32) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(W, gy);
+        ctx.stroke();
+      }
+
+      // Outer studio boundary trace
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(14, 14, W - 28, H - 28);
+
+      // Floor data traces connecting stations into Arcade Cabinet
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      stations.forEach((st, idx) => {
+        if (idx === 0) ctx.moveTo(st.x, st.y);
+        else ctx.lineTo(st.x, st.y);
+      });
+      ctx.stroke();
+
+      // Animated data pulse along the studio cable path
+      const pulseT = (tick * 0.012) % (stations.length - 1);
+      const seg = Math.floor(pulseT);
+      const frac = pulseT - seg;
+      const a = stations[seg];
+      const b = stations[seg + 1];
+      if (a && b) {
+        const px = a.x + (b.x - a.x) * frac;
+        const py = a.y + (b.y - a.y) * frac;
+        ctx.fillStyle = '#00f0ff';
+        ctx.beginPath();
+        ctx.arc(px, py, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Click-to-move target reticle
+      if (player.target) {
+        const r = 8 + Math.sin(tick * 0.2) * 3;
+        ctx.strokeStyle = '#0284c7';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(player.target.x, player.target.y, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Footstep dust particles
+      trail.forEach(pt => {
+        ctx.fillStyle = `rgba(0, 240, 255, ${pt.life * 0.6})`;
+        ctx.fillRect(pt.x - 2, pt.y - 2, 4, 4);
+      });
+
+      // Draw all 7 stations
+      stations.forEach(st => {
+        drawStationIcon(st, activeStation && activeStation.id === st.id);
+      });
+
+      // Draw roaming avatar
+      drawPlayer();
+    }
+
+    function loop() {
+      if (!isInViewport || document.hidden) {
+        rafId = null;
+        return;
+      }
+      update();
+      draw();
+      rafId = requestAnimationFrame(loop);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const hubObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          isInViewport = entry.isIntersecting;
+          if (isInViewport && !rafId && !document.hidden) {
+            rafId = requestAnimationFrame(loop);
+          }
+        });
+      }, { threshold: 0.05 });
+      hubObserver.observe(canvas);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && isInViewport && !rafId) {
+        rafId = requestAnimationFrame(loop);
+      }
+    });
+
+    updateDossier(stations[0]);
+    rafId = requestAnimationFrame(loop);
+  }
+
+  initStudioHub();
 
 });

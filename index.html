@@ -156,6 +156,63 @@
           </div>
         </div>
 
+        <!-- Playable Studio Hub Mini-Map Deck -->
+        <div class="studio-hub-deck" id="studioHubDeck">
+          <div class="studio-hub-topbar">
+            <div class="hub-top-left">
+              <span class="hub-live-badge">
+                <span class="hub-dot"></span>
+                <span>PLAYABLE STUDIO HUB · MINI-MAP</span>
+              </span>
+              <span class="hub-telemetry" id="studioHubTelemetry">EXPLORED 0/7 · WALK TO ANY STATION</span>
+            </div>
+
+            <div class="studio-hub-warp-bar" id="studioHubWarpBar" aria-label="Quick teleport to Studio Hub stations">
+              <button type="button" class="hub-warp-pill active" data-station="dev">👤 Dev</button>
+              <button type="button" class="hub-warp-pill" data-station="reverie">🏆 Reverie</button>
+              <button type="button" class="hub-warp-pill" data-station="hairpin">🏎️ Hairpin</button>
+              <button type="button" class="hub-warp-pill" data-station="ballpass">⚽ BallPass</button>
+              <button type="button" class="hub-warp-pill" data-station="swordsaint">⚔️ Sword Saint</button>
+              <button type="button" class="hub-warp-pill" data-station="maze">🔦 Maze</button>
+              <button type="button" class="hub-warp-pill" data-station="arcade">🕹️ Arcade</button>
+            </div>
+          </div>
+
+          <div class="studio-hub-viewport" id="studioHubViewport">
+            <div class="studio-hub-canvas-wrap">
+              <canvas id="studioHubCanvas" width="840" height="320" tabindex="0" aria-label="Playable Studio Hub Interactive Mini-Map. Use WASD, Arrow keys, or click anywhere to walk to stations."></canvas>
+            </div>
+
+            <!-- Dynamic Station Dossier Panel -->
+            <div class="studio-hub-dossier" id="studioHubDossier" aria-live="polite">
+              <div class="dossier-meta">
+                <span class="dossier-kicker" id="dossierKicker">00 // STUDIO WORKSTATION</span>
+                <span class="dossier-status" id="dossierStatus">ACTIVE</span>
+              </div>
+              <h3 class="dossier-title" id="dossierTitle">Walk Around the Studio Hub</h3>
+              <p class="dossier-desc" id="dossierDesc">Use WASD / Arrow keys or click anywhere on the floor to explore all 5 games, dev profile, and arcade cabinet.</p>
+              <div class="dossier-tags" id="dossierTags">
+                <span class="dossier-tag">Unity Engine</span>
+                <span class="dossier-tag">C#</span>
+                <span class="dossier-tag">60 FPS</span>
+              </div>
+              <div class="dossier-actions" id="dossierActions">
+                <button type="button" class="aaa-btn-primary dossier-btn" id="dossierPrimaryBtn">
+                  <span>Inspect Station ↓</span>
+                </button>
+                <a href="#projects" class="aaa-btn-ghost dossier-btn hidden" id="dossierSecondaryLink" target="_blank" rel="noopener noreferrer">
+                  <span>Launch ↗</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="studio-hub-footer">
+            <span class="hub-controls-hint">⌨️ <strong>WASD / Arrows</strong> to Walk · <strong>E / Space</strong> to Open Station · <strong>Click / Tap</strong> Map to Move</span>
+            <span class="hub-progress-pill" id="hubProgressPill">Discovered: 0 / 7</span>
+          </div>
+        </div>
+
       </section>
 
       <!-- ================= 3. ABOUT SECTION ================= -->
