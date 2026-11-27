@@ -157,91 +157,236 @@
         </div>
 
         <!-- ================= 3D COVER FLOW SHELF (LAYOUT 4) ================= -->
-        <div class="coverflow-shelf-shell" id="coverflowShowcase" tabindex="0" aria-label="3D Cover Flow Game Shelf. Drag, use Arrow keys, or click side cards to flip through 5 portfolio titles.">
+        <div class="coverflow-shelf-shell" id="coverflowShowcase" data-cf-mood="swordsaint" tabindex="0" aria-label="3D Cover Flow Game Shelf. Drag, use Arrow keys, or click side cards to flip through 5 portfolio titles.">
           <div class="coverflow-horizon-floor" aria-hidden="true"></div>
 
           <div class="coverflow-stage" id="coverflowStage">
             <!-- 01: The Summer Reverie -->
-            <article class="coverflow-card" data-cf-index="0" data-game-id="reverie">
-              <div class="cf-card-media">
-                <span class="cf-index-badge">01</span>
-                <img src="./assets/cover-reverie.jpg" alt="The Summer Reverie Cover" loading="eager" decoding="async">
-              </div>
-              <div class="cf-card-body">
-                <span class="cf-meta-pill">Unity Engine · BYOG 2026 · Released</span>
-                <h3 class="cf-title">The Summer Reverie</h3>
-                <p class="cf-desc">Atmospheric 3D narrative adventure exploring fading childhood memories in rural Kerala.</p>
-                <div class="cf-actions">
-                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#summerReverieShowcase">Expand Details</button>
-                  <a href="https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Jam Entry ↗</a>
+            <article class="coverflow-card" data-cf-index="0" data-game-id="reverie" data-mood="reverie">
+              <div class="cf-card-tilt">
+                <div class="cf-card-flipper">
+                  <div class="cf-face cf-face-front">
+                    <div class="cf-card-media">
+                      <span class="cf-index-badge">01</span>
+                      <button type="button" class="cf-flip-btn" aria-label="Flip box for back cover specs">↻ Flip Case</button>
+                      <img src="./assets/cover-reverie.jpg" alt="The Summer Reverie Cover" loading="eager" decoding="async">
+                      <div class="cf-holo-sheen" aria-hidden="true"></div>
+                    </div>
+                    <div class="cf-card-body">
+                      <span class="cf-meta-pill">Unity Engine · BYOG 2026 · Released</span>
+                      <h3 class="cf-title">The Summer Reverie</h3>
+                      <p class="cf-desc">Atmospheric 3D narrative adventure exploring fading childhood memories in rural Kerala.</p>
+                      <div class="cf-actions">
+                        <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#summerReverieShowcase">Expand Details</button>
+                        <a href="https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Jam Entry ↗</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cf-face cf-face-back">
+                    <div class="cf-back-header">
+                      <span class="cf-back-kicker">BACK COVER // 01</span>
+                      <button type="button" class="cf-flip-btn cf-flip-back-btn" aria-label="Flip back to front cover">↻ Front</button>
+                    </div>
+                    <h4 class="cf-back-title">The Summer Reverie</h4>
+                    <p class="cf-back-sub">3D Narrative Adventure · Windows Build</p>
+                    <ul class="cf-back-specs">
+                      <li>Explore a fading rural Kerala dreamscape</li>
+                      <li>Recover childhood memory fragments</li>
+                      <li><strong>Audio &amp; Sound Design:</strong> Anantha Krishnan</li>
+                      <li><strong>Team:</strong> Abhinav S · Abhijit XS</li>
+                    </ul>
+                    <div class="cf-back-tags">
+                      <span>Unity</span><span>C#</span><span>Spatial Audio</span>
+                    </div>
+                    <div class="cf-actions">
+                      <button type="button" class="aaa-btn-ghost cf-btn-sm cf-back-ghost cf-expand-btn" data-target="#summerReverieShowcase">Expand Details</button>
+                      <a href="https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm cf-back-primary">Jam Entry ↗</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
 
             <!-- 02: Hairpin Drift -->
-            <article class="coverflow-card" data-cf-index="1" data-game-id="hairpin">
-              <div class="cf-card-media">
-                <span class="cf-index-badge">02</span>
-                <img src="./assets/cover-hairpin.jpg" alt="Hairpin Drift Gameplay Preview" loading="eager" decoding="async">
-              </div>
-              <div class="cf-card-body">
-                <span class="cf-meta-pill">Crayon AI · WebGL · Released</span>
-                <h3 class="cf-title">Hairpin Drift</h3>
-                <p class="cf-desc">High-speed 3D arcade drifting through steep mountain curves and tight switchbacks.</p>
-                <div class="cf-actions">
-                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#hairpinDriftShowcase">Expand Details</button>
-                  <a href="https://app.usecrayon.ai/play/8d857df0-0ccd-4e4c-bc70-c2709965ec88" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Play WebGL ↗</a>
+            <article class="coverflow-card" data-cf-index="1" data-game-id="hairpin" data-mood="hairpin">
+              <div class="cf-card-tilt">
+                <div class="cf-card-flipper">
+                  <div class="cf-face cf-face-front">
+                    <div class="cf-card-media">
+                      <span class="cf-index-badge">02</span>
+                      <button type="button" class="cf-flip-btn" aria-label="Flip box for back cover specs">↻ Flip Case</button>
+                      <img src="./assets/cover-hairpin.jpg" alt="Hairpin Drift Gameplay Preview" loading="eager" decoding="async">
+                      <div class="cf-holo-sheen" aria-hidden="true"></div>
+                    </div>
+                    <div class="cf-card-body">
+                      <span class="cf-meta-pill">Crayon AI · WebGL · Released</span>
+                      <h3 class="cf-title">Hairpin Drift</h3>
+                      <p class="cf-desc">High-speed 3D arcade drifting through steep mountain curves and tight switchbacks.</p>
+                      <div class="cf-actions">
+                        <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#hairpinDriftShowcase">Expand Details</button>
+                        <a href="https://app.usecrayon.ai/play/8d857df0-0ccd-4e4c-bc70-c2709965ec88" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Play WebGL ↗</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cf-face cf-face-back">
+                    <div class="cf-back-header">
+                      <span class="cf-back-kicker">BACK COVER // 02</span>
+                      <button type="button" class="cf-flip-btn cf-flip-back-btn" aria-label="Flip back to front cover">↻ Front</button>
+                    </div>
+                    <h4 class="cf-back-title">Hairpin Drift</h4>
+                    <p class="cf-back-sub">3D Arcade Racing · Browser WebGL</p>
+                    <ul class="cf-back-specs">
+                      <li>Steep mountain curves &amp; tight switchbacks</li>
+                      <li>Throttle feathering &amp; dynamic weight transfer</li>
+                      <li>Chain continuous tire-smoking drift combos</li>
+                      <li>Live browser gameplay ready on Crayon AI</li>
+                    </ul>
+                    <div class="cf-back-tags">
+                      <span>Crayon AI</span><span>WebGL</span><span>3D Racing</span>
+                    </div>
+                    <div class="cf-actions">
+                      <button type="button" class="aaa-btn-ghost cf-btn-sm cf-back-ghost cf-expand-btn" data-target="#hairpinDriftShowcase">Watch Video ↓</button>
+                      <a href="https://app.usecrayon.ai/play/8d857df0-0ccd-4e4c-bc70-c2709965ec88" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm cf-back-primary">Play WebGL ↗</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
 
             <!-- 03: BallPass3D -->
-            <article class="coverflow-card" data-cf-index="2" data-game-id="ballpass">
-              <div class="cf-card-media">
-                <span class="cf-index-badge">03</span>
-                <img src="./assets/cover-ballpass.jpg" alt="BallPass3D Gameplay Preview" loading="eager" decoding="async">
-              </div>
-              <div class="cf-card-body">
-                <span class="cf-meta-pill">Crayon AI · WebGL · Released</span>
-                <h3 class="cf-title">BallPass3D</h3>
-                <p class="cf-desc">Fast-paced 3D soccer physics simulation demanding tactical timing and precision curves.</p>
-                <div class="cf-actions">
-                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#ballPass3DShowcase">Expand Details</button>
-                  <a href="https://app.usecrayon.ai/play/d1eb4e4d-ca38-49ef-990e-197529d62ad7" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Play WebGL ↗</a>
+            <article class="coverflow-card" data-cf-index="2" data-game-id="ballpass" data-mood="ballpass">
+              <div class="cf-card-tilt">
+                <div class="cf-card-flipper">
+                  <div class="cf-face cf-face-front">
+                    <div class="cf-card-media">
+                      <span class="cf-index-badge">03</span>
+                      <button type="button" class="cf-flip-btn" aria-label="Flip box for back cover specs">↻ Flip Case</button>
+                      <img src="./assets/cover-ballpass.jpg" alt="BallPass3D Gameplay Preview" loading="eager" decoding="async">
+                      <div class="cf-holo-sheen" aria-hidden="true"></div>
+                    </div>
+                    <div class="cf-card-body">
+                      <span class="cf-meta-pill">Crayon AI · WebGL · Released</span>
+                      <h3 class="cf-title">BallPass3D</h3>
+                      <p class="cf-desc">Fast-paced 3D soccer physics simulation demanding tactical timing and precision curves.</p>
+                      <div class="cf-actions">
+                        <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#ballPass3DShowcase">Expand Details</button>
+                        <a href="https://app.usecrayon.ai/play/d1eb4e4d-ca38-49ef-990e-197529d62ad7" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Play WebGL ↗</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cf-face cf-face-back">
+                    <div class="cf-back-header">
+                      <span class="cf-back-kicker">BACK COVER // 03</span>
+                      <button type="button" class="cf-flip-btn cf-flip-back-btn" aria-label="Flip back to front cover">↻ Front</button>
+                    </div>
+                    <h4 class="cf-back-title">BallPass3D</h4>
+                    <p class="cf-back-sub">3D Physics Simulation · Browser WebGL</p>
+                    <ul class="cf-back-specs">
+                      <li>Real-time ball spin &amp; curve control</li>
+                      <li>Read defender patterns across obstacle fields</li>
+                      <li>Chain team passes &amp; execute trick shots</li>
+                      <li>Playable directly in browser on Crayon AI</li>
+                    </ul>
+                    <div class="cf-back-tags">
+                      <span>Crayon AI</span><span>WebGL</span><span>3D Physics</span>
+                    </div>
+                    <div class="cf-actions">
+                      <button type="button" class="aaa-btn-ghost cf-btn-sm cf-back-ghost cf-expand-btn" data-target="#ballPass3DShowcase">Watch Video ↓</button>
+                      <a href="https://app.usecrayon.ai/play/d1eb4e4d-ca38-49ef-990e-197529d62ad7" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm cf-back-primary">Play WebGL ↗</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
 
             <!-- 04: Stickman: The Ultimate Sword Saint (Default Center Spotlight) -->
-            <article class="coverflow-card" data-cf-index="3" data-game-id="swordsaint">
-              <div class="cf-card-media">
-                <span class="cf-index-badge">04</span>
-                <img src="./assets/ongoing-stickman-sword-saint.jpg" alt="Stickman: The Ultimate Sword Saint Cover" loading="eager" decoding="async">
-              </div>
-              <div class="cf-card-body">
-                <span class="cf-meta-pill">Unity Engine · Alpha · Playable</span>
-                <h3 class="cf-title">Stickman: The Ultimate Sword Saint</h3>
-                <p class="cf-desc">Precision katana combat, guard posture breaking, weapon throws, and multi-stage boss duels.</p>
-                <div class="cf-actions">
-                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#swordSaintShowcase">Expand Details</button>
-                  <button type="button" class="aaa-btn-primary cf-btn-sm cf-boot-arcade-btn" data-arcade-game="sword">Boot in Arcade →</button>
+            <article class="coverflow-card" data-cf-index="3" data-game-id="swordsaint" data-mood="swordsaint">
+              <div class="cf-card-tilt">
+                <div class="cf-card-flipper">
+                  <div class="cf-face cf-face-front">
+                    <div class="cf-card-media">
+                      <span class="cf-index-badge">04</span>
+                      <button type="button" class="cf-flip-btn" aria-label="Flip box for back cover specs">↻ Flip Case</button>
+                      <img src="./assets/ongoing-stickman-sword-saint.jpg" alt="Stickman: The Ultimate Sword Saint Cover" loading="eager" decoding="async">
+                      <div class="cf-holo-sheen" aria-hidden="true"></div>
+                    </div>
+                    <div class="cf-card-body">
+                      <span class="cf-meta-pill">Unity Engine · Alpha · Playable</span>
+                      <h3 class="cf-title">Stickman: The Ultimate Sword Saint</h3>
+                      <p class="cf-desc">Precision katana combat, guard posture breaking, weapon throws, and multi-stage boss duels.</p>
+                      <div class="cf-actions">
+                        <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#swordSaintShowcase">Expand Details</button>
+                        <button type="button" class="aaa-btn-primary cf-btn-sm cf-boot-arcade-btn" data-arcade-game="sword">Boot in Arcade →</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cf-face cf-face-back">
+                    <div class="cf-back-header">
+                      <span class="cf-back-kicker">BACK COVER // 04</span>
+                      <button type="button" class="cf-flip-btn cf-flip-back-btn" aria-label="Flip back to front cover">↻ Front</button>
+                    </div>
+                    <h4 class="cf-back-title">Stickman: The Ultimate Sword Saint</h4>
+                    <p class="cf-back-sub">2D/3D Action RPG · Alpha Playable</p>
+                    <ul class="cf-back-specs">
+                      <li>Lethal sword &amp; red lightsaber strikes</li>
+                      <li>Guard posture breaking &amp; multi-stage boss duels</li>
+                      <li>Weapon throwing <strong>[E]</strong> &amp; grabbing <strong>[G]</strong></li>
+                      <li>Includes playable Shinobi Side Quests in Arcade</li>
+                    </ul>
+                    <div class="cf-back-tags">
+                      <span>Unity Engine</span><span>Posture &amp; Guard</span>
+                    </div>
+                    <div class="cf-actions">
+                      <button type="button" class="aaa-btn-ghost cf-btn-sm cf-back-ghost cf-expand-btn" data-target="#swordSaintShowcase">Expand Details</button>
+                      <button type="button" class="aaa-btn-primary cf-btn-sm cf-back-primary cf-boot-arcade-btn" data-arcade-game="sword">Boot in Arcade →</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
 
             <!-- 05: 3D Maze Explorer -->
-            <article class="coverflow-card" data-cf-index="4" data-game-id="maze">
-              <div class="cf-card-media">
-                <span class="cf-index-badge">05</span>
-                <img src="./assets/ongoing-maze-explorer.jpg" alt="3D Maze Explorer Concept Art" loading="eager" decoding="async">
-              </div>
-              <div class="cf-card-body">
-                <span class="cf-meta-pill">Unity Engine · Survival Horror</span>
-                <h3 class="cf-title">3D Maze Explorer</h3>
-                <p class="cf-desc">Traverse a decaying underground concrete labyrinth with a sputtering flashlight and circuit breakers.</p>
-                <div class="cf-actions">
-                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#mazeExplorerShowcase">Expand Details</button>
-                  <button type="button" class="aaa-btn-primary cf-btn-sm btn-preview-art" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Concept Artwork">Inspect Art 🔍</button>
+            <article class="coverflow-card" data-cf-index="4" data-game-id="maze" data-mood="maze">
+              <div class="cf-card-tilt">
+                <div class="cf-card-flipper">
+                  <div class="cf-face cf-face-front">
+                    <div class="cf-card-media">
+                      <span class="cf-index-badge">05</span>
+                      <button type="button" class="cf-flip-btn" aria-label="Flip box for back cover specs">↻ Flip Case</button>
+                      <img src="./assets/ongoing-maze-explorer.jpg" alt="3D Maze Explorer Concept Art" loading="eager" decoding="async">
+                      <div class="cf-holo-sheen" aria-hidden="true"></div>
+                    </div>
+                    <div class="cf-card-body">
+                      <span class="cf-meta-pill">Unity Engine · Survival Horror</span>
+                      <h3 class="cf-title">3D Maze Explorer</h3>
+                      <p class="cf-desc">Traverse a decaying underground concrete labyrinth with a sputtering flashlight and circuit breakers.</p>
+                      <div class="cf-actions">
+                        <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#mazeExplorerShowcase">Expand Details</button>
+                        <button type="button" class="aaa-btn-primary cf-btn-sm btn-preview-art" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Concept Artwork">Inspect Art 🔍</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cf-face cf-face-back">
+                    <div class="cf-back-header">
+                      <span class="cf-back-kicker">BACK COVER // 05</span>
+                      <button type="button" class="cf-flip-btn cf-flip-back-btn" aria-label="Flip back to front cover">↻ Front</button>
+                    </div>
+                    <h4 class="cf-back-title">3D Maze Explorer</h4>
+                    <p class="cf-back-sub">Survival Horror · Mechanics &amp; AI Pass</p>
+                    <ul class="cf-back-specs">
+                      <li>Decaying underground concrete labyrinth</li>
+                      <li>Sputtering flashlight &amp; power circuit breakers</li>
+                      <li>Decipher spatial layouts while evading entities</li>
+                      <li>Arachnid horrors infesting damp corridors</li>
+                    </ul>
+                    <div class="cf-back-tags">
+                      <span>Unity Engine</span><span>Survival Horror</span>
+                    </div>
+                    <div class="cf-actions">
+                      <button type="button" class="aaa-btn-ghost cf-btn-sm cf-back-ghost cf-expand-btn" data-target="#mazeExplorerShowcase">Expand Details</button>
+                      <button type="button" class="aaa-btn-primary cf-btn-sm cf-back-primary btn-preview-art" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Concept Artwork">Inspect Art 🔍</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>

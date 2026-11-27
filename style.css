@@ -2708,7 +2708,7 @@ body.mobile-nav-locked {
 }
 
 /* ==========================================================================
-   16. 3D COVER FLOW HORIZON SHELF (LAYOUT 4)
+   16. 3D COVER FLOW HORIZON SHELF (LAYOUT 4 + MOOD + HOLO TILT + 180 FLIP)
    ========================================================================== */
 .coverflow-shelf-shell {
   margin-top: 28px;
@@ -2719,23 +2719,73 @@ body.mobile-nav-locked {
   user-select: none;
   --cf-x1: 255px;
   --cf-x2: 445px;
+  --mood-a: rgba(255, 0, 85, 0.36);
+  --mood-b: rgba(0, 240, 255, 0.36);
+  --mood-glow: rgba(225, 29, 72, 0.14);
+  --mood-accent: #e11d48;
+}
+
+/* Feature 1: Mood-Syncing Horizon Tokens */
+.coverflow-shelf-shell[data-cf-mood="reverie"] {
+  --mood-a: rgba(245, 158, 11, 0.38);
+  --mood-b: rgba(5, 150, 105, 0.34);
+  --mood-glow: rgba(5, 150, 105, 0.16);
+  --mood-accent: #059669;
+}
+.coverflow-shelf-shell[data-cf-mood="hairpin"] {
+  --mood-a: rgba(0, 240, 255, 0.42);
+  --mood-b: rgba(249, 115, 22, 0.34);
+  --mood-glow: rgba(2, 132, 199, 0.16);
+  --mood-accent: #0284c7;
+}
+.coverflow-shelf-shell[data-cf-mood="ballpass"] {
+  --mood-a: rgba(56, 189, 248, 0.42);
+  --mood-b: rgba(79, 70, 229, 0.36);
+  --mood-glow: rgba(79, 70, 229, 0.16);
+  --mood-accent: #4f46e5;
+}
+.coverflow-shelf-shell[data-cf-mood="swordsaint"] {
+  --mood-a: rgba(255, 0, 85, 0.4);
+  --mood-b: rgba(0, 240, 255, 0.36);
+  --mood-glow: rgba(225, 29, 72, 0.16);
+  --mood-accent: #e11d48;
+}
+.coverflow-shelf-shell[data-cf-mood="maze"] {
+  --mood-a: rgba(124, 58, 237, 0.42);
+  --mood-b: rgba(239, 68, 68, 0.3);
+  --mood-glow: rgba(124, 58, 237, 0.17);
+  --mood-accent: #7c3aed;
 }
 
 .coverflow-horizon-floor {
   position: absolute;
-  left: 4%;
-  right: 4%;
+  left: 3%;
+  right: 3%;
   bottom: 72px;
-  height: 110px;
-  background: radial-gradient(ellipse at 50% 35%, rgba(15, 23, 42, 0.07) 0%, rgba(0, 240, 255, 0.05) 35%, transparent 72%);
+  height: 130px;
+  background: radial-gradient(ellipse at 50% 42%, var(--mood-glow) 0%, rgba(15, 23, 42, 0.05) 45%, transparent 74%);
+  transition: background 0.55s ease;
   pointer-events: none;
   z-index: 1;
+}
+.coverflow-horizon-floor::after {
+  content: '';
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 24px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, var(--mood-a), var(--mood-b), transparent);
+  filter: blur(14px);
+  opacity: 0.7;
+  transition: background 0.55s ease;
 }
 
 .coverflow-stage {
   position: relative;
   width: 100%;
-  height: 435px;
+  height: 442px;
   perspective: 1450px;
   perspective-origin: 50% 45%;
   overflow: hidden;
@@ -2748,33 +2798,87 @@ body.mobile-nav-locked {
   left: 50%;
   top: 50%;
   width: 300px;
-  background: #ffffff;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 18px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 18px 36px -14px rgba(15, 23, 42, 0.16);
+  height: 406px;
+  perspective: 1200px;
+  background: transparent;
   transform-style: preserve-3d;
   transition:
     transform 0.55s var(--ease-spring),
-    opacity 0.45s ease,
-    border-color 0.3s ease,
-    box-shadow 0.4s ease;
+    opacity 0.45s ease;
   will-change: transform, opacity;
+}
+
+/* Feature 2: Holographic Mouse Tilt Layer */
+.cf-card-tilt {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-y, 0deg)) rotateY(var(--tilt-x, 0deg));
+  transition: transform 0.2s ease-out;
+}
+
+/* Feature 3: 180° Box Flip Container */
+.cf-card-flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s var(--ease-spring);
+}
+.coverflow-card.is-flipped .cf-card-flipper {
+  transform: rotateY(180deg);
+}
+
+.cf-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 18px 36px -14px rgba(15, 23, 42, 0.16);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.45s ease;
+}
+
+.cf-face-front {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.cf-face-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(160deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc;
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  border-color: #334155;
+}
+
+.coverflow-card[data-cf-slot="0"] .cf-face {
+  border-color: #0f172a;
+  box-shadow:
+    -4px 0 22px var(--mood-a),
+     4px 0 22px var(--mood-b),
+     0 24px 48px -12px rgba(15, 23, 42, 0.24);
+}
+.coverflow-card[data-cf-slot="0"] .cf-face-back {
+  border-color: var(--mood-accent);
 }
 
 .cf-card-media {
   position: relative;
   width: 100%;
-  height: 162px;
+  flex: 1;
+  min-height: 152px;
   background: #0f172a;
   overflow: hidden;
-  transition: height 0.45s var(--ease-spring);
-}
-
-.coverflow-card:not([data-cf-slot="0"]) .cf-card-media {
-  height: 215px;
 }
 
 .cf-card-media img {
@@ -2782,6 +2886,27 @@ body.mobile-nav-locked {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Specular Holographic Foil Sheen */
+.cf-holo-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--sheen-x, 50%) var(--sheen-y, 50%),
+    rgba(255, 255, 255, 0.44) 0%,
+    rgba(0, 240, 255, 0.2) 26%,
+    rgba(255, 0, 85, 0.14) 48%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+}
+.coverflow-card[data-cf-slot="0"]:hover .cf-holo-sheen {
+  opacity: 1;
 }
 
 .cf-index-badge {
@@ -2798,7 +2923,43 @@ body.mobile-nav-locked {
   font-size: 0.72rem;
   font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  z-index: 2;
+  z-index: 3;
+}
+
+/* Flip Case Toggle Button */
+.cf-flip-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.84);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 3;
+  transition: all 0.2s ease;
+}
+.cf-flip-btn:hover {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #00f0ff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.45);
+}
+.coverflow-card:not([data-cf-slot="0"]) .cf-flip-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cf-flip-back-btn {
+  position: static;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .cf-card-body {
@@ -2864,16 +3025,106 @@ body.mobile-nav-locked {
   pointer-events: none;
 }
 
+/* Back Cover Styling */
+.cf-back-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.cf-back-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.6px;
+}
+
+.cf-back-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.18;
+  color: #ffffff;
+  margin: 2px 0 0;
+}
+
+.cf-back-sub {
+  font-family: var(--font-mono);
+  font-size: 0.69rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.cf-back-specs {
+  list-style: none;
+  margin: 2px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.cf-back-specs li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 0.77rem;
+  line-height: 1.38;
+  color: #e2e8f0;
+}
+.cf-back-specs li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #00f0ff;
+}
+.cf-back-specs li strong {
+  color: #ffffff;
+}
+
+.cf-back-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.cf-back-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.cf-back-ghost {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+.cf-back-ghost:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+}
+.cf-back-primary {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+.cf-back-primary:hover {
+  background: #00f0ff !important;
+  color: #0f172a !important;
+}
+
 /* 3D Perspective Slots */
 .coverflow-card[data-cf-slot="0"] {
   transform: translate(-50%, -50%) translateX(0px) translateZ(24px) rotateY(0deg) scale(1);
   z-index: 30;
   opacity: 1;
-  border-color: #0f172a;
-  box-shadow:
-    -4px 0 20px rgba(0, 240, 255, 0.36),
-     4px 0 20px rgba(255, 0, 85, 0.34),
-     0 24px 48px -12px rgba(15, 23, 42, 0.22);
 }
 
 .coverflow-card[data-cf-slot="-1"] {
@@ -2906,7 +3157,9 @@ body.mobile-nav-locked {
 
 .coverflow-card:not([data-cf-slot="0"]):hover {
   opacity: 1;
-  border-color: #0284c7;
+}
+.coverflow-card:not([data-cf-slot="0"]):hover .cf-face {
+  border-color: var(--mood-accent);
 }
 
 /* Cover Flow Controls */
@@ -2985,7 +3238,7 @@ body.mobile-nav-locked {
 .cf-page-dot.active {
   background: #0f172a;
   color: #ffffff;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+  box-shadow: 0 0 14px var(--mood-a);
 }
 
 /* Bottom Horizon Dock */
@@ -3017,7 +3270,7 @@ body.mobile-nav-locked {
 .cf-dock-pill:hover {
   transform: translateY(-2px);
   border-color: #0f172a;
-  box-shadow: -2px 0 0 rgba(0, 240, 255, 0.35), 2px 0 0 rgba(255, 0, 85, 0.35), 0 10px 22px -6px rgba(15, 23, 42, 0.14);
+  box-shadow: -2px 0 0 var(--mood-a), 2px 0 0 var(--mood-b), 0 10px 22px -6px rgba(15, 23, 42, 0.14);
 }
 
 /* Card highlight pulse on jump */
@@ -3036,7 +3289,8 @@ body.mobile-nav-locked {
     --cf-x2: 365px;
   }
   .coverflow-card {
-    width: 270px;
+    width: 272px;
+    height: 396px;
   }
 }
 
@@ -3048,13 +3302,14 @@ body.mobile-nav-locked {
     padding-top: 16px;
   }
   .coverflow-stage {
-    height: 425px;
+    height: 416px;
   }
   .coverflow-card {
-    width: 248px;
+    width: 252px;
+    height: 378px;
   }
   .cf-card-media {
-    height: 144px;
+    min-height: 136px;
   }
   .cf-card-body {
     padding: 12px 14px 14px;
@@ -3065,11 +3320,17 @@ body.mobile-nav-locked {
     padding: 2px 7px;
   }
   .cf-title {
-    font-size: 0.96rem;
+    font-size: 0.95rem;
   }
   .cf-desc {
     font-size: 0.76rem;
     line-height: 1.4;
+  }
+  .cf-face-back {
+    padding: 14px;
+  }
+  .cf-back-specs li {
+    font-size: 0.72rem;
   }
   .cf-drag-label {
     font-size: 0.66rem;

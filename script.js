@@ -228,9 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
         sakuraColor: sakuraColors[Math.floor(Math.random() * sakuraColors.length)],
         plainsColor: plainsColors[Math.floor(Math.random() * plainsColors.length)],
         snowColor: snowColors[Math.floor(Math.random() * snowColors.length)],
-        netherColor: netherColors[Math.floor(Math.random() * netherColors.length)]
+        netherColor: netherColors[Math.floor(Math.random() * netherColors.length)],
+        moodIdx: i
       });
     }
+
+    let activeMoodColors = null;
+    window.__setCoverFlowMoodPalette = (palette) => {
+      activeMoodColors = Array.isArray(palette) && palette.length ? palette : null;
+    };
 
     let frame = 0;
     let ambientRafId = null;
@@ -307,7 +313,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
           ctx.save();
           ctx.globalAlpha = p.opacity;
-          ctx.fillStyle = p.plainsColor;
+          ctx.fillStyle = activeMoodColors
+            ? activeMoodColors[p.moodIdx % activeMoodColors.length]
+            : p.plainsColor;
           ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.w, p.w);
           ctx.restore();
         }
@@ -4741,9 +4749,25 @@ const stickmanSwordSaint = {
     const n = cards.length;
     if (!n) return;
 
+    const MOOD_PALETTES = {
+      reverie: ['#f59e0b', '#fbbf24', '#10b981', '#34d399', '#fde68a'],
+      hairpin: ['#00f0ff', '#0284c7', '#fb923c', '#38bdf8', '#f97316'],
+      ballpass: ['#38bdf8', '#4f46e5', '#818cf8', '#0ea5e9', '#a5b4fc'],
+      swordsaint: ['#ff0055', '#e11d48', '#00f0ff', '#fb7185', '#38bdf8'],
+      maze: ['#7c3aed', '#a855f7', '#ef4444', '#c084fc', '#6366f1']
+    };
+
     let activeIndex = 3; // Start focused on 04: Stickman Sword Saint
     let dragStartX = null;
     let didDrag = false;
+
+    function resetCardTilt(card) {
+      const tiltEl = card.querySelector('.cf-card-tilt');
+      if (tiltEl) {
+        tiltEl.style.setProperty('--tilt-x', '0deg');
+        tiltEl.style.setProperty('--tilt-y', '0deg');
+      }
+    }
 
     function renderSlots() {
       const half = Math.floor(n / 2);
@@ -4751,7 +4775,17 @@ const stickmanSwordSaint = {
         const slot = ((i - activeIndex + n + half) % n) - half;
         card.setAttribute('data-cf-slot', String(slot));
         card.setAttribute('aria-hidden', slot === 0 ? 'false' : 'true');
+        if (slot !== 0) {
+          card.classList.remove('is-flipped');
+          resetCardTilt(card);
+        }
       });
+
+      const activeMood = cards[activeIndex].getAttribute('data-mood') || 'swordsaint';
+      shell.setAttribute('data-cf-mood', activeMood);
+      if (typeof window.__setCoverFlowMoodPalette === 'function') {
+        window.__setCoverFlowMoodPalette(MOOD_PALETTES[activeMood]);
+      }
 
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === activeIndex);
@@ -4759,12 +4793,42 @@ const stickmanSwordSaint = {
     }
 
     function goTo(idx, silent = false) {
-      activeIndex = ((idx % n) + n) % n;
+      const nextIdx = ((idx % n) + n) % n;
+      if (nextIdx !== activeIndex) {
+        cards.forEach((c) => {
+          c.classList.remove('is-flipped');
+          resetCardTilt(c);
+        });
+      }
+      activeIndex = nextIdx;
       renderSlots();
       if (!silent) playUiSound('click');
     }
 
+    // Feature 2: Holographic Mouse Tilt + Specular Sheen on center card
     cards.forEach((card, idx) => {
+      const tiltEl = card.querySelector('.cf-card-tilt');
+      const sheenEl = card.querySelector('.cf-holo-sheen');
+
+      card.addEventListener('mousemove', (e) => {
+        if (idx !== activeIndex || card.classList.contains('is-flipped') || !tiltEl) return;
+        const rect = card.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width;
+        const ny = (e.clientY - rect.top) / rect.height;
+        const tiltX = ((nx - 0.5) * 12).toFixed(2);
+        const tiltY = ((0.5 - ny) * 10).toFixed(2);
+        tiltEl.style.setProperty('--tilt-x', `${tiltX}deg`);
+        tiltEl.style.setProperty('--tilt-y', `${tiltY}deg`);
+        if (sheenEl) {
+          sheenEl.style.setProperty('--sheen-x', `${(nx * 100).toFixed(1)}%`);
+          sheenEl.style.setProperty('--sheen-y', `${(ny * 100).toFixed(1)}%`);
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        resetCardTilt(card);
+      });
+
       card.addEventListener('click', (e) => {
         if (didDrag) {
           e.preventDefault();
@@ -4775,6 +4839,18 @@ const stickmanSwordSaint = {
           e.stopPropagation();
           goTo(idx);
         }
+      });
+    });
+
+    // Feature 3: 180° Flip Case Buttons
+    stage.querySelectorAll('.cf-flip-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.coverflow-card');
+        if (!card || card.getAttribute('data-cf-slot') !== '0') return;
+        card.classList.toggle('is-flipped');
+        resetCardTilt(card);
+        playUiSound('click');
       });
     });
 
