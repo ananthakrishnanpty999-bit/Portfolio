@@ -827,13 +827,13 @@ body.aaa-minimal-white-theme {
 
 /* --- 8. HERO SECTION (#home) --- */
 .hero-section {
-  padding: 56px 52px;
+  padding: 36px 44px 32px;
 }
 
 .hero-grid-row {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
-  gap: 52px;
+  grid-template-columns: 1.24fr 0.76fr;
+  gap: 36px;
   align-items: center;
 }
 
@@ -841,12 +841,12 @@ body.aaa-minimal-white-theme {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 5px 14px;
   border-radius: 9999px;
   background: #ffffff;
   border: 1px solid #cbd5e1;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
   color: #0f172a;
   letter-spacing: 0.8px;
@@ -861,12 +861,12 @@ body.aaa-minimal-white-theme {
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: 3.15rem;
+  font-size: 2.38rem;
   font-weight: 800;
   line-height: 1.12;
-  letter-spacing: -1px;
+  letter-spacing: -0.8px;
   color: #0f172a;
-  margin: 18px 0 22px;
+  margin: 12px 0 12px;
   transition: all 0.3s ease;
 }
 .hero-headline:hover {
@@ -881,11 +881,11 @@ body.aaa-minimal-white-theme {
 }
 
 .hero-description {
-  font-size: 1.14rem;
-  line-height: 1.68;
+  font-size: 0.98rem;
+  line-height: 1.58;
   color: #475569;
-  margin-bottom: 34px;
-  max-width: 580px;
+  margin-bottom: 18px;
+  max-width: 600px;
 }
 .hero-description strong {
   color: #0f172a;
@@ -894,29 +894,29 @@ body.aaa-minimal-white-theme {
 
 .hero-action-buttons {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 /* Hero Visual Showcase */
 .hero-visual-frame {
   position: relative;
-  border-radius: 22px;
+  border-radius: 18px;
   overflow: hidden;
   border: 1px solid #cbd5e1;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1), 0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1), 0 2px 8px rgba(15, 23, 42, 0.04);
   background: #0f172a;
   transition: all 0.4s var(--ease-spring);
 }
 .hero-visual-frame:hover {
-  transform: translateY(-5px) scale(1.015);
+  transform: translateY(-4px) scale(1.015);
   border-color: #0f172a;
-  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.16);
 }
 
 .hero-showcase-img {
   width: 100%;
-  height: 440px;
+  height: 225px;
   object-fit: cover;
   display: block;
   transition: transform 0.6s var(--ease-spring);
@@ -2704,5 +2704,378 @@ body.mobile-nav-locked {
   }
   .channel-value {
     font-size: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   16. 3D COVER FLOW HORIZON SHELF (LAYOUT 4)
+   ========================================================================== */
+.coverflow-shelf-shell {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+  position: relative;
+  outline: none;
+  user-select: none;
+  --cf-x1: 255px;
+  --cf-x2: 445px;
+}
+
+.coverflow-horizon-floor {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 72px;
+  height: 110px;
+  background: radial-gradient(ellipse at 50% 35%, rgba(15, 23, 42, 0.07) 0%, rgba(0, 240, 255, 0.05) 35%, transparent 72%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.coverflow-stage {
+  position: relative;
+  width: 100%;
+  height: 435px;
+  perspective: 1450px;
+  perspective-origin: 50% 45%;
+  overflow: hidden;
+  touch-action: pan-y;
+  z-index: 2;
+}
+
+.coverflow-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 18px 36px -14px rgba(15, 23, 42, 0.16);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.55s var(--ease-spring),
+    opacity 0.45s ease,
+    border-color 0.3s ease,
+    box-shadow 0.4s ease;
+  will-change: transform, opacity;
+}
+
+.cf-card-media {
+  position: relative;
+  width: 100%;
+  height: 162px;
+  background: #0f172a;
+  overflow: hidden;
+  transition: height 0.45s var(--ease-spring);
+}
+
+.coverflow-card:not([data-cf-slot="0"]) .cf-card-media {
+  height: 215px;
+}
+
+.cf-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cf-index-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 9px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  z-index: 2;
+}
+
+.cf-card-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #ffffff;
+}
+
+.cf-meta-pill {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+}
+
+.cf-title {
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0f172a;
+  margin: 0;
+}
+
+.cf-desc {
+  font-size: 0.81rem;
+  line-height: 1.45;
+  color: #475569;
+  margin: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cf-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  transition: opacity 0.25s ease;
+}
+
+.cf-btn-sm {
+  flex: 1;
+  justify-content: center;
+  padding: 8px 10px !important;
+  font-size: 0.75rem !important;
+  border-radius: 10px !important;
+  white-space: nowrap;
+}
+
+.coverflow-card:not([data-cf-slot="0"]) .cf-desc,
+.coverflow-card:not([data-cf-slot="0"]) .cf-actions {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 3D Perspective Slots */
+.coverflow-card[data-cf-slot="0"] {
+  transform: translate(-50%, -50%) translateX(0px) translateZ(24px) rotateY(0deg) scale(1);
+  z-index: 30;
+  opacity: 1;
+  border-color: #0f172a;
+  box-shadow:
+    -4px 0 20px rgba(0, 240, 255, 0.36),
+     4px 0 20px rgba(255, 0, 85, 0.34),
+     0 24px 48px -12px rgba(15, 23, 42, 0.22);
+}
+
+.coverflow-card[data-cf-slot="-1"] {
+  transform: translate(-50%, -50%) translateX(calc(var(--cf-x1) * -1)) translateZ(-90px) rotateY(30deg) scale(0.86);
+  z-index: 20;
+  opacity: 0.92;
+  cursor: pointer;
+}
+
+.coverflow-card[data-cf-slot="1"] {
+  transform: translate(-50%, -50%) translateX(var(--cf-x1)) translateZ(-90px) rotateY(-30deg) scale(0.86);
+  z-index: 20;
+  opacity: 0.92;
+  cursor: pointer;
+}
+
+.coverflow-card[data-cf-slot="-2"] {
+  transform: translate(-50%, -50%) translateX(calc(var(--cf-x2) * -1)) translateZ(-195px) rotateY(44deg) scale(0.73);
+  z-index: 10;
+  opacity: 0.68;
+  cursor: pointer;
+}
+
+.coverflow-card[data-cf-slot="2"] {
+  transform: translate(-50%, -50%) translateX(var(--cf-x2)) translateZ(-195px) rotateY(-44deg) scale(0.73);
+  z-index: 10;
+  opacity: 0.68;
+  cursor: pointer;
+}
+
+.coverflow-card:not([data-cf-slot="0"]):hover {
+  opacity: 1;
+  border-color: #0284c7;
+}
+
+/* Cover Flow Controls */
+.coverflow-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  position: relative;
+  z-index: 5;
+}
+
+.cf-drag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+.cf-arrow-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.cf-arrow-btn:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.cf-drag-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.cf-pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cf-page-dot {
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cf-page-dot:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+.cf-page-dot.active {
+  background: #0f172a;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+}
+
+/* Bottom Horizon Dock */
+.coverflow-bottom-dock {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cf-dock-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  box-shadow: 0 6px 18px -6px rgba(15, 23, 42, 0.08);
+  transition: all 0.25s var(--ease-spring);
+}
+.cf-dock-pill:hover {
+  transform: translateY(-2px);
+  border-color: #0f172a;
+  box-shadow: -2px 0 0 rgba(0, 240, 255, 0.35), 2px 0 0 rgba(255, 0, 85, 0.35), 0 10px 22px -6px rgba(15, 23, 42, 0.14);
+}
+
+/* Card highlight pulse on jump */
+.cf-target-pulse {
+  animation: cfPulseRing 1.4s ease-out;
+}
+@keyframes cfPulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.75), 0 0 0 2px #0f172a; }
+  60% { box-shadow: 0 0 0 12px rgba(0, 240, 255, 0), 0 0 0 2px #4f46e5; }
+  100% { box-shadow: var(--shadow-card); }
+}
+
+@media (max-width: 1024px) {
+  .coverflow-shelf-shell {
+    --cf-x1: 215px;
+    --cf-x2: 365px;
+  }
+  .coverflow-card {
+    width: 270px;
+  }
+}
+
+@media (max-width: 768px) {
+  .coverflow-shelf-shell {
+    --cf-x1: 155px;
+    --cf-x2: 265px;
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+  .coverflow-stage {
+    height: 425px;
+  }
+  .coverflow-card {
+    width: 248px;
+  }
+  .cf-card-media {
+    height: 144px;
+  }
+  .cf-card-body {
+    padding: 12px 14px 14px;
+    gap: 6px;
+  }
+  .cf-meta-pill {
+    font-size: 0.62rem;
+    padding: 2px 7px;
+  }
+  .cf-title {
+    font-size: 0.96rem;
+  }
+  .cf-desc {
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+  .cf-drag-label {
+    font-size: 0.66rem;
+  }
+  .cf-dock-pill {
+    font-size: 0.7rem;
+    padding: 7px 12px;
   }
 }

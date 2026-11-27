@@ -156,6 +156,122 @@
           </div>
         </div>
 
+        <!-- ================= 3D COVER FLOW SHELF (LAYOUT 4) ================= -->
+        <div class="coverflow-shelf-shell" id="coverflowShowcase" tabindex="0" aria-label="3D Cover Flow Game Shelf. Drag, use Arrow keys, or click side cards to flip through 5 portfolio titles.">
+          <div class="coverflow-horizon-floor" aria-hidden="true"></div>
+
+          <div class="coverflow-stage" id="coverflowStage">
+            <!-- 01: The Summer Reverie -->
+            <article class="coverflow-card" data-cf-index="0" data-game-id="reverie">
+              <div class="cf-card-media">
+                <span class="cf-index-badge">01</span>
+                <img src="./assets/cover-reverie.jpg" alt="The Summer Reverie Cover" loading="eager" decoding="async">
+              </div>
+              <div class="cf-card-body">
+                <span class="cf-meta-pill">Unity Engine · BYOG 2026 · Released</span>
+                <h3 class="cf-title">The Summer Reverie</h3>
+                <p class="cf-desc">Atmospheric 3D narrative adventure exploring fading childhood memories in rural Kerala.</p>
+                <div class="cf-actions">
+                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#summerReverieShowcase">Expand Details</button>
+                  <a href="https://www.indieconnect.in/game-jams/byog-build-your-own-game-2026-mu89emkb/submissions/dcc467a4-0108-46f8-af64-fc313d5f68d5" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Jam Entry ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 02: Hairpin Drift -->
+            <article class="coverflow-card" data-cf-index="1" data-game-id="hairpin">
+              <div class="cf-card-media">
+                <span class="cf-index-badge">02</span>
+                <img src="./assets/cover-hairpin.jpg" alt="Hairpin Drift Gameplay Preview" loading="eager" decoding="async">
+              </div>
+              <div class="cf-card-body">
+                <span class="cf-meta-pill">Crayon AI · WebGL · Released</span>
+                <h3 class="cf-title">Hairpin Drift</h3>
+                <p class="cf-desc">High-speed 3D arcade drifting through steep mountain curves and tight switchbacks.</p>
+                <div class="cf-actions">
+                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#hairpinDriftShowcase">Expand Details</button>
+                  <a href="https://app.usecrayon.ai/play/8d857df0-0ccd-4e4c-bc70-c2709965ec88" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Play WebGL ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 03: BallPass3D -->
+            <article class="coverflow-card" data-cf-index="2" data-game-id="ballpass">
+              <div class="cf-card-media">
+                <span class="cf-index-badge">03</span>
+                <img src="./assets/cover-ballpass.jpg" alt="BallPass3D Gameplay Preview" loading="eager" decoding="async">
+              </div>
+              <div class="cf-card-body">
+                <span class="cf-meta-pill">Crayon AI · WebGL · Released</span>
+                <h3 class="cf-title">BallPass3D</h3>
+                <p class="cf-desc">Fast-paced 3D soccer physics simulation demanding tactical timing and precision curves.</p>
+                <div class="cf-actions">
+                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#ballPass3DShowcase">Expand Details</button>
+                  <a href="https://app.usecrayon.ai/play/d1eb4e4d-ca38-49ef-990e-197529d62ad7" target="_blank" rel="noopener noreferrer" class="aaa-btn-primary cf-btn-sm">Play WebGL ↗</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- 04: Stickman: The Ultimate Sword Saint (Default Center Spotlight) -->
+            <article class="coverflow-card" data-cf-index="3" data-game-id="swordsaint">
+              <div class="cf-card-media">
+                <span class="cf-index-badge">04</span>
+                <img src="./assets/ongoing-stickman-sword-saint.jpg" alt="Stickman: The Ultimate Sword Saint Cover" loading="eager" decoding="async">
+              </div>
+              <div class="cf-card-body">
+                <span class="cf-meta-pill">Unity Engine · Alpha · Playable</span>
+                <h3 class="cf-title">Stickman: The Ultimate Sword Saint</h3>
+                <p class="cf-desc">Precision katana combat, guard posture breaking, weapon throws, and multi-stage boss duels.</p>
+                <div class="cf-actions">
+                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#swordSaintShowcase">Expand Details</button>
+                  <button type="button" class="aaa-btn-primary cf-btn-sm cf-boot-arcade-btn" data-arcade-game="sword">Boot in Arcade →</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- 05: 3D Maze Explorer -->
+            <article class="coverflow-card" data-cf-index="4" data-game-id="maze">
+              <div class="cf-card-media">
+                <span class="cf-index-badge">05</span>
+                <img src="./assets/ongoing-maze-explorer.jpg" alt="3D Maze Explorer Concept Art" loading="eager" decoding="async">
+              </div>
+              <div class="cf-card-body">
+                <span class="cf-meta-pill">Unity Engine · Survival Horror</span>
+                <h3 class="cf-title">3D Maze Explorer</h3>
+                <p class="cf-desc">Traverse a decaying underground concrete labyrinth with a sputtering flashlight and circuit breakers.</p>
+                <div class="cf-actions">
+                  <button type="button" class="aaa-btn-ghost cf-btn-sm cf-expand-btn" data-target="#mazeExplorerShowcase">Expand Details</button>
+                  <button type="button" class="aaa-btn-primary cf-btn-sm btn-preview-art" data-preview-img="./assets/ongoing-maze-explorer.jpg" data-preview-title="Maze Explorer · Concept Artwork">Inspect Art 🔍</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Cover Flow Controls & Pagination -->
+          <div class="coverflow-controls">
+            <div class="cf-drag-pill">
+              <button type="button" class="cf-arrow-btn" id="cfPrevBtn" aria-label="Previous Title">‹</button>
+              <span class="cf-drag-label">Drag or Arrow Keys to Flip 5 Titles</span>
+              <button type="button" class="cf-arrow-btn" id="cfNextBtn" aria-label="Next Title">›</button>
+            </div>
+
+            <div class="cf-pagination" id="coverflowPagination" aria-label="Select title">
+              <button type="button" class="cf-page-dot" data-cf-goto="0">01</button>
+              <button type="button" class="cf-page-dot" data-cf-goto="1">02</button>
+              <button type="button" class="cf-page-dot" data-cf-goto="2">03</button>
+              <button type="button" class="cf-page-dot active" data-cf-goto="3">04</button>
+              <button type="button" class="cf-page-dot" data-cf-goto="4">05</button>
+            </div>
+          </div>
+
+          <!-- Horizon Quick-Jump Bottom Dock -->
+          <div class="coverflow-bottom-dock">
+            <a href="#arcade-console" class="cf-dock-pill" id="cfDockArcade">🕹️ Live 60 FPS Arcade Console</a>
+            <a href="#about" class="cf-dock-pill" id="cfDockAbout">👤 Developer Profile &amp; Skills</a>
+            <a href="#contact" class="cf-dock-pill" id="cfDockContact">📬 Contact &amp; Chest</a>
+          </div>
+        </div>
+
       </section>
 
       <!-- ================= 3. ABOUT SECTION ================= -->
@@ -370,6 +486,7 @@
                     muted 
                     playsinline 
                     preload="none"
+                    poster="./assets/cover-hairpin.jpg"
                     title="Hairpin Drift - Live Gameplay Video">
                     <source src="./assets/hairpin-drift.mp4" type="video/mp4">
                   </video>
@@ -425,6 +542,7 @@
                     muted 
                     playsinline 
                     preload="none"
+                    poster="./assets/cover-ballpass.jpg"
                     title="BallPass3D - Live Gameplay Video">
                     <source src="./assets/ball-pass-3d.mp4" type="video/mp4">
                   </video>

@@ -1136,6 +1136,11 @@ document.addEventListener('DOMContentLoaded', () => {
     handleKeyDown(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+      // Do not hijack arrow keys when the Cover Flow Shelf is active and Arcade is idle off-screen
+      const arcadeSection = document.getElementById('arcade-console');
+      const arcadeInView = arcadeSection && arcadeSection.getBoundingClientRect().top < window.innerHeight * 0.72;
+      if (!this.isPlaying && !arcadeInView && document.activeElement !== this.canvas) return;
+
       if (this.activeGame === 'sword') {
         stickmanSwordSaint.handleKeyDown(e);
         if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyW', 'KeyS', 'KeyA', 'KeyD', 'KeyJ', 'KeyK', 'KeyL', 'KeyE', 'KeyG', 'Enter', 'NumpadEnter'].includes(e.code)) {
@@ -4719,5 +4724,150 @@ const stickmanSwordSaint = {
   window.gameEngine = gameEngine;
   window.stickmanSwordSaint = stickmanSwordSaint;
   gameEngine.init();
+
+
+  /* ==========================================================================
+     8. 3D COVER FLOW SHELF CONTROLLER (LAYOUT 4)
+     ========================================================================== */
+  function initCoverflowShelf() {
+    const shell = document.getElementById('coverflowShowcase');
+    const stage = document.getElementById('coverflowStage');
+    if (!shell || !stage) return;
+
+    const cards = Array.from(stage.querySelectorAll('.coverflow-card'));
+    const dots = Array.from(document.querySelectorAll('.cf-page-dot'));
+    const prevBtn = document.getElementById('cfPrevBtn');
+    const nextBtn = document.getElementById('cfNextBtn');
+    const n = cards.length;
+    if (!n) return;
+
+    let activeIndex = 3; // Start focused on 04: Stickman Sword Saint
+    let dragStartX = null;
+    let didDrag = false;
+
+    function renderSlots() {
+      const half = Math.floor(n / 2);
+      cards.forEach((card, i) => {
+        const slot = ((i - activeIndex + n + half) % n) - half;
+        card.setAttribute('data-cf-slot', String(slot));
+        card.setAttribute('aria-hidden', slot === 0 ? 'false' : 'true');
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    }
+
+    function goTo(idx, silent = false) {
+      activeIndex = ((idx % n) + n) % n;
+      renderSlots();
+      if (!silent) playUiSound('click');
+    }
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', (e) => {
+        if (didDrag) {
+          e.preventDefault();
+          return;
+        }
+        if (idx !== activeIndex) {
+          e.preventDefault();
+          e.stopPropagation();
+          goTo(idx);
+        }
+      });
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const target = parseInt(dot.getAttribute('data-cf-goto'), 10);
+        if (!Number.isNaN(target)) goTo(target);
+      });
+    });
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(activeIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(activeIndex + 1));
+
+    // Pointer swipe / drag across the 3D stage
+    stage.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('a, button')) return;
+      dragStartX = e.clientX;
+      didDrag = false;
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (dragStartX === null) return;
+      if (Math.abs(e.clientX - dragStartX) > 10) didDrag = true;
+    });
+
+    window.addEventListener('pointerup', (e) => {
+      if (dragStartX === null) return;
+      const dx = e.clientX - dragStartX;
+      dragStartX = null;
+      if (Math.abs(dx) > 42) {
+        goTo(dx < 0 ? activeIndex + 1 : activeIndex - 1);
+      }
+      setTimeout(() => { didDrag = false; }, 60);
+    });
+
+    // Keyboard Left/Right navigation when Cover Flow is in view and Arcade isn't active
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (window.gameEngine && window.gameEngine.isPlaying && !window.gameEngine.isPaused) return;
+      const rect = shell.getBoundingClientRect();
+      const inView = rect.bottom > 100 && rect.top < window.innerHeight * 0.8;
+      if (!inView) return;
+
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goTo(activeIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goTo(activeIndex + 1);
+      }
+    });
+
+    // Expand Details -> ensure card is unfiltered, smooth-scroll, and pulse highlight
+    stage.querySelectorAll('.cf-expand-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playUiSound('click');
+        const allTab = document.querySelector('.project-tab-pill[data-filter="all"]');
+        if (allTab && !allTab.classList.contains('active')) allTab.click();
+
+        const targetSel = btn.getAttribute('data-target');
+        const targetEl = targetSel ? document.querySelector(targetSel) : null;
+        if (!targetEl) return;
+
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        targetEl.classList.remove('cf-target-pulse');
+        void targetEl.offsetWidth;
+        targetEl.classList.add('cf-target-pulse');
+        setTimeout(() => targetEl.classList.remove('cf-target-pulse'), 1500);
+      });
+    });
+
+    // Boot in Arcade directly on StickSaw v0.1
+    stage.querySelectorAll('.cf-boot-arcade-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playUiSound('diamond');
+        const gameKey = btn.getAttribute('data-arcade-game') || 'sword';
+        const tabBtn = document.querySelector(`.game-tab-btn[data-game="${gameKey}"]`);
+        if (tabBtn) tabBtn.click();
+        const consoleEl = document.getElementById('arcade-console');
+        if (consoleEl) consoleEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          if (window.gameEngine && !window.gameEngine.isPlaying) {
+            window.gameEngine.startCurrentGame();
+          }
+        }, 420);
+      });
+    });
+
+    renderSlots();
+  }
+
+  initCoverflowShelf();
 
 });
