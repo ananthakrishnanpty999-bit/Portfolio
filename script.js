@@ -5118,4 +5118,41 @@ const stickmanSwordSaint = {
 
   initHorizontalWorldTrack();
 
+
+  /* ==========================================================================
+     10. CYBER OBSIDIAN DARK / LIGHT MODE TOGGLE
+     ========================================================================== */
+  function initColorModeToggle() {
+    const toggleBtn = document.getElementById('themeModeToggle');
+    const iconEl = document.getElementById('themeModeIcon');
+    const labelEl = document.getElementById('themeModeLabel');
+    if (!toggleBtn) return;
+
+    function applyColorMode(isDark, announce = false) {
+      document.body.classList.toggle('dark-mode', isDark);
+      if (iconEl) iconEl.textContent = isDark ? '☀️' : '🌙';
+      if (labelEl) labelEl.textContent = isDark ? 'Light' : 'Dark';
+      try {
+        localStorage.setItem('portfolioColorMode', isDark ? 'dark' : 'light');
+      } catch (err) {}
+      if (announce) {
+        playUiSound('click');
+        showToast(isDark ? '🌙 Cyber Dark Mode Activated' : '☀️ Minimal White Mode Activated');
+      }
+    }
+
+    let savedMode = 'light';
+    try {
+      savedMode = localStorage.getItem('portfolioColorMode') || 'light';
+    } catch (err) {}
+    applyColorMode(savedMode === 'dark', false);
+
+    toggleBtn.addEventListener('click', () => {
+      const nextIsDark = !document.body.classList.contains('dark-mode');
+      applyColorMode(nextIsDark, true);
+    });
+  }
+
+  initColorModeToggle();
+
 });
